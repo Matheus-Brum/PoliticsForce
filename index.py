@@ -24,3 +24,12 @@ def close_connection(exception):
 @app.route('/')
 def start_page():
     return render_template('accueil.html')
+
+
+@app.route('envoyer', methods=['POST'])
+def donnees_formulaire():
+    prenom = request.form['fname']
+    nom = request.form['lname']
+    get_db().ajouter(prenom,nom)
+    return render_template('accueil.html')
+
