@@ -26,7 +26,7 @@ def start_page():
     return render_template('accueil.html')
 
 
-@app.route('envoyer', methods=['POST'])
+@app.route('/envoyer', methods=['POST'])
 def donnees_formulaire():
     prenom = request.form['fname']
     nom = request.form['lname']

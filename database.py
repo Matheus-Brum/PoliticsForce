@@ -16,7 +16,7 @@ class Database:
 
     def ajouter(self, prenom, nom):
         cursor = self.get_connection().cursor()
-        cursor.execute("INSERT INTO membre "
+        cursor.execute("INSERT INTO membres "
                        "(prenom, nom)"
                        " VALUES(?, ?)",
                        (prenom, nom))
