@@ -23,4 +23,4 @@ def close_connection(exception):
 
 @app.route('/')
 def start_page():
-    return render_template('acceuil.html')
+    return render_template('accueil.html')
