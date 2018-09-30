@@ -13,3 +13,11 @@ class Database:
     def disconnect(self):
         if self.connection is not None:
             self.connection.close()
+
+    def ajouter(self, prenom, nom):
+        cursor = self.get_connection().cursor()
+        cursor.execute("INSERT INTO membre "
+                       "(prenom, nom)"
+                       " VALUES(?, ?)",
+                       (prenom, nom))
+        self.connection.commit()
