@@ -27,10 +27,9 @@ flask run
 
 puis copier le url et essayer avec n'importe quelle browser.
 
-##Dependances
+## Dependances
 
-flask
-sqlite3
+flask, sqlite3
 
 ## Statut
 
