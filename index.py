@@ -31,7 +31,7 @@ def home():
 
 @app.route('/ajouter_membre')
 def add_member():
-    return render_template('ajouter-membres.html', title='Ajouter')
+    return render_template('ajouter-membre.html', title='Ajouter')
 
 
 @app.route('/envois_ajout', methods=['POST'])
@@ -39,8 +39,12 @@ def add_member_send():
     prenom = request.form['first_name']
     nom = request.form['last_name']
     if prenom and nom is not "" and prenom and nom is not None:
-        get_db().insert_member(prenom, nom)
-        return redirect(url_for('/'))
+        membre = get_db().get_member(prenom, nom)
+        if membre is None:
+            get_db().insert_member(prenom, nom)
+            return 'OK!'
+        else:
+            return 'ALREADY EXISTS!'
     else:
         return 'NOT OK!'
 

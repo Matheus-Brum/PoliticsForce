@@ -1,6 +1,6 @@
 function clearFields(){
     let fieldIds = ["first_name", "last_name"];
-    for(var i = 0; i < fieldIds.length(); i++){
+    for(var i = 0; i < fieldIds.length; i++){
         document.getElementById(fieldIds[i]).style.borderColor = 'black';
     }
 }

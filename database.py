@@ -23,3 +23,16 @@ class Database:
                        " VALUES(?, ?)",
                        (prenom, nom))
         self.connection.commit()
+
+    def get_member(self, prenom, nom):
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT prenom, nom " 
+                       "FROM membres "
+                       "WHERE prenom = ? AND nom = ?",
+                       (prenom, nom))
+        member = cursor.fetchone()[0]
+        self.connection.commit()
+        if member is not None:
+            return member
+        else:
+            return None
