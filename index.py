@@ -1,4 +1,5 @@
 from .database import Database
+from .member import Member
 from flask import g
 from flask import Flask
 from flask import render_template
@@ -36,12 +37,24 @@ def add_member():
 
 @app.route('/envois_ajout', methods=['POST'])
 def add_member_send():
-    prenom = request.form['first_name']
-    nom = request.form['last_name']
-    if prenom and nom is not "" and prenom and nom is not None:
-        membre = get_db().get_member(prenom, nom)
-        if membre is None:
-            get_db().insert_member(prenom, nom)
+    f_name = request.form['first_name']
+    l_name = request.form['last_name']
+    member_no = request.form['member_no']
+    phone_no = request.form['phone_no']
+    address = request.form['address']
+    print(f_name)
+    print(l_name)
+    print(member_no)
+    print(phone_no)
+    print(address)
+    new_member = Member(f_name, l_name, member_no, phone_no, address)
+    if new_member.f_name and new_member.l_name and new_member.member_no and \
+            new_member.phone_no and new_member.address is not "" and \
+            new_member.f_name and new_member.l_name and new_member.member_no and \
+            new_member.phone_no and new_member.address is not None:
+        check_member = get_db().verify_member(new_member)
+        if check_member is False:
+            get_db().insert_member(new_member)
             return 'OK!'
         else:
             return 'ALREADY EXISTS!'

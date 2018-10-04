@@ -6,7 +6,7 @@
 <script type="text/javascript" src="/static/js/ajouter-membre"></script>
 
 <h2>Ajouter Membres</h2>
-
+<!--
 <form action="/envois_ajout" method='POST' onsubmit="return checkForm();">
 	<label>Prénom : </label>
 	<input type="text" id="first_name" name="first_name">
@@ -16,6 +16,33 @@
 	<br>
 	<input type="submit" value="Submit">
 </form>
+-->
+<div class="form_container">
+	<form action="/envois_ajout" method='POST' onsubmit="return checkForm();">
+		<div class="form-group">
+			<label>Prénom : </label>
+			<input type="text" class="form-control" name="first_name" id="first_name" placeholder="Prénom">
+		</div>
+		<div class="form-group">
+			<label>Nom : </label>
+			<input type="text" class="form-control" name="last_name" id="last_name" placeholder="Nom">
+		</div>
+		<div class="form-group">
+			<label>No de membre : </label>
+			<input type="text" class="form-control" name="member_no" id="member_no" placeholder="1234567890">
+		</div>
+		<div class="form-group">
+			<label>Téléphone : </label>
+			<input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="1234567890">
+		</div>
+		<div class="form-group">
+			<label>Adresse : </label>
+			<input type="text" class="form-control" name="address" id="address" placeholder="1234, boulevard des Mauvais Humeur">
+		</div>
+		<button type="reset" class="btn btn-primary">Vider</button>
+		<button type="submit" class="btn btn-primary">Envoyer</button>
+	</form>
+</div>
 
 {% endblock %}
 

@@ -1,5 +1,5 @@
 function clearFields(){
-    let fieldIds = ["first_name", "last_name"];
+    let fieldIds = ["first_name", "last_name", "member_no", "phone_no", "address"];
     for(var i = 0; i < fieldIds.length; i++){
         document.getElementById(fieldIds[i]).style.borderColor = 'black';
     }
@@ -20,5 +20,8 @@ function checkForm(){
     clearFields();
     let value1 =  checkField("first_name");
     let value2 = checkField("last_name");
-    return value1 && value2;
+    let value3 =  checkField("member_no");
+    let value4 =  checkField("phone_no");
+    let value5 =  checkField("address");
+    return value1 && value2 && value3 && value4 && value5;
 }

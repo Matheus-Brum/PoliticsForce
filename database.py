@@ -15,24 +15,23 @@ class Database:
         if self.connection is not None:
             self.connection.close()
 
-    def insert_member(self, prenom, nom):
-
+    def insert_member(self, member):
         cursor = self.get_connection().cursor()
-        cursor.execute("INSERT INTO membres "
-                       "(prenom, nom)"
-                       " VALUES(?, ?)",
-                       (prenom, nom))
+        cursor.execute("INSERT INTO Members "
+                       "(F_name, L_name, Member_no, Phone_no, Address)"
+                       " VALUES(?, ?, ?, ?, ?)",
+                       (member.f_name, member.l_name, member.member_no, member.phone_no, member.address))
         self.connection.commit()
 
-    def get_member(self, prenom, nom):
+    def verify_member(self, member):
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT prenom, nom " 
-                       "FROM membres "
-                       "WHERE prenom = ? AND nom = ?",
-                       (prenom, nom))
-        member = cursor.fetchone()[0]
+        cursor.execute("SELECT * " 
+                       "FROM Members "
+                       "WHERE F_name = ? AND L_name = ? AND Member_no = ? AND Phone_no = ? AND Address = ?",
+                       (member.f_name, member.l_name, member.member_no, member.phone_no, member.address))
+        member_data = cursor.fetchone()
         self.connection.commit()
-        if member is not None:
-            return member
+        if member_data is not None:
+            return True
         else:
-            return None
+            return False
