@@ -1,0 +1,24 @@
+function clearFields(){
+    let fieldIds = ["first_name", "last_name"];
+    for(var i = 0; i < fieldIds.length(); i++){
+        document.getElementById(fieldIds[i]).style.borderColor = 'black';
+    }
+}
+
+function checkField(inputId){
+    let field = document.getElementById(inputId);
+    let fieldValue = field.value;
+    if(fieldValue == "" || fieldValue == null){
+        field.style.borderColor = 'red';
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function checkForm(){
+    clearFields();
+    let value1 =  checkField("first_name");
+    let value2 = checkField("last_name");
+    return value1 && value2;
+}

@@ -2,6 +2,7 @@ import sqlite3
 
 
 class Database:
+
     def __init__(self):
         self.connection = None
 
@@ -14,7 +15,8 @@ class Database:
         if self.connection is not None:
             self.connection.close()
 
-    def ajouter(self, prenom, nom):
+    def insert_member(self, prenom, nom):
+
         cursor = self.get_connection().cursor()
         cursor.execute("INSERT INTO membres "
                        "(prenom, nom)"
