@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>Membres</h2>
+<div class="list-container p-5">
+{% if members %}
+<div class="table-container">
+	<table class="table">
+		<thead class="thead-light">
+			<tr>
+				<th scope="col">Prénom</th>
+				<th scope="col">Nom</th>
+				<th scope="col">Numéro de Membre</th>
+				<th scope="col">Numéro de Téléphone</th>
+				<th scope="col">Adresse</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for member in members %}
+			<tr>
+				<td>{{member.f_name}}</td>
+				<td>{{member.l_name}}</td>
+				<td>{{member.member_no}}</td>
+				<td>{{member.phone_no}}</td>
+				<td>{{member.address}}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% endif %}
+</div>
+{% endblock %}

@@ -42,11 +42,6 @@ def add_member_send():
     member_no = request.form['member_no']
     phone_no = request.form['phone_no']
     address = request.form['address']
-    print(f_name)
-    print(l_name)
-    print(member_no)
-    print(phone_no)
-    print(address)
     new_member = Member(f_name, l_name, member_no, phone_no, address)
     if new_member.f_name and new_member.l_name and new_member.member_no and \
             new_member.phone_no and new_member.address is not "" and \
@@ -61,3 +56,8 @@ def add_member_send():
     else:
         return 'NOT OK!'
 
+
+@app.route('/membres')
+def members_list():
+    members = get_db().get_all_members()
+    return render_template('membres.html', title='Liste', members=members)
