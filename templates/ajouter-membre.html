@@ -54,19 +54,15 @@
 		</div>
 		<div class="form-group">
 			<label>Avez-vous faites une donation ? : </label>
-			<input type="radio" name="donate_yes" value="oui"> Oui
-			<input type="radio" name="donate_no" value="non"> Non
+			<input type="radio" name="donated" id="donated_yes" value="oui"> Oui
+			<input type="radio" name="donated" id="donated_no" value="non"> Non
 		</div>
 		<div class="form-group">
 			<label>Est-ce une année électorale ? : </label>
-			<input type="radio" name="elec_yes" value="oui"> Oui
-			<input type="radio" name="elec_no" value="non"> Non
+			<input type="radio" name="elec_year" id="elec_yes" value="oui"> Oui
+			<input type="radio" name="elec_year" id="elec_no" value="non"> Non
 		</div>
 		<div class="form-group">
-			<label>Commentaire / Remarque : </label><br>
-			<textarea rows="4" cols="50"></textarea>
-		</div>
-		<div class=""form-group>
 			<label>Date d'éxpiration d'adhésion</label><br>
 			<input type="text" name="expiring_date" id="expiring_date" placeholder="JJ/MM/AAAA">
 		</div>
@@ -74,12 +70,17 @@
 			<label>Meilleur temp pour vous rejoindre :  </label><br>
 			<input type="radio" name="matin" value="matin"> Matin
 			<input type="radio" name="midi" value="midi"> Midi
-			<input type="radio" name="soir" value="soir">Soir
+			<input type="radio" name="soir" value="soir"> Soir
 		</div>
 		<div class="form-group">
 			<label>Date de naissance : </label><br>
 			<input type="text" name="date_naissance" id="date_naissance" placeholder="JJ/MM/AAAA">
 		</div>
+		<div class="form-group">
+			<label>Commentaire / Remarque : </label><br>
+			<textarea name="comment" rows="4" cols="50"></textarea>
+		</div>
+
 		<button type="reset" class="btn btn-primary">Vider</button>
 		<button type="submit" class="btn btn-primary">Envoyer</button>
 	</form>
