@@ -52,7 +52,20 @@
 			<label>Date du dernier don: </label>
 			<input type="text" class="form-control" name="last_donation_date" id="last_donation_date" placeholder="JJ/MM/AAAA">
 		</div>
-
+		<div class="form-group">
+			<label>Avez-vous faites une donation ? : </label>
+			<input type="radio" name="donate_yes" value="oui"> Oui
+			<input type="radio" name="donate_no" value="non"> Non
+		</div>
+		<div class="form-group">
+			<label>Est-ce une année électorale ? : </label>
+			<input type="radio" name="elec_yes" value="oui"> Oui
+			<input type="radio" name="elec_no" value="non"> Non
+		</div>
+		<div class="form-group">
+			<label>Commentaire / Remarque : </label><br>
+			<textarea rows="4" cols="50"></textarea>
+		</div>
 
 		<button type="reset" class="btn btn-primary">Vider</button>
 		<button type="submit" class="btn btn-primary">Envoyer</button>
