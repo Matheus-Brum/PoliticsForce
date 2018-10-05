@@ -19,9 +19,10 @@ class Database:
     def insert_member(self, member):
         cursor = self.get_connection().cursor()
         cursor.execute("INSERT INTO Members "
-                       "(F_name, L_name, Member_no, Phone_no, Address)"
-                       " VALUES(?, ?, ?, ?, ?)",
-                       (member.f_name, member.l_name, member.member_no, member.phone_no, member.address))
+                       "(F_name, L_name, Member_no, Phone_no, Address, Donation_ok, Election_year, Comment)"
+                       " VALUES(?, ?, ?, ?, ?, ?, ?, ?)",
+                       (member.f_name, member.l_name, member.member_no, member.phone_no, member.address,
+                            member.donation_ok, member.election_year, member.comment))
         self.connection.commit()
 
     def get_all_members(self):
@@ -36,7 +37,8 @@ class Database:
                            "FROM Members "
                            "WHERE Id = ?", (counter,))
             member_info = cursor.fetchone()
-            member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5])
+            member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
+                                member_info[6], member_info[7], member_info[8])
             members.append(member)
             counter += 1
         return members
@@ -45,8 +47,10 @@ class Database:
         cursor = self.get_connection().cursor()
         cursor.execute("SELECT * " 
                        "FROM Members "
-                       "WHERE F_name = ? AND L_name = ? AND Member_no = ? AND Phone_no = ? AND Address = ?",
-                       (member.f_name, member.l_name, member.member_no, member.phone_no, member.address))
+                       "WHERE F_name = ? AND L_name = ? AND Member_no = ? AND Phone_no = ? AND Address = ? "
+                            "AND Donation_ok = ? AND Election_year = ? AND Comment = ?",
+                       (member.f_name, member.l_name, member.member_no, member.phone_no, member.address,
+                            member.donation_ok, member.election_year, member.comment))
         member_data = cursor.fetchone()
         if member_data is not None:
             return True

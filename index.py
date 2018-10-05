@@ -42,17 +42,20 @@ def add_member_send():
     member_no = request.form['member_no']
     phone_no = request.form['phone_no']
     address = request.form['address']
-    new_member = Member(f_name, l_name, member_no, phone_no, address)
+    donation_ok = request.form['donated']
+    election_year = request.form['elec_year']
+    comment = request.form['comment']
+    new_member = Member(f_name, l_name, member_no, phone_no, address, donation_ok, election_year, comment)
     if new_member.f_name is not None and new_member.l_name is not None and new_member.member_no\
             is not None and len(new_member.member_no) == 10 and new_member.phone_no is not None\
             and len(new_member.phone_no) == 10\
-            and new_member.address is not None:
+            and new_member.address is not None and new_member.donated:
         check_member = get_db().verify_member(new_member)
         if check_member is False:
             get_db().insert_member(new_member)
             return redirect('/')
         else:
-            return render-template('ajouter-membre.html', erreur="erreur d'ajout")
+            return render_template('ajouter-membre.html', erreur="erreur d'ajout")
     else:
         return render_template('ajouter-membre.html', erreur="erreur d'ajout")
 
