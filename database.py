@@ -39,7 +39,7 @@ class Database:
                            "FROM Members "
                            "WHERE Id = ?", (counter,))
             member_info = cursor.fetchone()
-            member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
+            member = Member(member_info[0], member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
                                 member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
                                 member_info[11], member_info[12], member_info[13], member_info[14])
             members.append(member)
@@ -76,3 +76,15 @@ class Database:
             member = Member(result[0], result[1], result[2], result[3], result[4])
             members.append(member)
         return members
+    
+    def search_member(self, id):
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT * FROM Members WHERE Id = ?",(id))
+        member_info = cursor.fetchone()
+
+        member = Member(member_info[0], member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
+                        member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
+                        member_info[11], member_info[12], member_info[13], member_info[14])
+
+        if member_info is not None:
+            return member

@@ -103,3 +103,10 @@ def recherche_membre_send():
 
     else:
         return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: donnees recherches invalides")
+
+
+@app.route('/afficher_membre/<id>')
+def affiche_util(id):
+    resultat = get_db().search_member(id)
+    return render_template('afficher_membre.html', id=resultat)
+
