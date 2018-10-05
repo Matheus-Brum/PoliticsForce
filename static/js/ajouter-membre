@@ -1,5 +1,6 @@
 function clearFields(){
-    let fieldIds = ["first_name", "last_name", "member_no", "phone_no", "address"];
+    let fieldIds = ["first_name", "last_name", "member_no", "phone_no", "address",
+    "email", "last_donation", "last_donation_date"];
     for(var i = 0; i < fieldIds.length; i++){
         document.getElementById(fieldIds[i]).style.borderColor = 'black';
     }
@@ -16,14 +17,37 @@ function checkField(inputId){
     }
 }
 
+function checkEmail(inputId){
+    var isValid = false;
+    alert('111');
+    if(checkField(inputId) == true){
+        alert('222');
+        var emailField = document.getElementById(inputId);
+        var email = emailField.value;
+        if(email.includes("@") == true && email.length >= 3
+            && email.charAt(0) != '@' && email.charAt(email.length -1) != '@'){
+           alert('333');
+           isValid = true;
+           return isValid;
+    }else{
+        alert('444');
+        emailField.style.borderColor = 'red';
+        return isValid;
+    }
+}
+
 function checkForm(){
     clearFields();
-    let value1 =  checkField("first_name");
+    let value1 = checkField("first_name");
     let value2 = checkField("last_name");
-    let value3 =  checkField("member_no");
-    let value4 =  checkField("phone_no");
-    let value5 =  checkField("address");
-    return value1 && value2 && value3 && value4 && value5;
+    let value3 = checkField("member_no");
+    let value4 = checkField("phone_no");
+    let value5 = checkField("address");
+    let value6 = checkEmail("email");
+    let value7 = checkField("last_donation");
+    let value8 = checkField("last_donation_date");
+    return value1 && value2 && value3 && value4 && value5 && value6 && value7 && value8;
+    //return value6;
 }
 
 
