@@ -13,6 +13,7 @@
 				<th scope="col">Numéro de Membre</th>
 				<th scope="col">Numéro de Téléphone</th>
 				<th scope="col">Adresse</th>
+                <th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -23,6 +24,7 @@
 				<td>{{member.member_no}}</td>
 				<td>{{member.phone_no}}</td>
 				<td>{{member.address}}</td>
+                <td><a href="../membres/{{member.member_no}}">Supprimer</a></td>
 			</tr>
 			{% endfor %}
 		</tbody>
