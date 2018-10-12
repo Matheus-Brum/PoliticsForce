@@ -1,0 +1,9 @@
+{% extends "layout.html" %}
+{% block content %}
+{% if members %}
+{% for member in members %}
+	<p>{{member.f_name}}</p>
+	<br>
+	<p>{{member.l_name}}</p>
+{% endfor %}
+{% endblock %}
