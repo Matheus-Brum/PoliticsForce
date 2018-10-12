@@ -15,12 +15,3 @@ function checkForm(){
     return value1 && value2;
 }
 
-function getResults(){
-    $(document).ready(function(){
-        $("Rechercher").click(function(){
-             $.ajax({url: "/rechercher-membre/" + document.getElementById("search_data").value, success: function(result){
-                    $("result").replaceWith(result);
-                }});
-            });
-        });
-}

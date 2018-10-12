@@ -74,7 +74,7 @@ def recherche_membre_send():
     search_for = request.form['search_data']
     if search_by is not None and search_for is not None and search_for != '':
         if search_by == 'first_name':
-            search_col = 'F-name'
+            search_col = 'F_name'
         elif search_by == 'last_name':
             search_col = 'L_name'
         elif search_by == 'id_no':
@@ -87,7 +87,7 @@ def recherche_membre_send():
             return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: selection invalides")
 
         result = get_db().search_members(search_col, search_for)
-        return render_template('rechercher-membre.html', title="resultat recherche", members=result)
+        return render_template('rechercher-membre.html', title=search_for, members=result)
 
     else:
         return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: donnees recherches invalides")
