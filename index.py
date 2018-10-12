@@ -6,6 +6,7 @@ from flask import render_template
 from flask import request
 from flask import redirect
 from flask import url_for
+import re
 
 app = Flask(__name__)
 app.debug = True
@@ -37,6 +38,7 @@ def add_member():
 
 @app.route('/envois_ajout', methods=['POST'])
 def add_member_send():
+    regex = '^\d\.{2}[0-9]'
     f_name = request.form['first_name']
     l_name = request.form['last_name']
     member_no = request.form['member_no']
@@ -56,9 +58,13 @@ def add_member_send():
                         date_last_donation, donation_ok, election_year, comment, address)
 
     if new_member.f_name is not None and new_member.l_name is not None and new_member.member_no\
-            is not None and len(new_member.member_no) == 10 and new_member.phone_no is not None\
+            is not None and new_member.phone_no is not None and new_member.address is not None\
+            and new_member.email is not None and new_member.last_donation is not None\
+            and new_member.last_donation_date is not None\
+            and len(new_member.member_no) == 10\
             and len(new_member.phone_no) == 10\
-            and new_member.address is not None :
+            and new_member.address is not None\
+            and re.match(regex, last_donation):
         check_member = get_db().verify_member(new_member)
         if check_member is False:
             get_db().insert_member(new_member)
@@ -109,4 +115,10 @@ def recherche_membre_send():
 def affiche_util(id):
     resultat = get_db().search_member(id)
     return render_template('afficher_membre.html', id=resultat)
+
+
+@app.route('/async_recherche/<info>')
+def async_search(info):
+    members = get_db().search_member2(info)
+    return render_template('test-async.html', members=members)
 

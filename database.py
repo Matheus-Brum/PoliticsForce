@@ -64,6 +64,7 @@ class Database:
         else:
             return False
 
+
     def search_members(self, search_in, search_for):
         members = []
         cursor = self.get_connection().cursor()
@@ -88,3 +89,19 @@ class Database:
 
         if member_info is not None:
             return member
+
+    def search_member2(self, f_name):
+        members = []
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT F_name, L_name"
+                       "FROM Members "
+                       "WHERE F_name = ?",
+                       (f_name,))
+        member_info = cursor.fetchall()
+        print('member_info', member_info)
+        for row in member_info:
+            member = Member(member_info[1], member_info[2], member_info[3],
+                            member_info[4], member_info[5], member_info[6],
+                            member_info[7], member_info[8])
+            members.append(member)
+        return members
