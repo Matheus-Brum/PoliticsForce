@@ -3,20 +3,6 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<h2>Afficher informations</h2>
-			<div>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus et lectus odio.
-					Aenean accumsan, nunc eu sagittis lacinia, orci magna tempor nunc, sed semper massa
-					odio sagittis tellus. Maecenas maximus ante in efficitur venenatis. Nunc ultricies
-					magna orci, blandit imperdiet mi aliquet sit amet. Fusce ut scelerisque massa. Nulla
-					facilisi. Nulla pretium feugiat purus, sit amet porta neque vehicula at. Donec vestibulum
-					leo mauris, nec ornare purus vestibulum iaculis. Orci varius natoque penatibus et magnis
-					dis parturient montes, nascetur ridiculus mus. Sed leo lorem, pulvinar sed mauris vitae,
-					dapibus facilisis odio. Vivamus non enim eget purus fringilla varius sed vitae dolor.
-				</p>
-			</div>
-		</div>
-		<div class="col">
 			<h2>Membres</h2>
 			{% if members %}
 			<div class="table-container">
@@ -28,6 +14,7 @@
 							<th scope="col">Numéro de Membre</th>
 							<th scope="col">Numéro de Téléphone</th>
 							<th scope="col">Adresse</th>
+							<th scope="col">Détail</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -38,6 +25,7 @@
 							<td>{{member.member_no}}</td>
 							<td>{{member.phone_no}}</td>
 							<td>{{member.address}}</td>
+							<td><a href="/afficher_membre/{{member.id}}">Voir détails de membre</a></td>
 						</tr>
 						{% endfor %}
 					</tbody>
