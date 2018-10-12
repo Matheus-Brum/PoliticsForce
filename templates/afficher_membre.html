@@ -1,20 +1,58 @@
 {% extends "layout.html" %}
 {% block content %}
-    <div class="m-5">
-        <p>{{id.f_name}}</p><br>
-        <p>{{id.l_name}}</p><br>
-        <p>{{id.member_no}}</p><br>
-        <p>{{id.phone_no}}</p><br>
-        <p>{{id.mem_exp_date}}</p><br>
-        <p>{{id.reach_moment}}</p><br>
-        <p>{{id.birth_date}}</p><br>
-        <p>{{id.email}}</p><br>
-        <p>{{id.last_donation}}</p><br>
-        <p>{{id.date_last_donation}}</p><br>
-        <p>{{id.donation_ok}}</p><br>
-        <p>{{id.election_year}}</p><br>
-        <p>{{id.comment}}</p><br>
-        <p>{{id.address}}</p><br>
-    </div>
-
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h2>Voici les détails du membres : {{id.f_name}} {{id.l_name}}</h2>
+			<div class="table-container">
+				<table class="table">
+					<tbody>
+						<tr>
+							<td>Prénom : {{id.f_name}}</td>
+                        </tr>
+                        <tr>
+							<td>Nom : {{id.l_name}}</td>
+                        </tr>
+                        <tr>
+							<td>Numéro de Membre : {{id.member_no}}</td>
+                        </tr>
+                        <tr>
+                            <td>Numéro de Téléphone : {{id.phone_no}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date d'expiration du membre : {{id.mem_exp_date}}</td>
+                        </tr>
+                        <tr>
+                            <td>Meilleur moment pour joindre : {{id.reach_moment}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date de naissance : {{id.birth_date}}</td>
+                        </tr>
+                        <tr>
+                            <td>Courriel : {{id.email}}</td>
+                        </tr>
+                        <tr>
+                            <td>À fait un don ? : {{id.donation_ok}}</td>
+                        </tr>
+                        <tr>
+                            <td>Dernière donation : {{id.last_donation}}</td>
+                        </tr>
+                        <tr>
+                            <td>Date de dernière donation : {{id.date_last_donation}}</td>
+                        </tr>
+                        <tr>
+                            <td>Année électoral ? : {{id.election_year}}</td>
+                        </tr>
+                        <tr>
+                            <td>Commentaire : {{id.comment}}</td>
+                        </tr>
+                        <tr>
+                            <td>Adresse : {{id.address}}</td>
+                        </tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
 {% endblock %}
