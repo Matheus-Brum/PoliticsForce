@@ -64,17 +64,16 @@ class Database:
         else:
             return False
 
-
     def search_members(self, search_in, search_for):
         members = []
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT F_name, L_name, Id, Phone_no, Address "
-                       "FROM Members "
-                       "WHERE ? LIKE ?",
-                       (search_in, "'%"+search_for+"%'"))
+        sql = "SELECT * FROM `Members` WHERE "+search_in+" LIKE '%"+search_for+"%'"
+        cursor.execute(sql)
         results = cursor.fetchall()
         for result in results:
-            member = Member(result[0], result[1], result[2], result[3], result[4])
+            member = Member(result[0], result[1], result[2], result[3], result[4], result[5],
+                            result[6], result[7], result[8], result[9], result[10],
+                            result[11], result[12], result[13], result[14])
             members.append(member)
         return members
     
