@@ -61,3 +61,33 @@ def add_member_send():
 def members_list():
     members = get_db().get_all_members()
     return render_template('membres.html', title='Liste', members=members)
+
+
+@app.route('/rechercher_membre')
+def recherche_membre():
+    return render_template('rechercher-membre.html', title='Rechercher')
+
+
+@app.route('/envois_recherche', methods=['POST'])
+def recherche_membre_send():
+    search_by = request.form['search_input']
+    search_for = request.form['search_data']
+    if search_by is not None and search_for is not None and search_for != '':
+        if search_by == 'first_name':
+            search_col = 'F_name'
+        elif search_by == 'last_name':
+            search_col = 'L_name'
+        elif search_by == 'id_no':
+            search_col = 'Id'
+        elif search_by == 'phone_no':
+            search_col = 'Phone_no'
+        elif search_by == 'addrese':
+            search_col = 'Address'
+        else:
+            return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: selection invalides")
+
+        result = get_db().search_members(search_col, search_for)
+        return render_template('rechercher-membre.html', title=search_for, members=result)
+
+    else:
+        return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: donnees recherches invalides")
