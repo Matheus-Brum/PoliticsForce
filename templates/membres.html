@@ -1,35 +1,40 @@
 {% extends "layout.html" %}
 {% block content %}
-
-<h2>Membres</h2>
-<div class="list-container p-5">
-{% if members %}
-<div class="table-container">
-	<table class="table">
-		<thead class="thead-light">
-			<tr>
-				<th scope="col">Prénom</th>
-				<th scope="col">Nom</th>
-				<th scope="col">Numéro de Membre</th>
-				<th scope="col">Numéro de Téléphone</th>
-				<th scope="col">Adresse</th>
-                <th scope="col"></th>
-			</tr>
-		</thead>
-		<tbody>
-			{% for member in members %}
-			<tr>
-				<td>{{member.f_name}}</td>
-				<td>{{member.l_name}}</td>
-				<td>{{member.member_no}}</td>
-				<td>{{member.phone_no}}</td>
-				<td>{{member.address}}</td>
-                <td><a href="../membres/{{member.member_no}}">Supprimer</a></td>
-			</tr>
-			{% endfor %}
-		</tbody>
-	</table>
-</div>
-{% endif %}
+<div class="container">
+	<div class="row">
+		<div class="col">
+			<h2>Membres</h2>
+			{% if members %}
+			<div class="table-container">
+				<table class="table">
+					<thead class="thead-light">
+						<tr style="border:solid;">
+							<th scope="col">Prénom</th>
+							<th scope="col">Nom</th>
+							<th scope="col">Numéro de Membre</th>
+							<th scope="col">Numéro de Téléphone</th>
+							<th scope="col">Adresse</th>
+							<th scope="col">Détail</th>
+						</tr>
+					</thead>
+					<tbody>
+						{% for member in members %}
+						<tr>
+							<td>{{member.f_name}}</td>
+							<td>{{member.l_name}}</td>
+							<td>{{member.member_no}}</td>
+							<td>{{member.phone_no}}</td>
+							<td>{{member.address}}</td>
+							<td><a href="../membres/{{member.member_no}}">Supprimer</a></td>
+							<td><a href="/afficher_membre/{{member.id}}">Voir détails de membre</a></td>
+						</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+			{% endif %}
+		</div>
+	</div>
+>>>>>>> templates/membres.html
 </div>
 {% endblock %}

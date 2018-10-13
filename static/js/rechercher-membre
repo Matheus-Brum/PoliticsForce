@@ -1,0 +1,17 @@
+function checkField(inputId){
+    let field = document.getElementById(inputId);
+    let fieldValue = field.value;
+    if(fieldValue == "" || fieldValue == null){
+        field.style.borderColor = 'red';
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function checkForm(){
+    let value1 =  checkField("search_input");
+    let value2 = checkField("search_data");
+    return value1 && value2;
+}
+
