@@ -1,3 +1,4 @@
+# coding=utf-8
 from .database import Database
 from .member import Member
 from flask import g
@@ -112,7 +113,7 @@ def recherche_membre_send():
 
         result = get_db().search_members(search_col, search_for)
         if not result:
-            return render_template('rechercher-membre.html', title=search_for, erreur="Aucun résultat trouvé")
+            return render_template('rechercher-membre.html', title=search_for, erreur="Aucun résultat trouver")
         return render_template('rechercher-membre.html', title=search_for, members=result)
 
     else:
