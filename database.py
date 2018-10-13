@@ -27,17 +27,26 @@ class Database:
                             member.election_year, member.comment, member.address))
         self.connection.commit()
 
+    def supprimer_member(self, member_number):
+        cursor = self.get_connection().cursor()
+        cursor.execute("DELETE FROM Members "
+                       "WHERE Member_no =? ", (member_number,))
+        self.connection.commit()
+
     def get_all_members(self):
-        counter = 1
         members = []
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT max(id) "
+        counter = 0
+        cursor.execute("SELECT count(*) "
                        "FROM Members")
         limit = cursor.fetchone()[0]
-        while counter <= limit:
+        cursor.execute("SELECT id "
+                       "FROM Members")
+        counters = cursor.fetchall()
+        while counter < limit:
             cursor.execute("SELECT * "
                            "FROM Members "
-                           "WHERE Id = ?", (counter,))
+                           "WHERE Id = ?", (counters[counter][0],))
             member_info = cursor.fetchone()
             member = Member(member_info[0], member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
                                 member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],

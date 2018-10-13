@@ -35,6 +35,11 @@ def home():
 def add_member():
     return render_template('ajouter-membre.html', title='Ajouter')
 
+@app.route('/membres/<member_no>')
+def sup_member(member_no):
+    get_db().supprimer_member(member_no)
+    return redirect('/membres')
+
 
 @app.route('/envois_ajout', methods=['POST'])
 def add_member_send():

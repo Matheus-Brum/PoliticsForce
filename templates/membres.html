@@ -25,6 +25,7 @@
 							<td>{{member.member_no}}</td>
 							<td>{{member.phone_no}}</td>
 							<td>{{member.address}}</td>
+							<td><a href="../membres/{{member.member_no}}">Supprimer</a></td>
 							<td><a href="/afficher_membre/{{member.id}}">Voir détails de membre</a></td>
 						</tr>
 						{% endfor %}
@@ -34,5 +35,6 @@
 			{% endif %}
 		</div>
 	</div>
+>>>>>>> templates/membres.html
 </div>
 {% endblock %}
