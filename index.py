@@ -35,6 +35,7 @@ def home():
 def add_member():
     return render_template('ajouter-membre.html', title='Ajouter')
 
+
 @app.route('/membres/<member_no>')
 def sup_member(member_no):
     get_db().supprimer_member(member_no)
@@ -110,6 +111,8 @@ def recherche_membre_send():
             return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: selection invalides")
 
         result = get_db().search_members(search_col, search_for)
+        if not result:
+            return render_template('rechercher-membre.html', title=search_for, erreur="Aucun résultat trouvé")
         return render_template('rechercher-membre.html', title=search_for, members=result)
 
     else:
