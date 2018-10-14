@@ -45,7 +45,7 @@ def sup_member(member_no):
 
 @app.route('/envois_ajout', methods=['POST'])
 def add_member_send():
-    regex = '^\d\.{2}[0-9]'
+    regex = '^\d+(\.\d*)?|\.\d+'
     f_name = request.form['first_name']
     l_name = request.form['last_name']
     member_no = request.form['member_no']
@@ -59,18 +59,50 @@ def add_member_send():
     donation_ok = request.form['donated']
     election_year = request.form['elec_year']
     comment = request.form['comment']
-    address = request.form['address']
+    country = request.form['pays'] 
+    state = request.form['province']
+    city = request.form['ville']
+    Postal_code = request.form['code-postal']
+    apt = request.form['appartement']
+    address = ""
+    if apt != "":
+        address += apt + "," + Postal_code + "," + city + "," + state + "," + country
+    else:
+        address += Postal_code + "," + city + "," + state + "," + country
 
-    new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date, reach_moment, birth_date, email, last_donation,
-                        date_last_donation, donation_ok, election_year, comment, address)
+    new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date, reach_moment, 
+                        birth_date, email, last_donation, date_last_donation, donation_ok, 
+                        election_year, comment, address)
+
+    """ if new_member.f_name is not None :
+        print("Oui1")
+    if new_member.l_name is not None :
+        print("Oui2")
+    if new_member.member_no is not None :
+        print("Oui3")
+    if new_member.phone_no is not None :
+        print("Oui4")
+    if new_member.address is not None :
+        print("Oui5")
+    if new_member.email is not None : 
+        print("Oui6")
+    if new_member.last_donation is not None :
+        print("Oui7")
+    if new_member.date_last_donation is not None :
+        print("Oui8")
+    if len(new_member.member_no) == 10 :
+        print("Oui9")
+    if len(new_member.phone_no) == 10 :
+        print("Oui10")
+    if re.match(regex, last_donation):
+        print("Oui11") """
 
     if new_member.f_name is not None and new_member.l_name is not None and new_member.member_no\
             is not None and new_member.phone_no is not None and new_member.address is not None\
             and new_member.email is not None and new_member.last_donation is not None\
-            and new_member.last_donation_date is not None\
+            and new_member.date_last_donation is not None\
             and len(new_member.member_no) == 10\
             and len(new_member.phone_no) == 10\
-            and new_member.address is not None\
             and re.match(regex, last_donation):
         check_member = get_db().verify_member(new_member)
         if check_member is False:
