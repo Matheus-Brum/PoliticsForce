@@ -4,6 +4,8 @@
 
 <!-- Current page script -->
 <script type="text/javascript" src="/static/js/ajouter-membre"></script>
+<script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
+<script type="text/javascript" src="/static/js/custom.js"></script>
 
 <h2>Ajouter Membres</h2>
 <!--
@@ -36,8 +38,24 @@
 			<input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="1234567890">
 		</div>
 		<div class="form-group">
-			<label>Adresse : </label>
-			<input type="text" class="form-control" name="address" id="address" placeholder="1234, boulevard des Mauvais Humeur">
+			<label>Pays : </label>
+            <select id="country" name="pays"></select>
+        </div>
+		<div class="form-group">
+			<label>Province : </label>
+            <select id="state" name="province"></select>
+        </div>
+		<div class="form-group">
+			<label>Ville : </label>
+            <select id="city" name="ville"></select>
+        </div>
+		<div class="form-group">
+            <label>Code Postal : </label>
+			<input type="text" class="form-control" name="code-postal" id="code-postal" placeholder="e.g. H3P2X1">
+        </div>
+		<div class="form-group">
+            <label>Appartement : </label>
+			<input type="text" class="form-control" name="appartement" id="appartement" placeholder="e.g. 143">
 		</div>
 
 		<div class="form-group">
