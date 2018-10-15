@@ -65,24 +65,7 @@ def add_member_send():
     Postal_code = request.form['code-postal']
     apt = request.form['appartement']
     address = ""
-    print(f_name)
-    print(l_name)
-    print(member_no)
-    print(phone_no)
-    print(mem_exp_date)
-    print(reach_moment)
-    print(birth_date)
-    print(email)
-    print(last_donation)
-    print(date_last_donation)
-    print(donation_ok)
-    print(election_year)
-    print(comment)
-    print(country)
-    print(state)
-    print(city)
-    print(Postal_code)
-    print(apt)
+
     if apt != "":
         address += apt + "," + Postal_code + "," + city + "," + state + "," + country
     else:
