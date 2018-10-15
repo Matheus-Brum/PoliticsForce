@@ -4,6 +4,7 @@ var stateOptions="";
 var cityOptions="";
 var country="";
 	$.getJSON('/static/json/countries1.json',function(result){
+		countryOptions += "<option selected='selected'></option>";
 		$.each(result, function(i,country) {
 			//<option value='countrycode'>contryname</option>
 			countryOptions+="<option value='"
