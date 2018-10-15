@@ -132,14 +132,19 @@ def recherche_membre_send():
     if search_by is not None and search_for is not None and search_for != '':
         if search_by == 'first_name':
             search_col = 'F_name'
+            print("IF 1")
         elif search_by == 'last_name':
             search_col = 'L_name'
-        elif search_by == 'id_no':
-            search_col = 'Id'
+            print("IF 2")
+        elif search_by == 'member_no':
+            search_col = 'Member_no'
+            print("IF 3")
         elif search_by == 'phone_no':
             search_col = 'Phone_no'
+            print("IF 4")
         elif search_by == 'addrese':
             search_col = 'Address'
+            print("IF 5")
         else:
             return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: selection invalides")
 
@@ -152,9 +157,9 @@ def recherche_membre_send():
         return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: donnees recherches invalides")
 
 
-@app.route('/afficher_membre/<id>')
-def affiche_util(id):
-    resultat = get_db().search_member(id)
+@app.route('/afficher_membre/<member_no>')
+def affiche_util(member_no):
+    resultat = get_db().search_member(member_no)
     return render_template('afficher_membre.html', id=resultat)
 
 
