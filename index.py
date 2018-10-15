@@ -1,4 +1,7 @@
-# coding=utf-8
+# encoding=utf8
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
 from .database import Database
 from .member import Member
 from flask import g
@@ -70,32 +73,10 @@ def add_member_send():
     else:
         address += Postal_code + "," + city + "," + state + "," + country
 
-    new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date, reach_moment, 
-                        birth_date, email, last_donation, date_last_donation, donation_ok, 
-                        election_year, comment, address)
-
-    """ if new_member.f_name is not None :
-        print("Oui1")
-    if new_member.l_name is not None :
-        print("Oui2")
-    if new_member.member_no is not None :
-        print("Oui3")
-    if new_member.phone_no is not None :
-        print("Oui4")
-    if new_member.address is not None :
-        print("Oui5")
-    if new_member.email is not None : 
-        print("Oui6")
-    if new_member.last_donation is not None :
-        print("Oui7")
-    if new_member.date_last_donation is not None :
-        print("Oui8")
-    if len(new_member.member_no) == 10 :
-        print("Oui9")
-    if len(new_member.phone_no) == 10 :
-        print("Oui10")
-    if re.match(regex, last_donation):
-        print("Oui11") """
+    new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date, 
+                        reach_moment, birth_date, email, last_donation, 
+                        date_last_donation, donation_ok, election_year, 
+                        comment, address)
 
     if new_member.f_name is not None and new_member.l_name is not None and new_member.member_no\
             is not None and new_member.phone_no is not None and new_member.address is not None\
