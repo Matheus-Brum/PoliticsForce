@@ -3,7 +3,7 @@ var countryOptions="";
 var stateOptions="";
 var cityOptions="";
 var country="";
-	$.getJSON('/static/json/countries.json',function(result){
+	$.getJSON('/static/json/countries1.json',function(result){
 		$.each(result, function(i,country) {
 			//<option value='countrycode'>contryname</option>
 			countryOptions+="<option value='"
