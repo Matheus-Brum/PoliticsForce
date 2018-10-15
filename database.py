@@ -34,9 +34,9 @@ class Database:
         self.connection.commit()
 
     def get_all_members(self):
+        counter = 0
         members = []
         cursor = self.get_connection().cursor()
-        counter = 0
         cursor.execute("SELECT count(*) "
                        "FROM Members")
         limit = cursor.fetchone()[0]
@@ -48,11 +48,12 @@ class Database:
                            "FROM Members "
                            "WHERE Id = ?", (counters[counter][0],))
             member_info = cursor.fetchone()
-            member = Member(member_info[0], member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
+            member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
                                 member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
                                 member_info[11], member_info[12], member_info[13], member_info[14])
             members.append(member)
             counter += 1
+
         return members
 
     def verify_member(self, member):
@@ -86,17 +87,18 @@ class Database:
             members.append(member)
         return members
     
-    def search_member(self, id):
+    def search_member(self, member_no):
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT * FROM Members WHERE Id = ?",(id))
+        cursor.execute("SELECT * FROM Members WHERE Member_no = ?",(member_no,))
         member_info = cursor.fetchone()
 
-        member = Member(member_info[0], member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
+        member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
                         member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
                         member_info[11], member_info[12], member_info[13], member_info[14])
 
         if member_info is not None:
             return member
+
 
     def search_member2(self, f_name):
         members = []
