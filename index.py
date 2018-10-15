@@ -132,19 +132,14 @@ def recherche_membre_send():
     if search_by is not None and search_for is not None and search_for != '':
         if search_by == 'first_name':
             search_col = 'F_name'
-            print("IF 1")
         elif search_by == 'last_name':
             search_col = 'L_name'
-            print("IF 2")
         elif search_by == 'member_no':
             search_col = 'Member_no'
-            print("IF 3")
         elif search_by == 'phone_no':
             search_col = 'Phone_no'
-            print("IF 4")
         elif search_by == 'addrese':
             search_col = 'Address'
-            print("IF 5")
         else:
             return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: selection invalides")
 
