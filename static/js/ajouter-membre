@@ -57,28 +57,18 @@ function checkForm(){
     let value2 = checkField("last_name");
     let value3 = checkField("member_no");
     let value4 = checkField("phone_no");
-    let value5 = checkField("address");
+    //let value5 = checkField("address");
     let value6 = checkEmail("email");
     let value7 = checkDate("last_donation");
     let value8 = checkDate("last_donation_date");
-    let fieldIds = [value1, value2, value3, value4, value5, value6, value7, value8];
+    //let fieldIds = [value1, value2, value3, value4, value5, value6, value7, value8];
     /*
     for(var i = 0; i < fieldIds.length; i++){
         alert('bool' + i + '=' + fieldIds[i])
     }
     */
     //alert(value8)
-    return value1 && value2 && value3 && value4 && value5 && value6 && value7 && value8;
+    return value1 && value2 && value3 && value4 && value6 && value7 && value8;
 }
 
-function addNumbers(num1, num2){
-    return num1 + num2;
-}
 
-describe("functions that process form data", function() {
-  it("should be able to check if an input is empty", function() {
-    document.getElementById('first_name').value = 'First name';
-    //first_name = 'First name';
-    expect(checkField('first_name').toBe(null));
-  });
-});
