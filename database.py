@@ -34,9 +34,9 @@ class Database:
         self.connection.commit()
 
     def get_all_members(self):
+        counter = 0
         members = []
         cursor = self.get_connection().cursor()
-        counter = 0
         cursor.execute("SELECT count(*) "
                        "FROM Members")
         limit = cursor.fetchone()[0]
@@ -48,9 +48,10 @@ class Database:
                            "FROM Members "
                            "WHERE Id = ?", (counters[counter][0],))
             member_info = cursor.fetchone()
-            member = Member(member_info[0], member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
-                                member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
-                                member_info[11], member_info[12], member_info[13], member_info[14])
+            member = Member(member_info[1], member_info[2], member_info[3], member_info[4], 
+                            member_info[5], member_info[6], member_info[7], member_info[8], 
+                            member_info[9], member_info[10],member_info[11], member_info[12], 
+                            member_info[13], member_info[14])
             members.append(member)
             counter += 1
         return members
@@ -80,7 +81,7 @@ class Database:
         cursor.execute(sql)
         results = cursor.fetchall()
         for result in results:
-            member = Member(result[0], result[1], result[2], result[3], result[4], result[5],
+            member = Member(result[1], result[2], result[3], result[4], result[5],
                             result[6], result[7], result[8], result[9], result[10],
                             result[11], result[12], result[13], result[14])
             members.append(member)
@@ -91,7 +92,7 @@ class Database:
         cursor.execute("SELECT * FROM Members WHERE Id = ?",(id))
         member_info = cursor.fetchone()
 
-        member = Member(member_info[0], member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
+        member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
                         member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
                         member_info[11], member_info[12], member_info[13], member_info[14])
 
