@@ -1,7 +1,6 @@
 class Member:
-    def __init__(self, id, f_name, l_name, member_no, phone_no, mem_exp_date, reach_moment, birth_date, email, last_donation,
+    def __init__(self, f_name, l_name, member_no, phone_no, mem_exp_date, reach_moment, birth_date, email, last_donation,
                     date_last_donation, donation_ok, election_year, comment, address):
-        self.id = id
         self.f_name = f_name
         self.l_name = l_name
         self.member_no = member_no
