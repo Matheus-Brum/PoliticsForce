@@ -67,7 +67,7 @@ def add_member_send():
     regex = '^\d+(\.\d*)?|\.\d+'
     address = ""
     if apt != "":
-        address += apt, ",", postal_code, ",", city, ",", state, ",", country
+        address += apt + "," + postal_code + "," + city + "," + state + "," + country
     else:
         address += postal_code + "," + city + "," + state + "," + country
     
@@ -75,7 +75,7 @@ def add_member_send():
                         reach_moment, birth_date, email, last_donation, 
                         date_last_donation, donation_ok, election_year, 
                         comment, address)
-
+    print('member=', new_member)
     if new_member.f_name is not None and new_member.l_name is not None and new_member.member_no\
             is not None and new_member.phone_no is not None and new_member.address is not None\
             and new_member.email is not None and new_member.last_donation is not None\
@@ -83,13 +83,17 @@ def add_member_send():
             and len(new_member.member_no) == 10\
             and len(new_member.phone_no) == 10\
             and re.match(regex, last_donation):
+        print('111')
         check_member = get_db().verify_member(new_member)
         if check_member is False:
+            print('222')
             get_db().insert_member(new_member)
             return redirect('/')
         else:
+            print('333')
             return render_template('ajouter-membre.html', erreur="erreur d'ajout")
     else:
+        print('444')
         return render_template('ajouter-membre.html', erreur="erreur d'ajout")
 
 
@@ -139,9 +143,4 @@ def affiche_util(member_no):
     return render_template('afficher_membre.html', id=resultat)
 
 
-"""
-@app.route('/async_recherche/<info>')
-def async_search(info):
-    members = get_db().search_member2(info)
-    return render_template('test-async.html', members=members)
-"""
+

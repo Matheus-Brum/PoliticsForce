@@ -32,7 +32,7 @@ var country="";
 				+stateName+
 				"</option>";
 				 });
-				 $('#state').html(stateOptions);
+				 $('#province').html(stateOptions);
 			});
 		}
 	if(country=="CA"){
@@ -47,12 +47,12 @@ var country="";
 				+stateName+
 				"</option>";
 				 });
-				 $('#state').html(stateOptions);
+				 $('#province').html(stateOptions);
 			});
 		}
 
     if(country != "CA" && country != "US") {
-        $('#state')
+        $('#province')
             .empty()
         $('#city')
             .empty()
@@ -60,7 +60,7 @@ var country="";
 	});
 
 	
-	$("#state").change(function(){
+	$("#province").change(function(){
         cityOptions="";
         var code = $(this).val();
         var state;

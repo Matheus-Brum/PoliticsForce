@@ -1,20 +1,26 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<h2>Rechercher un membre </h2><br>
+<script src="static/js/rechercher-membre"></script>
 
-    <div class="m-5">
+<h2>Rechercher un membre </h2>
+
+    <div class="form-container m-5">
         <form action="/envois_recherche" method="POST" onsubmit="return checkForm();">
-            <select name="search_input" id="search_input">
-                <option value="first_name">Prenom</option>
-                <option value="last_name">Nom</option>
-                <option value="member_no">Numero du membre</option>
-                <option value="phone_no">Numero du telephone</option>
-                <option value="addrese">Adresse</option>
-            </select>&nbsp;&nbsp;
-            <input type="text" class="" name="search_data" id="search_data" size="60">&nbsp;
-            <button type="submit">Rechercher</button>&nbsp;
-            <button type="reset">Vider</button>
+         	<div class="form-group">
+				<select class="form-control" name="search_input" id="search_input">
+					<option value="first_name">Prenom</option>
+					<option value="last_name">Nom</option>
+					<option value="member_no">Numero du membre</option>
+					<option value="phone_no">Numero du telephone</option>
+					<option value="addrese">Adresse</option>
+				</select>&nbsp;&nbsp;
+			</div>
+			<div class="form-group">
+            	<input type="text" class="form-control" name="search_data" id="search_data" size="60">&nbsp;
+			</div>
+            <button type="submit" class="btn btn-primary">Rechercher</button>&nbsp;
+            <button type="reset" class="btn btn-primary">Vider</button>
         </form>
     </div>
     <div>
@@ -43,7 +49,7 @@
 						<td>{{member.member_no}}</td>
 						<td>{{member.phone_no}}</td>
 						<td>{{member.address}}</td>
-						<td><a href="/afficher_membre/{{member.id}}">Voir détails</a></td>
+						<td><a href="/afficher_membre/{{member.member_no}}">Voir détails</a></td>
 					</tr>
 					{% endfor %}
 				</tbody>

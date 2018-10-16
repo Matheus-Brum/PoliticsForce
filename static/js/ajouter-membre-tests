@@ -63,7 +63,7 @@ function checkDate(inputId){
 }
 
 function checkPostalCode(inputId){
-    var pcRegex = /[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{1}/;
+    var pcRegex = /[A-Z][0-9][A-Z][0-9][A-Z][0-9]/;
     var pcField = document.getElementById(inputId);
     var pc = pcField.value;
     if(checkField(inputId) == true){
