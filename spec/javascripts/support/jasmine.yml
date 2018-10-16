@@ -12,8 +12,7 @@
     #   - dist/**/*.js
     #
     src_files:
-    #  - spec/javascripts/ajouter-membre-tests.js
-      - static/js/ajouter-membre
+      - static/js/ajouter-membre-tests
 
     # stylesheets
     #

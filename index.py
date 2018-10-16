@@ -45,32 +45,32 @@ def sup_member(member_no):
 
 @app.route('/envois_ajout', methods=['POST'])
 def add_member_send():
-    regex = '^\d+(\.\d*)?|\.\d+'
     f_name = request.form['first_name']
     l_name = request.form['last_name']
     member_no = request.form['member_no']
     phone_no = request.form['phone_no']
-    mem_exp_date = request.form['expiring_date']
-    reach_moment = request.form['reach_day']
-    birth_date = request.form['birth_date']
+    country = request.form['country']
+    state = request.form['province']
+    city = request.form['city']
+    postal_code = request.form['code-postal']
+    apt = request.form['appartement']
     email = request.form['email']
     last_donation = request.form['last_donation']
     date_last_donation = request.form['last_donation_date']
     donation_ok = request.form['donated']
     election_year = request.form['elec_year']
+    mem_exp_date = request.form['expiring_date']
+    reach_moment = request.form['reach_day']
+    birth_date = request.form['birth_date']
     comment = request.form['comment']
-    country = request.form['pays'] 
-    state = request.form['province']
-    city = request.form['ville']
-    Postal_code = request.form['code-postal']
-    apt = request.form['appartement']
+
+    regex = '^\d+(\.\d*)?|\.\d+'
     address = ""
-
     if apt != "":
-        address += apt + "," + Postal_code + "," + city + "," + state + "," + country
+        address += apt, ",", postal_code, ",", city, ",", state, ",", country
     else:
-        address += Postal_code + "," + city + "," + state + "," + country
-
+        address += postal_code + "," + city + "," + state + "," + country
+    
     new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date, 
                         reach_moment, birth_date, email, last_donation, 
                         date_last_donation, donation_ok, election_year, 
@@ -120,7 +120,8 @@ def recherche_membre_send():
         elif search_by == 'addrese':
             search_col = 'Address'
         else:
-            return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: selection invalides")
+            return render_template('rechercher-membre.html', title="donnees invalides",
+                                   erreur="Erreur: selection invalides")
 
         result = get_db().search_members(search_col, search_for)
         if not result:
@@ -128,7 +129,8 @@ def recherche_membre_send():
         return render_template('rechercher-membre.html', title=search_for, members=result)
 
     else:
-        return render_template('rechercher-membre.html', title="donnees invalides", erreur="Erreur: donnees recherches invalides")
+        return render_template('rechercher-membre.html', title="donnees invalides",
+                               erreur="Erreur: donnees recherches invalides")
 
 
 @app.route('/afficher_membre/<member_no>')
@@ -137,8 +139,9 @@ def affiche_util(member_no):
     return render_template('afficher_membre.html', id=resultat)
 
 
+"""
 @app.route('/async_recherche/<info>')
 def async_search(info):
     members = get_db().search_member2(info)
     return render_template('test-async.html', members=members)
-
+"""

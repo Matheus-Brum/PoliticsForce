@@ -4,21 +4,11 @@
 
 <!-- Current page script -->
 <script type="text/javascript" src="/static/js/ajouter-membre"></script>
-<script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
-<script type="text/javascript" src="/static/js/custom.js"></script>
+<!--<script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>-->
+<!--<script type="text/javascript" src="/static/js/custom.js"></script>-->
 
 <h2>Ajouter Membres</h2>
-<!--
-<form action="/envois_ajout" method='POST' onsubmit="return checkForm();">
-	<label>Prénom : </label>
-	<input type="text" id="first_name" name="first_name">
-	<br>
-	<label>Nom : </label>
-	<input type="text" id="last_name" name="last_name">
-	<br>
-	<input type="submit" value="Submit">
-</form>
--->
+
 <div class="form_container m-5">
 	<form action="/envois_ajout" method='POST' onsubmit="return checkForm();">
 		<div class="form-group">
@@ -39,16 +29,36 @@
 		</div>
 		<div class="form-group">
 			<label>Pays : </label>
-            <select id="country" name="pays"></select>
+			<input type="text" class="form-control" name="country" id="country" placeholder="Canada">
+		</div>
+		<div class="form-group">
+			<label>Province : </label>
+			<input type="text" class="form-control" name="province" id="province" placeholder="QC">
+		</div>
+		<div class="form-group">
+			<label>Ville : </label>
+			<input type="text" class="form-control" name="city" id="city" placeholder="Vancouver">
+		</div>
+		<!--
+		<div class="form-group">
+			<label>Pays : </label>
+            <select id="country" name="pays">
+				<option value=""></option>
+			</select>
         </div>
 		<div class="form-group">
 			<label>Province : </label>
-            <select id="state" name="province"></select>
+            <select id="state" name="province">
+				<option value=""></option>
+			</select>
         </div>
 		<div class="form-group">
 			<label>Ville : </label>
-            <select id="city" name="ville"></select>
+            <select id="city" name="ville">
+				<option value=""></option>
+			</select>
         </div>
+        -->
 		<div class="form-group">
             <label>Code Postal : </label>
 			<input type="text" class="form-control" name="code-postal" id="code-postal" placeholder="e.g. H3P2X1">
@@ -72,31 +82,34 @@
 		</div>
 		<div class="form-group">
 			<label>Avez-vous faites une donation ? : </label>
+			<input type="radio" name="donated" id="donated_null" value="" checked="checked" hidden>
 			<input type="radio" name="donated" id="donated_yes" value="oui"> Oui
 			<input type="radio" name="donated" id="donated_no" value="non"> Non
 		</div>
 		<div class="form-group">
 			<label>Est-ce une année électorale ? : </label>
+			<input type="radio" name="elec_year" id="elec_null" value="" checked="checked"  hidden>
 			<input type="radio" name="elec_year" id="elec_yes" value="oui"> Oui
 			<input type="radio" name="elec_year" id="elec_no" value="non"> Non
 		</div>
 		<div class="form-group">
 			<label>Date d'éxpiration d'adhésion</label><br>
-			<input type="text" name="expiring_date" id="expiring_date" placeholder="JJ/MM/AAAA">
+			<input type="text" class="form-control" name="expiring_date" id="expiring_date" placeholder="JJ/MM/AAAA">
 		</div>
 		<div class="form-group">
 			<label>Meilleur temp pour vous rejoindre :  </label><br>
+			<input type="radio" name="reach_day" id="reach_day_null" value="" checked="checked" hidden>
 			<input type="radio" name="reach_day" value="matin"> Matin
 			<input type="radio" name="reach_day" value="midi"> Midi
 			<input type="radio" name="reach_day" value="soir"> Soir
 		</div>
 		<div class="form-group">
 			<label>Date de naissance : </label><br>
-			<input type="text" name="birth_date" id="birth_date" placeholder="JJ/MM/AAAA">
+			<input type="text" class="form-control" name="birth_date" id="birth_date" placeholder="JJ/MM/AAAA">
 		</div>
 		<div class="form-group">
 			<label>Commentaire / Remarque : </label><br>
-			<textarea name="comment" rows="4" cols="50"></textarea>
+			<textarea class="form-control" name="comment" rows="4" cols="50"></textarea>
 		</div>
 		<button type="reset" class="btn btn-primary">Vider</button>
 		<button type="submit" class="btn btn-primary">Envoyer</button>

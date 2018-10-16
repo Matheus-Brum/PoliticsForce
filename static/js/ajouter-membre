@@ -1,6 +1,7 @@
 
 function clearFields(){
-    let fieldIds = ["first_name", "last_name", "member_no", "phone_no", "address",
+    let fieldIds = ["first_name", "last_name", "member_no", "phone_no", "country",
+    "province", "city", "code-postal", "appartement", "expiring_date", "birth_date",
     "email", "last_donation", "last_donation_date"];
     for(var i = 0; i < fieldIds.length; i++){
         document.getElementById(fieldIds[i]).style.borderColor = 'black';
@@ -12,6 +13,17 @@ function checkField(inputId){
     let fieldValue = field.value;
     if(fieldValue == "" || fieldValue == null){
         field.style.borderColor = 'red';
+        return false;
+    }else{
+        return true;
+    }
+}
+
+function checkOption(inputId){
+    let select = document.getElementById(inputId);
+    let selectValue = select.value;
+    if(selectValue == "" || selectValue == null){
+        select.style.borderColor = 'red';
         return false;
     }else{
         return true;
@@ -51,16 +63,37 @@ function checkDate(inputId){
     }
 }
 
+function checkPostalCode(inputId){
+    var pcRegex = /[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{1}[A-Z]{1}[0-9]{1}/;
+    var pcField = document.getElementById(inputId);
+    var pc = pcField.value;
+    if(checkField(inputId) == true){
+        if( pcRegex.test(pc) == true ){
+            return true;
+        }else{
+            return false;
+        }
+    }else{
+        return false;
+    }
+}
+
 function checkForm(){
     clearFields();
     let value1 = checkField("first_name");
     let value2 = checkField("last_name");
     let value3 = checkField("member_no");
     let value4 = checkField("phone_no");
-    //let value5 = checkField("address");
-    let value6 = checkEmail("email");
-    let value7 = checkDate("last_donation");
-    let value8 = checkDate("last_donation_date");
+    let value5 = checkField("country");
+    let value6 = checkField("province");
+    let value7 = checkField("city");
+    let value8 = checkPostalCode("code-postal");
+    let value9 = checkField("appartement");
+    let value10 = checkDate("expiring_date");
+    let value11 = checkDate("birth_date");
+    let value12 = checkEmail("email");
+    let value13 = checkField("last_donation");
+    let value14 = checkDate("last_donation_date");
     //let fieldIds = [value1, value2, value3, value4, value5, value6, value7, value8];
     /*
     for(var i = 0; i < fieldIds.length; i++){
@@ -68,7 +101,6 @@ function checkForm(){
     }
     */
     //alert(value8)
-    return value1 && value2 && value3 && value4 && value6 && value7 && value8;
+    return value1 && value2 && value3 && value4 && value5 && value6 && value7 && value8 && value9 && value10 && value11 && value12 && value13 && value14;
 }
-
 

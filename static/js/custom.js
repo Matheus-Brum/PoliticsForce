@@ -50,6 +50,7 @@ var country="";
 				 $('#state').html(stateOptions);
 			});
 		}
+
     if(country != "CA" && country != "US") {
         $('#state')
             .empty()
@@ -57,6 +58,7 @@ var country="";
             .empty()
     }
 	});
+
 	
 	$("#state").change(function(){
         cityOptions="";
