@@ -1,0 +1,91 @@
+/*
+theme colors:
+#16262E - background
+#2E4756 - primary
+#3C7A89 - secondary (accent)
+#A9B3CE - optional 1
+#DBC2CF - optional 2
+*/
+#header-container, #main-container, #page-container, body{
+    background-color: #2E4756;
+    color: white;
+}
+
+#nav-container{
+    background-color: #3C7A89;
+}
+
+#page-container{
+    -webkit-animation: fadein 2s;
+    animation: fadein 2s;
+}
+
+@keyframes fadein{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
+@-webkit-keyframes fadein{
+    from{opacity: 0;}
+    to{opacity: 1;}
+}
+
+.navbar-toggler{
+    border-color: #2E4756;
+    background-color: #2E4756;
+    color: white;
+}
+
+input[type=text]{
+    background-color: #A9B3CE;
+    color: #2A2E45;
+    width: 250px;
+    -webkit-transition: width .35s ease-in-out;
+    border-color: #3C7A89;
+    border-width: medium;
+}
+
+input[type=text]:focus{
+    width: 400px;
+    border-color: #DBC2CF;
+}
+
+input[type=text]:focus, input[type=text]:hover{
+    background-color:#B8ADC1;
+}
+
+input[type=text]:-webkit-autofill{
+    -webkit-box-shadow: 0 0 0px 1000px #B8ADC1 inset;
+}
+
+textarea{
+    background-color: #A9B3CE;
+    color: #2A2E45;
+    border-color: #3C7A89;
+    border-width: medium;
+}
+
+button[type=submit], button[type=reset]{
+    -webkit-transition: background-color 1000ms linear;
+    transition: background-color 1000ms linear;
+    background-color: #DBC2CF;
+}
+
+button[type=submit]:hover, button[type=reset]:hover{
+    background-color: #bf4080;
+    color: white;
+}
+
+.navbar-nav > a{
+    color : white;
+}
+
+.navbar-nav > a:hover{
+    background-color: #2E4756;
+}
+
+th{
+    background-color: #A9B3CE;
+}
+
+
