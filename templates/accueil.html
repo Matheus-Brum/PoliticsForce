@@ -1,8 +1,24 @@
 
 {% extends "layout.html" %}
 {% block content %}
-
-<h2>Accueil</h2>
-
+  <h1>Bonsoir!</h1>
+  <p><a href="/formulaire">Cliquez ici pour créer un compte</a></p>
+  {% if username %}
+    <p>Vous êtes connecté en tant que {{ username }}.</p>
+    <p><a href="/logout">Se déconnecter</a></p>
+  {% else %}
+    <p>Vous n'êtes pas connecté.</p>
+    <div class="form_container m-5">
+    <form action="/login" method="POST">
+      <div class="form-group"> 
+      <label for="champ_username">Nom d'utilisateur</label>&nbsp;<input class="form-control" type="text" id="champ_username" name="email" maxlength="100">
+      </div>
+      <div class="form-group">
+      <label for="champ_password">Mot de passe</label>&nbsp;<input class="form-control" type="password" id="champ_password" name="password" maxlength="40">
+      </div>
+      <button class="btn" type="submit">Se connecter</button>
+    </form>
+    </div>
+  {% endif %}
 {% endblock %}
 
