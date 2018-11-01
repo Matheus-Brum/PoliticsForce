@@ -6,7 +6,12 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
+from flask import Response
+from flask import session
 from flask import url_for
+from functools import wraps
+import uuid
+import hashlib
 import re
 
 app = Flask(__name__)
@@ -30,21 +35,108 @@ def close_connection(exception):
 
 @app.route('/')
 def home():
-    return render_template('accueil.html', title='Accueil')
+    username = None
+    if "id" in session:
+        data = get_db().get_session(session["id"])
+    return render_template('accueil.html', title='Accueil', username=username)
+
+
+@app.route('/confirmation')
+def confirmation_page():
+    return render_template('confirmation.html')
+
+
+@app.route('/formulaire', methods=["GET", "POST"])
+def formulaire_creation():
+    if request.method == "GET":
+        return render_template("formulaire.html")
+    else:
+        username = request.form["email"]
+        password = request.form["password"]
+        if username == "" or password == "":
+            return render_template("formulaire.html",
+                                   error="Tous les champs sont obligatoires.")
+
+        salt = uuid.uuid4().hex
+        hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
+        db = get_db()
+        db.create_user(username, salt, hashed_password)
+
+        return redirect("/confirmation")
+
+
+@app.route('/login', methods=['POST'])
+def log_user():
+    user_info = None
+    username = request.form['email']
+    password = request.form['password']
+
+    if username == "" or password == "":
+        return redirect("/")
+
+    user = get_db().get_user_login_info(username)
+    if user is None:
+        return redirect("/")
+
+    salt = user[0]
+    hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
+    if hashed_password == user[1]:
+        id_session = uuid.uuid4().hex
+        get_db().save_session(id_session, username)
+        session["id"] = id_session
+        mysql.get_db().commit();
+        return redirect("/")
+    else:
+        return redirect("/")
+
+
+def authentication_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not is_authenticated(session):
+            return send_unauthorized()
+        return f(*args, **kwargs)
+    return decorated
+
+
+@app.route('/logout')
+@authentication_required
+def logout():
+    if "id" in session:
+        id_session = session["id"]
+        session.pop('id', None)
+        get_db().delete_session(id_session)
+    return redirect("/")
+
+
+def is_authenticated(session):
+    return "id" in session
+
+
+def send_unauthorized():
+    return Response('Could not verify your access level for that URL.\n'
+                    'You have to login with proper credentials', 401,
+                    {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
+
+app.secret_key = "(*&*&322387he738220)(*(*22347657"
 
 
 @app.route('/ajouter_membre')
+@authentication_required
 def add_member():
     return render_template('ajouter-membre.html', title='Ajouter')
 
 
 @app.route('/membres/<member_no>')
+@authentication_required
 def sup_member(member_no):
     get_db().supprimer_member(member_no)
     return redirect('/membres')
 
 
 @app.route('/envois_ajout', methods=['POST'])
+@authentication_required
 def add_member_send():
     f_name = request.form['first_name']
     l_name = request.form['last_name']
@@ -99,17 +191,20 @@ def add_member_send():
 
 
 @app.route('/membres')
+@authentication_required
 def members_list():
     members = get_db().get_all_members()
     return render_template('membres.html', title='Liste', members=members)
 
 
 @app.route('/rechercher_membre')
+@authentication_required
 def recherche_membre():
     return render_template('rechercher-membre.html', title='Rechercher')
 
 
 @app.route('/envois_recherche', methods=['POST'])
+@authentication_required
 def recherche_membre_send():
     search_by = request.form['search_input']
     search_for = request.form['search_data']
@@ -139,6 +234,7 @@ def recherche_membre_send():
 
 
 @app.route('/afficher_membre/<member_no>')
+@authentication_required
 def affiche_util(member_no):
     resultat = get_db().search_member(member_no)
     return render_template('afficher_membre.html', id=resultat)
