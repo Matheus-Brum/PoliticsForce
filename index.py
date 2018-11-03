@@ -8,7 +8,6 @@ from flask import request
 from flask import redirect
 from flask import Response
 from flask import session
-from flask import url_for
 from functools import wraps
 import uuid
 import hashlib
@@ -17,6 +16,7 @@ import re
 app = Flask(__name__)
 app.debug = True
 app.static_folder = 'static'
+app.secret_key = "(*&*&322387he738220)(*(*22347657"
 
 
 def get_db():
@@ -33,12 +33,27 @@ def close_connection(exception):
         db.disconnect()
 
 
+def authentication_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        print('BBB')
+        if not is_authenticated(session):
+            print('CCC')
+            return send_unauthorized()
+        print('DDD')
+        return f(*args, **kwargs)
+    print('EEE')
+    return decorated
+
+
 @app.route('/')
 def home():
-    username = None
-    if "id" in session:
-        data = get_db().get_session(session["id"])
-    return render_template('accueil.html', title='Accueil', username=username)
+    session['id'] = None
+    print(session['id'])
+    # session['id'] = 'test2@gmail.com'
+    #if "id" in session:
+     #   email = get_db().get_session(session["id"])
+    return render_template('accueil.html', title='Accueil', email=session['id'])
 
 
 @app.route('/confirmation')
@@ -67,59 +82,20 @@ def formulaire_creation():
 
 @app.route('/login', methods=['POST'])
 def log_user():
-    user_info = None
-    username = request.form['email']
+    print('111', session)
+    email = request.form['email']
     password = request.form['password']
-
-    if username == "" or password == "":
+    if email is None or password is None:
+        print('222', session)
         return redirect("/")
-
-    user = get_db().get_user_login_info(username)
-    if user is None:
-        return redirect("/")
-
-    salt = user[0]
-    hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
-    if hashed_password == user[1]:
-        id_session = uuid.uuid4().hex
-        get_db().save_session(id_session, username)
-        session["id"] = id_session
-        mysql.get_db().commit();
+    auth = get_db().get_credentials(email, password)
+    if auth is False:
+        print('333', session)
         return redirect("/")
     else:
+        print('444', session)
+        session["id"] = get_db().save_session(email)
         return redirect("/")
-
-
-def authentication_required(f):
-    @wraps(f)
-    def decorated(*args, **kwargs):
-        if not is_authenticated(session):
-            return send_unauthorized()
-        return f(*args, **kwargs)
-    return decorated
-
-
-@app.route('/logout')
-@authentication_required
-def logout():
-    if "id" in session:
-        id_session = session["id"]
-        session.pop('id', None)
-        get_db().delete_session(id_session)
-    return redirect("/")
-
-
-def is_authenticated(session):
-    return "id" in session
-
-
-def send_unauthorized():
-    return Response('Could not verify your access level for that URL.\n'
-                    'You have to login with proper credentials', 401,
-                    {'WWW-Authenticate': 'Basic realm="Login Required"'})
-
-
-app.secret_key = "(*&*&322387he738220)(*(*22347657"
 
 
 @app.route('/ajouter_membre')
@@ -240,4 +216,23 @@ def affiche_util(member_no):
     return render_template('afficher_membre.html', id=resultat)
 
 
+@app.route('/logout')
+@authentication_required
+def logout():
+    if "id" in session:
+        id_session = session["id"]
+        session.pop('id', None)
+        get_db().delete_session(id_session)
+    return redirect("/")
 
+
+def is_authenticated(session):
+    # return "id" in session
+    return session['id']
+
+
+def send_unauthorized():
+     # return Response('Could not verify your access level for that URL.\n'
+     #                 'You have to login with proper credentials', 401,
+     #                 {'WWW-Authenticate': 'Basic realm="Login Required"'})
+     return Response(render_template('401.html'), 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})

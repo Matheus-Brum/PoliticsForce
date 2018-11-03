@@ -1,4 +1,6 @@
 import sqlite3
+import hashlib
+import uuid
 from .member import Member
 
 
@@ -11,47 +13,70 @@ class Database:
         if self.connection is None:
             self.connection = sqlite3.connect('db/db.db')
         return self.connection
-    
+
     def disconnect(self):
         if self.connection is not None:
             self.connection.close()
 
     def get_session(self, id_session):
         cursor = self.get_connection().cursor()
-        cursor.execute(("select utilisateur from sessions where id_session=?"),
+        cursor.execute("SELECT Email "
+                       "FROM Sessions "
+                       "WHERE id_session=?",
                        (id_session,))
-        data = cursor.fetchone()
-        if data is None:
+        email = cursor.fetchone()
+        if email is None:
             return None
         else:
-            return data[0]
+            return email[0]
 
     def create_user(self, username, salt, hashed_password):
         connection = self.get_connection()
-        connection.execute(("insert into users(utilisateur, salt, hash)"
-                            " values(?, ?, ?)"), (username, salt,
+        connection.execute(("INSERT INTO users(utilisateur, salt, hash)"
+                            " VALUES(?, ?, ?)"), (username, salt,
                                                   hashed_password))
         connection.commit()
 
+    """
     def get_user_login_info(self, username):
         cursor = self.get_connection().cursor()
-        cursor.execute(("select salt, hash from users where utilisateur=?"),
+        cursor.execute("SELECT salt, hash "
+                       "FROM users "
+                       "WHERE utilisateur=?",
                        (username,))
         user = cursor.fetchone()
         if user is None:
             return None
         else:
             return user[0], user[1]
+    """
 
-    def save_session(self, id_session, username):
+    def get_credentials(self, email, password):
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT salt, hash"
+                       "FROM utilisateur"
+                       "WHERE Email=?",
+                       (email,))
+        user_cred = cursor.fetchone()
+        salt = user_cred[0]
+        hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
+        if hashed_password == user_cred[1]:
+            return True
+        else:
+            return False
+
+    def save_session(self, email):
+        id_session = uuid.uuid4().hex
         connection = self.get_connection()
-        connection.execute(("insert into sessions(id_session, utilisateur) "
-                            "values(?, ?)"), (id_session, username))
+        connection.execute(("INSERT INTO sessions(id_session, utilisateur) "
+                            "VALUES(?, ?)"), (id_session, email))
         connection.commit()
+        return id_session
 
     def delete_session(self, id_session):
         connection = self.get_connection()
-        connection.execute(("delete from sessions where id_session=?"),
+        connection.execute(("DELETE FROM sessions "
+                            "WHERE id_session=?"),
                            (id_session,))
         connection.commit()
 
@@ -59,11 +84,13 @@ class Database:
         cursor = self.get_connection().cursor()
         cursor.execute("INSERT INTO Members "
                        "(F_name, L_name, Member_no, Phone_no, Mem_exp_date, Reach_moment, Birth_date, Email, Last_donation,"
-                            " Date_last_donation, Donation_ok, Election_year, Comment, Address)"
+                       " Date_last_donation, Donation_ok, Election_year, Comment, Address)"
                        " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                       (member.f_name, member.l_name, member.member_no, member.phone_no, member.mem_exp_date, member.reach_moment,
-                            member.birth_date, member.email, member.last_donation, member.date_last_donation, member.donation_ok,
-                            member.election_year, member.comment, member.address))
+                       (member.f_name, member.l_name, member.member_no, member.phone_no, member.mem_exp_date,
+                        member.reach_moment,
+                        member.birth_date, member.email, member.last_donation, member.date_last_donation,
+                        member.donation_ok,
+                        member.election_year, member.comment, member.address))
         self.connection.commit()
 
     def supprimer_member(self, member_number):
@@ -97,16 +124,16 @@ class Database:
 
     def verify_member(self, member):
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT * " 
+        cursor.execute("SELECT * "
                        "FROM Members "
                        "WHERE F_name = ? AND L_name = ? AND Member_no = ? AND Phone_no = ? AND Mem_exp_date = ? "
-                            "AND Reach_moment = ? AND Birth_date = ? AND Email = ? AND Last_donation = ? "
-                            "AND Date_last_donation = ? AND Donation_ok = ? AND Election_year = ? AND Comment = ?"
-                            "AND Address = ?",
+                       "AND Reach_moment = ? AND Birth_date = ? AND Email = ? AND Last_donation = ? "
+                       "AND Date_last_donation = ? AND Donation_ok = ? AND Election_year = ? AND Comment = ?"
+                       "AND Address = ?",
                        (member.f_name, member.l_name, member.member_no, member.phone_no, member.mem_exp_date,
-                            member.reach_moment, member.birth_date, member.email, member.last_donation,
-                            member.date_last_donation, member.donation_ok, member.election_year, member.comment,
-                            member.address))
+                        member.reach_moment, member.birth_date, member.email, member.last_donation,
+                        member.date_last_donation, member.donation_ok, member.election_year, member.comment,
+                        member.address))
         member_data = cursor.fetchone()
         if member_data is not None:
             return True
@@ -118,7 +145,7 @@ class Database:
         cursor = self.get_connection().cursor()
         print("SEARCH IN : " + search_in)
         print("SEARCH FOR : " + search_for)
-        sql = "SELECT * FROM Members WHERE "+search_in+" LIKE '%"+search_for+"%'"
+        sql = "SELECT * FROM Members WHERE " + search_in + " LIKE '%" + search_for + "%'"
         cursor.execute(sql)
         results = cursor.fetchall()
         for result in results:
@@ -127,10 +154,10 @@ class Database:
                             result[11], result[12], result[13], result[14])
             members.append(member)
         return members
-    
+
     def search_member(self, member_no):
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT * FROM Members WHERE Member_no = ?",(member_no,))
+        cursor.execute("SELECT * FROM Members WHERE Member_no = ?", (member_no,))
         member_info = cursor.fetchone()
 
         member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
@@ -139,7 +166,6 @@ class Database:
 
         if member_info is not None:
             return member
-
 
     def search_member2(self, f_name):
         members = []
