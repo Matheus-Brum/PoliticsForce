@@ -15,3 +15,16 @@ CREATE TABLE `Members` (
 	`Comment`	TEXT,
 	`Address`	varchar ( 255 )
 );
+
+CREATE TABLE `Sessions` (
+	`SessionEmail`	TEXT
+);
+
+CREATE TABLE `Users` (
+	`Member_no`	varchar ( 10 ) UNIQUE,
+	`Password`	varchar ( 255 ),
+	`Niveau`	INTEGER,
+	`Circonscription`	TEXT,
+	FOREIGN KEY(`Member_no`) REFERENCES `Members`(`Member_no`),
+	PRIMARY KEY(`Member_no`)
+);
