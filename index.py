@@ -235,4 +235,4 @@ def send_unauthorized():
      # return Response('Could not verify your access level for that URL.\n'
      #                 'You have to login with proper credentials', 401,
      #                 {'WWW-Authenticate': 'Basic realm="Login Required"'})
-     return Response(render_template('401.html'), 401, {'WWW-Authenticate': 'Basic realm="Login Required"'})
+     return Response(render_template('401.html'), 403, {'WWW-Authenticate': 'Basic realm="Login Required"'})
