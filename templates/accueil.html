@@ -12,7 +12,7 @@
   {% else %}
     <p>Vous n'êtes pas connecté(e).</p>
     <div class="form_container m-5">
-      <form action="/login" method="POST">
+      <form id="login_form" action="/login" method="POST" onclick="move();">
         <div class="form-group">
           <label for="champ_username">Email :</label>&nbsp;
           <input class="form-control" type="text" id="champ_username" name="email" maxlength="100">

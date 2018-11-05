@@ -18,17 +18,26 @@ class Database:
         if self.connection is not None:
             self.connection.close()
 
+    def join_all_tables(self):
+
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT  * FROM Members "
+                       "INNER JOIN Users ON Members.Member_no = Users.Member_no "
+                       "INNER JOIN Sessions ON Members.Email = Sessions.SessionEmail")
+        joined_tables = cursor.fetchall()
+        return joined_tables
+
     def get_session(self, id_session):
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT Email "
+        cursor.execute("SELECT SessionEmail "
                        "FROM Sessions "
-                       "WHERE id_session=?",
+                       "WHERE Id_session=?",
                        (id_session,))
-        email = cursor.fetchone()
+        email = cursor.fetchone()[0]
         if email is None:
             return None
         else:
-            return email[0]
+            return email
 
     def create_user(self, username, salt, hashed_password):
         connection = self.get_connection()
@@ -52,23 +61,28 @@ class Database:
     """
 
     def get_credentials(self, email, password):
+        # joined_tables = self.join_all_tables()
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT salt, hash"
-                       "FROM utilisateur"
-                       "WHERE Email=?",
-                       (email,))
+        cursor.execute("""
+                    SELECT Users.Salt, Users.Password
+                    FROM Members INNER JOIN Users ON Members.Member_no = Users.Member_no
+                    WHERE Members.Email=?
+                    """, (email,))
         user_cred = cursor.fetchone()
-        salt = user_cred[0]
-        hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
-        if hashed_password == user_cred[1]:
-            return True
+        if user_cred is not None:
+            salt = user_cred[0]
+            hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
+            if user_cred[1] == hashed_password:
+                return True
+            else:
+                return False
         else:
             return False
 
     def save_session(self, email):
         id_session = uuid.uuid4().hex
         connection = self.get_connection()
-        connection.execute(("INSERT INTO sessions(id_session, utilisateur) "
+        connection.execute(("INSERT INTO Sessions(Id_session, SessionEmail) "
                             "VALUES(?, ?)"), (id_session, email))
         connection.commit()
         return id_session

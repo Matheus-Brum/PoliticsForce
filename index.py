@@ -36,24 +36,20 @@ def close_connection(exception):
 def authentication_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
-        print('BBB')
         if not is_authenticated(session):
-            print('CCC')
             return send_unauthorized()
-        print('DDD')
         return f(*args, **kwargs)
-    print('EEE')
     return decorated
 
 
 @app.route('/')
 def home():
-    session['id'] = None
-    print(session['id'])
-    # session['id'] = 'test2@gmail.com'
-    #if "id" in session:
-     #   email = get_db().get_session(session["id"])
-    return render_template('accueil.html', title='Accueil', email=session['id'])
+    email = None
+    if "id" in session:
+        email = get_db().get_session(session["id"])
+        print(session["id"])
+        print("id" in session)
+    return render_template('accueil.html', title='Accueil', email=email)
 
 
 @app.route('/confirmation')
@@ -82,20 +78,18 @@ def formulaire_creation():
 
 @app.route('/login', methods=['POST'])
 def log_user():
-    print('111', session)
     email = request.form['email']
     password = request.form['password']
-    if email is None or password is None:
-        print('222', session)
-        return redirect("/")
-    auth = get_db().get_credentials(email, password)
-    if auth is False:
-        print('333', session)
+    if email is "" or password is "":
         return redirect("/")
     else:
-        print('444', session)
-        session["id"] = get_db().save_session(email)
-        return redirect("/")
+        auth = get_db().get_credentials(email, password)
+        if auth is False:
+            return redirect("/")
+        else:
+            session["id"] = get_db().save_session(email)
+            session["email"] = email
+            return redirect("/")
 
 
 @app.route('/ajouter_membre')
@@ -152,17 +146,14 @@ def add_member_send():
             and len(new_member.member_no) == 10\
             and len(new_member.phone_no) == 10\
             and re.match(regex, last_donation):
-        print('111')
+
         check_member = get_db().verify_member(new_member)
         if check_member is False:
-            print('222')
             get_db().insert_member(new_member)
             return redirect('/')
         else:
-            print('333')
             return render_template('ajouter-membre.html', erreur="erreur d'ajout")
     else:
-        print('444')
         return render_template('ajouter-membre.html', erreur="erreur d'ajout")
 
 
@@ -227,12 +218,8 @@ def logout():
 
 
 def is_authenticated(session):
-    # return "id" in session
-    return session['id']
+    return "id" in session
 
 
 def send_unauthorized():
-     # return Response('Could not verify your access level for that URL.\n'
-     #                 'You have to login with proper credentials', 401,
-     #                 {'WWW-Authenticate': 'Basic realm="Login Required"'})
-     return Response(render_template('401.html'), 403, {'WWW-Authenticate': 'Basic realm="Login Required"'})
+    return Response(render_template('401.html'), 403, {'WWW-Authenticate': 'Basic realm="Login Required"'})
