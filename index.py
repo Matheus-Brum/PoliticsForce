@@ -193,11 +193,36 @@ def recherche_membre_send():
         result = get_db().search_members(search_col, search_for)
         if not result:
             return render_template('rechercher-membre.html', title=search_for, erreur="Aucun résultat trouver")
-        return render_template('rechercher-membre.html', title=search_for, members=result)
+        return render_template('rechercher-membre.html', title=search_by+":"+search_for, members=result)
 
     else:
         return render_template('rechercher-membre.html', title="donnees invalides",
                                erreur="Erreur: donnees recherches invalides")
+
+							   
+@app.route('/afficher-result/<donnees>')
+@authentication_required
+def afficher_res(donnees):
+    search_by,search_for = donnees.split(":")
+    if search_by is not None and search_for is not None and search_for != '':
+        if search_by == 'first_name':
+            search_col = 'F_name'
+        elif search_by == 'last_name':
+            search_col = 'L_name'
+        elif search_by == 'member_no':
+            search_col = 'Member_no'
+        elif search_by == 'phone_no':
+            search_col = 'Phone_no'
+        elif search_by == 'addrese':
+            search_col = 'Address'
+        else:
+            return render_template('rechercher-membre.html', title="donnees invalides",
+                                   erreur="Erreur: selection invalides! Recommencer - ")
+
+    result = get_db().search_members(search_col, search_for)
+    if not result:
+        return render_template('afficher-result.html', title=search_for, erreur="Aucun résultat trouver")
+    return render_template('afficher-result.html', title=search_by + ":" + search_for, members=result)
 
 
 @app.route('/afficher_membre/<member_no>')

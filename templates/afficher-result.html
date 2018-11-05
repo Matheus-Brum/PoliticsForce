@@ -1,0 +1,53 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script src="/static/js/jspdf.js" charset="utf-8"></script>
+<script src="/static/js/jquery-2.2.4.min.js" charset="utf-8"></script>
+<script src="/static/js/save-to-pc.js" charset="utf-8"></script>
+
+<div class="col" id="result">
+        {% if members %}
+		<a href="#" onclick="SaveToPC()">Telecharger</a>
+        <h2>Result recherche</h2>
+		<div class="table-container">
+			<table class="table" id="print">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">No membre</th>
+						<th scope="col">Nom</th>
+						<th scope="col">Prénom</th>
+						<th scope="col">No telephone</th>
+						<th scope="col">Dernier don</th>
+						<th scope="col">Montant</th>
+						<th scope="col">Membership expire</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for member in members %}
+					<tr>
+						<td scope="col">{{member.member_no}}</td>
+						<td scope="col">{{member.f_name}}</td>
+						<td scope="col">{{member.l_name}}</td>
+						<td scope="col">{{member.phone_no}}</td>
+						<td scope="col">{{member.date_last_donation}}</td>
+						<td scope="col">{{member.last_donation}}</td>
+						<td scope="col" class="expired_membership">
+							{% set d,m,y=member.mem_exp_date.split('/') %}
+							<script>
+								var temp = document.getElementsByClassName("expired_membership");
+								temp = temp[temp.length - 1];
+								temp.innerHTML = beforeToday({{d}}, {{m}}, {{y}}); </script>
+							
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{% endif %}
+        {% if erreur %}
+        <h3>{{erreur}}</h3>
+        {% endif %}
+    </div>
+
+{% endblock %}
