@@ -6,6 +6,7 @@ from flask import Flask
 from flask import render_template
 from flask import request
 from flask import redirect
+from flask import make_response
 from flask import Response
 from flask import session
 from functools import wraps
@@ -44,12 +45,16 @@ def authentication_required(f):
 
 @app.route('/')
 def home():
+    lang = request.cookies.get('lang')
     email = None
     if "id" in session:
         email = get_db().get_session(session["id"])
         print(session["id"])
         print("id" in session)
-    return render_template('accueil.html', title='Accueil', email=email)
+    if lang == 'english':
+        return render_template('accueil-en.html', title='Home', email=email, lang=lang)
+    else:
+        return render_template('accueil.html', title='Accueil', email=email, lang=lang)
 
 
 @app.route('/confirmation')
@@ -95,7 +100,11 @@ def log_user():
 @app.route('/ajouter_membre')
 @authentication_required
 def add_member():
-    return render_template('ajouter-membre.html', title='Ajouter')
+    lang = request.cookies.get('lang')
+    if lang == 'english':
+        return render_template('ajouter-membre-en.html', title='Add a member', lang=lang)
+    else:
+        return render_template('ajouter-membre.html', title='Ajouter un membre', lang=lang)
 
 
 @app.route('/membres/<member_no>')
@@ -160,19 +169,28 @@ def add_member_send():
 @app.route('/membres')
 @authentication_required
 def members_list():
+    lang = request.cookies.get('lang')
     members = get_db().get_all_members()
-    return render_template('membres.html', title='Liste', members=members)
+    if lang == 'english':
+        return render_template('membres-en.html', title='Members', members=members, lang=lang)
+    else:
+        return render_template('membres.html', title='Membres', members=members, lang=lang)
 
 
 @app.route('/rechercher_membre')
 @authentication_required
 def recherche_membre():
-    return render_template('rechercher-membre.html', title='Rechercher')
+    lang = request.cookies.get('lang')
+    if lang == 'english':
+        return render_template('rechercher-membre-en.html', title='Search', lang=lang)
+    else:
+        return render_template('rechercher-membre.html', title='Recherhcer', lang=lang)
 
 
 @app.route('/envois_recherche', methods=['POST'])
 @authentication_required
 def recherche_membre_send():
+    lang = request.cookies.get('lang')
     search_by = request.form['search_input']
     search_for = request.form['search_data']
     if search_by is not None and search_for is not None and search_for != '':
@@ -192,9 +210,15 @@ def recherche_membre_send():
 
         result = get_db().search_members(search_col, search_for)
         if not result:
-            return render_template('rechercher-membre.html', title=search_for, erreur="Aucun résultat trouver")
-        return render_template('rechercher-membre.html', title=search_for, members=result)
-
+            if lang == 'english':
+                return render_template('rechercher-membre-en.html', title='Search', erreur="Nothing found", lang=lang)
+            else:
+                return render_template('rechercher-membre.html', title='Recherhcer', erreur="Aucun résultat trouvé", lang=lang)
+        else:
+            if lang == 'english':
+                return render_template('rechercher-membre-en.html', title='Search', members=result, lang=lang)
+            else:
+                return render_template('rechercher-membre.html', title='Rechercher', members=result, lang=lang)
     else:
         return render_template('rechercher-membre.html', title="donnees invalides",
                                erreur="Erreur: donnees recherches invalides")
@@ -203,8 +227,12 @@ def recherche_membre_send():
 @app.route('/afficher_membre/<member_no>')
 @authentication_required
 def affiche_util(member_no):
+    lang = request.cookies.get('lang')
     resultat = get_db().search_member(member_no)
-    return render_template('afficher_membre.html', id=resultat)
+    if lang == 'english':
+        return render_template('afficher_membre-en.html', title='Members', id=resultat, lang=lang)
+    else:
+        return render_template('afficher_membre.html', title='Afficher', id=resultat, lang=lang)
 
 
 @app.route('/logout')
@@ -215,6 +243,25 @@ def logout():
         session.pop('id', None)
         get_db().delete_session(id_session)
     return redirect("/")
+
+
+@app.route('/language')
+def set_to_english():
+    response = make_response(redirect('/'))
+    language = request.cookies.get('lang')
+    print('language', language)
+    if 'lang' in request.cookies:
+        print('111')
+        if language == "francais":
+            print('222')
+            response.set_cookie("lang", "english")
+        else:
+            print('333')
+            response.set_cookie("lang", "francais")
+    else:
+        print('444')
+        response.set_cookie("lang", "francais")
+    return response
 
 
 def is_authenticated(session):

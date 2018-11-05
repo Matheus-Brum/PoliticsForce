@@ -22,8 +22,8 @@
 </head>
 <body>
 
-    <div id="header-container">
-        <h1>HEADER</h1>
+    <div id="header-container" style="text-align:center;">
+        <h1>Atelier Politique</h1>
     </div>
 
     <div id="main-container">
@@ -35,12 +35,28 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    {% if lang != "english" %}
                     <div class="navbar-nav">
                       <a class="nav-item nav-link active" href="/">Accueil</a>
 				      <a class="nav-item nav-link active" href="/ajouter_membre">Ajouter un membre</a>
                       <a class="nav-item nav-link active" href="/membres">Membres</a>
                       <a class="nav-item nav-link active" href="/rechercher_membre">Rechercher un membre</a>
+                      <div class="navbar-nav ml-auto">
+                        <a class="nav-item nav-link active" href="/language">English</a>
+                      </div>
                     </div>
+                    {% else %}
+                    <div class="navbar-nav">
+                      <a class="nav-item nav-link active" href="/">Home</a>
+				      <a class="nav-item nav-link active" href="/ajouter_membre">Add a member</a>
+                      <a class="nav-item nav-link active" href="/membres">Members</a>
+                      <a class="nav-item nav-link active" href="/rechercher_membre">Search for a member</a>
+                      <div class="navbar-nav ml-auto">
+                        <a class="nav-item nav-link active" href="/language">Français</a>
+                      </div>
+                    </div>
+                    {% endif %}
+
                 </div>
             </nav>
         </div>
