@@ -33,20 +33,25 @@ class Database:
                        "FROM Sessions "
                        "WHERE Id_session=?",
                        (id_session,))
-        email = cursor.fetchone()[0]
+        email = cursor.fetchone()
         if email is None:
             return None
         else:
             return email
 
     def create_user(self, username, salt, hashed_password):
+        print(type(username))
+        print(type(salt))
+        print(type(hashed_password))
         cursor = self.get_connection().cursor()
-        cursor.execute("""SELECT Member_no FROM Members WHERE Email=?""", (username,))
-        member_id = cursor.fetchone()
-        cursor.execute(("INSERT INTO Users(Member_no, Salt, Password, Niveau, Circonscription)"
-                            " VALUES(?, ?, ?, ?, ?)"), (member_id, salt,
-                                                  hashed_password, None, None))
-        cursor.commit()
+        cursor.execute("SELECT Member_no "
+                       "FROM Members "
+                       "WHERE Email=?", (username,))
+        member_id = cursor.fetchone()[0]
+        print('member_id', member_id)
+        cursor.execute(("INSERT INTO Users(Member_no, Password, Salt) "
+                        "VALUES(?, ?, ?)"), (member_id, hashed_password, salt))
+        self.connection.commit()
 
     """
     def get_user_login_info(self, username):
