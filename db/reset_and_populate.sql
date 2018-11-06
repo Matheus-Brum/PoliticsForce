@@ -38,11 +38,11 @@ CREATE TABLE Users (
 
 --MEMBERS ONLY
 
-INSERT INTO Members VALUES (1, 'aa', 'aaa', '1234567890', '1111111111', 01/01/2010, 'midi', 01/01/1990, 'aa@gmail.com', 100, 01/01/2010, 'oui', 'oui', 'testaa', 'H3P2B1,Portland,ME,US');
+INSERT INTO Members VALUES (1, 'aa', 'aaa', '1234567890', '1111111111', '01/01/2010', 'midi', '01/01/1990', 'aa@gmail.com', 100, '01/01/2010', 'oui', 'oui', 'testaa', 'H3P2B1,Portland,ME,US');
 
-INSERT INTO Members VALUES (2, 'bb', 'bbb', '1234567891', '2222222222', 01/01/2010, 'midi', 01/01/1990, 'bb@gmail.com', 200, 01/01/2010, 'oui', 'oui', 'testbb', 'h7m3b1,Mont-Joli,QC,CA');
+INSERT INTO Members VALUES (2, 'bb', 'bbb', '1234567891', '2222222222', '01/01/2010', 'midi', '01/01/1990', 'bb@gmail.com', 200, '01/01/2010', 'oui', 'oui', 'testbb', 'h7m3b1,Mont-Joli,QC,CA');
 
-INSERT INTO Members VALUES (3, 'cc', 'ccc', '1234567892', '3333333333', 01/01/2010, 'midi', 01/01/1990, 'cc@gmail.com', 300, 01/01/2010, 'oui', 'oui', 'testcc', '123456,A1A1A1,Alberton,PE,CA');
+INSERT INTO Members VALUES (3, 'cc', 'ccc', '1234567892', '3333333333', '01/01/2010', 'midi', '01/01/1990', 'cc@gmail.com', 300, '01/01/2010', 'oui', 'oui', 'testcc', '123456,A1A1A1,Alberton,PE,CA');
 
 --A USER FOR TESTS PURPOSES
 -- password real value is 'abc'
