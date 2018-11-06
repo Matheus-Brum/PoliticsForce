@@ -40,11 +40,13 @@ class Database:
             return email
 
     def create_user(self, username, salt, hashed_password):
-        connection = self.get_connection()
-        connection.execute(("INSERT INTO users(utilisateur, salt, hash)"
-                            " VALUES(?, ?, ?)"), (username, salt,
-                                                  hashed_password))
-        connection.commit()
+        cursor = self.get_connection().cursor()
+        cursor.execute("""SELECT Member_no FROM Members WHERE Email=?""", (username,))
+        member_id = cursor.fetchone()
+        cursor.execute(("INSERT INTO Users(Member_no, Salt, Password, Niveau, Circonscription)"
+                            " VALUES(?, ?, ?, ?, ?)"), (member_id, salt,
+                                                  hashed_password, None, None))
+        cursor.commit()
 
     """
     def get_user_login_info(self, username):

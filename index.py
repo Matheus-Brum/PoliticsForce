@@ -65,22 +65,51 @@ def confirmation_page():
 
 
 @app.route('/formulaire', methods=["GET", "POST"])
+@authentication_required
 def formulaire_creation():
     if request.method == "GET":
         return render_template("formulaire.html")
-    else:
+    elif request.method == "POST":
         username = request.form["email"]
         password = request.form["password"]
+
+        reg1bool = False
+        reg2bool = False
+        reg3bool = False
+        reg4bool = False
+
+        regex2 = "[A-Z]"
+        regex3 = "[0-9]"
+        regex4 = "['$', '#', '@', '!', '*']"
+
+        longpass = len(password)
+
         if username == "" or password == "":
             return render_template("formulaire.html",
                                    error="Tous les champs sont obligatoires.")
+        else:
+            if longpass < 11 or longpass > 11:
+                reg1bool = False
+            elif longpass == 11:
+                reg1bool = True
+                if re.search(regex2, password) is not None:
+                    reg2bool = True
+                if re.search(regex3, password) is not None:
+                    reg3bool = True
+                if re.search(regex4, password) is not None:
+                    reg4bool = True
 
-        salt = uuid.uuid4().hex
-        hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
-        db = get_db()
-        db.create_user(username, salt, hashed_password)
+        if reg1bool and reg2bool and reg3bool and reg4bool:
+            salt = uuid.uuid4().hex
+            hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
+            db = get_db()
+            db.create_user(username, salt, hashed_password)
 
-        return redirect("/confirmation")
+            return redirect("/confirmation")
+        else:
+            return render_template("formulaire.html",
+                                   error="Erreur, Votre mot de passe doit contenir une lettre majuscule, "
+                                         "un caractère spécial, un chiffre et 8 caractères.")
 
 
 @app.route('/login', methods=['POST'])
