@@ -33,7 +33,7 @@ class Database:
                        "FROM Sessions "
                        "WHERE Id_session=?",
                        (id_session,))
-        email = cursor.fetchone()
+        email = cursor.fetchone()[0]
         if email is None:
             return None
         else:
@@ -52,20 +52,6 @@ class Database:
         cursor.execute(("INSERT INTO Users(Member_no, Password, Salt) "
                         "VALUES(?, ?, ?)"), (member_id, hashed_password, salt))
         self.connection.commit()
-
-    """
-    def get_user_login_info(self, username):
-        cursor = self.get_connection().cursor()
-        cursor.execute("SELECT salt, hash "
-                       "FROM users "
-                       "WHERE utilisateur=?",
-                       (username,))
-        user = cursor.fetchone()
-        if user is None:
-            return None
-        else:
-            return user[0], user[1]
-    """
 
     def get_credentials(self, email, password):
         # joined_tables = self.join_all_tables()

@@ -68,10 +68,8 @@ def confirmation_page():
 @authentication_required
 def formulaire_creation():
     if request.method == "GET":
-        print('aaa')
         return render_template("formulaire.html")
     elif request.method == "POST":
-        print('bbb')
         username = request.form["email"]
         password = request.form["password"]
 
@@ -89,27 +87,19 @@ def formulaire_creation():
         if username == "" or password == "":
             return render_template("formulaire.html",
                                    error="Tous les champs sont obligatoires.")
-            print('ccc')
         else:
-            print('ddd')
             if longpass < 11 or longpass > 11:
-                print('eee')
                 reg1bool = False
             elif longpass == 11:
-                print('fff')
                 reg1bool = True
                 if re.search(regex2, password) is not None:
-                    print('ggg')
                     reg2bool = True
                 if re.search(regex3, password) is not None:
-                    print('hhh')
                     reg3bool = True
                 if re.search(regex4, password) is not None:
-                    print('iii')
                     reg4bool = True
 
         if reg1bool and reg2bool and reg3bool and reg4bool is True:
-            print('jjj')
             salt = uuid.uuid4().hex
             hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
             db = get_db()
@@ -120,7 +110,6 @@ def formulaire_creation():
 
             return redirect("/confirmation")
         else:
-            print('kkk')
             return render_template("formulaire.html",
                                    error="Erreur, Votre mot de passe doit contenir une lettre majuscule, "
                                          "un caractère spécial, un chiffre et 8 caractères.")
