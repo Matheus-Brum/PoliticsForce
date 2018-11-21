@@ -18,26 +18,18 @@ class Database:
         if self.connection is not None:
             self.connection.close()
 
-    def join_all_tables(self):
-
-        cursor = self.get_connection().cursor()
-        cursor.execute("SELECT  * FROM Members "
-                       "INNER JOIN Users ON Members.Member_no = Users.Member_no "
-                       "INNER JOIN Sessions ON Members.Email = Sessions.SessionEmail")
-        joined_tables = cursor.fetchall()
-        return joined_tables
-
     def get_session(self, id_session):
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT SessionEmail "
+        cursor.execute("SELECT SessionEmail, SessionCirconscription "
                        "FROM Sessions "
                        "WHERE Id_session=?",
                        (id_session,))
         email = cursor.fetchone()[0]
-        if email is None:
+        circonscription = cursor.fetchone()[1]
+        if email is None or circonscription is None:
             return None
         else:
-            return email
+            return [email, circonscription]
 
     def create_user(self, username, salt, hashed_password):
         print(type(username))
@@ -54,7 +46,6 @@ class Database:
         self.connection.commit()
 
     def get_credentials(self, email, password):
-        # joined_tables = self.join_all_tables()
         cursor = self.get_connection().cursor()
         cursor.execute("""
                     SELECT Users.Salt, Users.Password
@@ -72,11 +63,11 @@ class Database:
         else:
             return False
 
-    def save_session(self, email):
+    def save_session(self, email, circonscription):
         id_session = uuid.uuid4().hex
         connection = self.get_connection()
-        connection.execute(("INSERT INTO Sessions(Id_session, SessionEmail) "
-                            "VALUES(?, ?)"), (id_session, email))
+        connection.execute(("INSERT INTO Sessions(Id_session, SessionEmail, SessionCirconscription) "
+                            "VALUES(?, ?, ?)"), (id_session, email, circonscription))
         connection.commit()
         return id_session
 
@@ -91,13 +82,13 @@ class Database:
         cursor = self.get_connection().cursor()
         cursor.execute("INSERT INTO Members "
                        "(F_name, L_name, Member_no, Phone_no, Mem_exp_date, Reach_moment, Birth_date, Email, Last_donation,"
-                       " Date_last_donation, Donation_ok, Election_year, Comment, Address)"
+                       " Date_last_donation, Donation_ok, Election_year, Comment, Address, Circonscription)"
                        " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                        (member.f_name, member.l_name, member.member_no, member.phone_no, member.mem_exp_date,
                         member.reach_moment,
                         member.birth_date, member.email, member.last_donation, member.date_last_donation,
                         member.donation_ok,
-                        member.election_year, member.comment, member.address))
+                        member.election_year, member.comment, member.address, member.circonscription))
         self.connection.commit()
 
     def supprimer_member(self, member_number):
@@ -123,7 +114,7 @@ class Database:
             member_info = cursor.fetchone()
             member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
                             member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
-                            member_info[11], member_info[12], member_info[13], member_info[14])
+                            member_info[11], member_info[12], member_info[13], member_info[14], member_info[15])
             members.append(member)
             counter += 1
 
@@ -136,11 +127,11 @@ class Database:
                        "WHERE F_name = ? AND L_name = ? AND Member_no = ? AND Phone_no = ? AND Mem_exp_date = ? "
                        "AND Reach_moment = ? AND Birth_date = ? AND Email = ? AND Last_donation = ? "
                        "AND Date_last_donation = ? AND Donation_ok = ? AND Election_year = ? AND Comment = ?"
-                       "AND Address = ?",
+                       "AND Address = ? AND Circonscription = ?",
                        (member.f_name, member.l_name, member.member_no, member.phone_no, member.mem_exp_date,
                         member.reach_moment, member.birth_date, member.email, member.last_donation,
                         member.date_last_donation, member.donation_ok, member.election_year, member.comment,
-                        member.address))
+                        member.address, member.circonscription))
         member_data = cursor.fetchone()
         if member_data is not None:
             return True
@@ -169,23 +160,15 @@ class Database:
 
         member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
                         member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
-                        member_info[11], member_info[12], member_info[13], member_info[14])
+                        member_info[11], member_info[12], member_info[13], member_info[14], member_info[15])
 
         if member_info is not None:
             return member
 
-    def search_member2(self, f_name):
-        members = []
+    def get_user(self, email):
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT F_name, L_name"
-                       "FROM Members "
-                       "WHERE F_name = ?",
-                       (f_name,))
-        member_info = cursor.fetchall()
-        print('member_info', member_info)
-        for row in member_info:
-            member = Member(member_info[1], member_info[2], member_info[3],
-                            member_info[4], member_info[5], member_info[6],
-                            member_info[7], member_info[8])
-            members.append(member)
-        return members
+        cursor.execute("SELECT *"
+                       "FROM Members INNER JOIN USERS ON Members.Member_no = Users.Member_no "
+                       "WHERE Email=?"), (email,)
+        circonscription = cursor.fetchone()
+        return circonscription

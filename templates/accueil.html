@@ -12,7 +12,7 @@
   {% else %}
     <p>{{text["not_connected"]}}</p>
     <div class="form_container m-5">
-      <form id="login_form" action="/login" method="POST" onsubmit="move();">
+      <form id="login_form" action="/login" method="POST">
         <div class="form-group">
           <label for="champ_username">{{text["e-mail"]}}</label>&nbsp;
           <input class="form-control" type="text" id="champ_username" name="email" maxlength="100">

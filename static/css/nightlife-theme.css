@@ -1,11 +1,4 @@
-/*
-theme colors:
-#16262E - background
-#2E4756 - primary
-#3C7A89 - secondary (accent)
-#A9B3CE - optional 1
-#DBC2CF - optional 2
-*/
+
 #header-container, #main-container, #page-container, body{
     background-color: #2E4756;
     color: white;
@@ -15,7 +8,7 @@ theme colors:
     background-color: #3C7A89;
 }
 
-#page-container{
+#page-container, h4{
     -webkit-animation: fadein 2s;
     animation: fadein 2s;
 }
@@ -85,7 +78,7 @@ button[type=submit]:hover, button[type=reset]:hover{
 }
 
 th{
-    background-color: #A9B3CE;
+    background-color: #4d0026;
 }
 
 
