@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, g
+from flask import Blueprint, request, render_template, g, session
 from ..authentication import authentication_required
 from ..database import Database
 from ..language.membres import *
@@ -11,7 +11,13 @@ membres_bp = Blueprint('members_list', __name__)
 @authentication_required
 def members_list():
     lang = request.cookies.get('lang')
-    members = get_db().get_all_members()
+    if 'level' in session:
+        if session['level'] is 1:
+            members = get_db().get_members_circonscription(session["committee"])
+        elif session['level'] is 2:
+            members = get_db().get_members_regional(session["committee"])
+        elif session['level'] is 3:
+            members = get_db().get_members_national(session["committee"])
     if lang == 'english':
         text_content = membres_content_en
     else:

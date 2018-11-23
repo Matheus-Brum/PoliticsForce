@@ -11,8 +11,11 @@ logout_bp = Blueprint('logout', __name__)
 def logout():
     if "id" in session:
         id_session = session["id"]
-        session.pop('id', None)
         get_db().delete_session(id_session)
+        session.pop('id', None)
+        session.pop('email', None)
+        session.pop('committee', None)
+        session.clear()
     return redirect("/")
 
 

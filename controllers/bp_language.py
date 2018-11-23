@@ -2,6 +2,7 @@ from flask import Blueprint, make_response, request, redirect
 
 language_bp = Blueprint('set_to_english', __name__)
 
+
 @language_bp.route('/language')
 def set_to_english():
     response = make_response(redirect('/'))
@@ -17,5 +18,5 @@ def set_to_english():
             response.set_cookie("lang", "francais")
     else:
         print('444')
-        response.set_cookie("lang", "francais")
+        response.set_cookie("lang", "english")
     return response

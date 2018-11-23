@@ -23,14 +23,14 @@
 <body>
 
     <div id="header-container" style="text-align:center;">
-        <h1>Atelier Politique</h1>
+        <h1>PoliticsForce</h1>
         {% if lang == 'english' %}
         <h4>Manage your party without stress</h4>
         {% else %}
         <h4>Gérez votre parti sans vous inquiéter</h4>
         {% endif %}
-		{% if circonscription %}
-		<h4>{{circonscription}}</h4>
+		{% if session %}
+		<h4>{{session['committee']}}</h4>
 		{% endif %}
     </div>
 

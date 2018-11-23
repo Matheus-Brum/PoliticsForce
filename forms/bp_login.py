@@ -8,6 +8,10 @@ login_bp = Blueprint('log_user', __name__)
 def log_user():
     email = request.form['email']
     password = request.form['password']
+    committee = get_db().get_user(email)[15]
+    level = get_db().get_user(email)[19]
+    print('committee=', committee)
+    print('level', level)
     if email is "" or password is "":
         return redirect("/")
     else:
@@ -16,9 +20,10 @@ def log_user():
             return redirect("/")
         else:
 
-            session["id"] = get_db().save_session(email)
+            session["id"] = get_db().save_session(email, committee)
             session["email"] = email
-            session["circonscription"] = 'Rive-Nord'
+            session["committee"] = committee
+            session["level"] = level
             return redirect("/")
 
 

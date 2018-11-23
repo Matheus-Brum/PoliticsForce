@@ -20,16 +20,20 @@ class Database:
 
     def get_session(self, id_session):
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT SessionEmail, SessionCirconscription "
+        cursor.execute("SELECT SessionEmail, SessionCommittee "
                        "FROM Sessions "
                        "WHERE Id_session=?",
                        (id_session,))
-        email = cursor.fetchone()[0]
-        circonscription = cursor.fetchone()[1]
-        if email is None or circonscription is None:
+        email = cursor.fetchall()[0]
+        committee = cursor.fetchall()[1]
+        # level = cursor.fetchall()[2]
+        """
+        if email is None or committee is None:
             return None
         else:
-            return [email, circonscription]
+            return [email, committee]
+        """
+        return [email, committee]
 
     def create_user(self, username, salt, hashed_password):
         print(type(username))
@@ -63,20 +67,20 @@ class Database:
         else:
             return False
 
-    def save_session(self, email, circonscription):
+    def save_session(self, email, committee):
         id_session = uuid.uuid4().hex
-        connection = self.get_connection()
-        connection.execute(("INSERT INTO Sessions(Id_session, SessionEmail, SessionCirconscription) "
-                            "VALUES(?, ?, ?)"), (id_session, email, circonscription))
-        connection.commit()
+        cursor = self.get_connection().cursor()
+        cursor.execute("INSERT INTO Sessions(Id_session, SessionEmail, SessionCommittee) "
+                       "VALUES(?, ?, ?)", (id_session, email, committee))
+        # self.connection.commit()
         return id_session
 
     def delete_session(self, id_session):
-        connection = self.get_connection()
-        connection.execute(("DELETE FROM sessions "
-                            "WHERE id_session=?"),
-                           (id_session,))
-        connection.commit()
+        cursor = self.get_connection().cursor()
+        cursor.execute(("DELETE FROM Sessions "
+                        "WHERE id_session=?"),
+                       (id_session,))
+        self.connection.commit()
 
     def insert_member(self, member):
         cursor = self.get_connection().cursor()
@@ -97,6 +101,7 @@ class Database:
                        "WHERE Member_no =? ", (member_number,))
         self.connection.commit()
 
+    """
     def get_all_members(self):
         counter = 0
         members = []
@@ -119,6 +124,85 @@ class Database:
             counter += 1
 
         return members
+    """
+
+    def get_all_members(self, committee):
+        cursor = self.get_connection().cursor()
+        cursor.execute("")
+        pass
+
+    def get_members_circonscription(self, committee):
+        committees = []
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT * "
+                       "FROM Members "
+                       "WHERE Committee = ?", (committee,))
+        members = cursor.fetchall()
+        for person in members:
+            member = Member(person[1], person[2], person[3], person[4], person[5],
+                            person[6], person[7], person[8], person[9], person[10],
+                            person[11], person[12], person[13], person[14], person[15])
+            committees.append(member)
+        return committees
+
+    def get_members_regional(self, committee):
+        committees_members = []
+        circonscription_committees = []
+        cursor = self.get_connection().cursor()
+        if len(self.get_members_circonscription(committee)) > 0:
+            committees_members = self.get_members_circonscription(committee)
+        cursor.execute("SELECT Id FROM RegionalC WHERE Name = ?", (committee,))
+        parent_id = cursor.fetchone()[0]
+        if parent_id:
+            cursor.execute(
+                "SELECT CirconscriptionC.Name "
+                "FROM RegionalC INNER JOIN CirconscriptionC ON RegionalC.Id = CirconscriptionC.Parent_id "
+                "WHERE RegionalC.Id = ?",
+                (parent_id,))
+            results = cursor.fetchall()
+            if len(results) > 0:
+                for line in results:
+                    circonscription_committees.append(line[0])
+                for i in circonscription_committees:
+                    cursor.execute("SELECT * "
+                                   "FROM Members "
+                                   "WHERE Committee = ?", (i,))
+                    committees_members_circonscription = cursor.fetchall()
+                    for person in committees_members_circonscription:
+                        member = Member(person[1], person[2], person[3], person[4], person[5],
+                                        person[6], person[7], person[8], person[9], person[10],
+                                        person[11], person[12], person[13], person[14], person[15])
+                        committees_members.append(member)
+        return committees_members
+
+    def get_members_national(self, committee):
+        committees_members = []
+        regional_committees = []
+        cursor = self.get_connection().cursor()
+        if len(self.get_members_regional(committee)) > 0:
+            committees_members = self.get_members_regional(committee)
+        cursor.execute("SELECT Id FROM NationalC WHERE Name = ?", (committee,))
+        parent_id = cursor.fetchone()[0]
+        if parent_id:
+            cursor.execute(
+                "SELECT RegionalC.Name "
+                "FROM NationalC INNER JOIN RegionalC ON NationalC.Id = RegionalC.Parent_id "
+                "WHERE NationalC.Id = ?",
+                (parent_id,))
+            results = cursor.fetchall()
+            for line in results:
+                regional_committees.append(line[0])
+            for i in regional_committees:
+                cursor.execute("SELECT * "
+                               "FROM Members "
+                               "WHERE Committee = ?", (i,))
+                committees_members_region = cursor.fetchall()
+                for person in committees_members_region:
+                    member = Member(person[1], person[2], person[3], person[4], person[5],
+                                    person[6], person[7], person[8], person[9], person[10],
+                                    person[11], person[12], person[13], person[14], person[15])
+                    committees_members.append(member)
+        return committees_members
 
     def verify_member(self, member):
         cursor = self.get_connection().cursor()
@@ -127,11 +211,11 @@ class Database:
                        "WHERE F_name = ? AND L_name = ? AND Member_no = ? AND Phone_no = ? AND Mem_exp_date = ? "
                        "AND Reach_moment = ? AND Birth_date = ? AND Email = ? AND Last_donation = ? "
                        "AND Date_last_donation = ? AND Donation_ok = ? AND Election_year = ? AND Comment = ?"
-                       "AND Address = ? AND Circonscription = ?",
+                       "AND Address = ? AND Committee = ?",
                        (member.f_name, member.l_name, member.member_no, member.phone_no, member.mem_exp_date,
                         member.reach_moment, member.birth_date, member.email, member.last_donation,
                         member.date_last_donation, member.donation_ok, member.election_year, member.comment,
-                        member.address, member.circonscription))
+                        member.address, member.committee))
         member_data = cursor.fetchone()
         if member_data is not None:
             return True
@@ -149,7 +233,7 @@ class Database:
         for result in results:
             member = Member(result[1], result[2], result[3], result[4], result[5],
                             result[6], result[7], result[8], result[9], result[10],
-                            result[11], result[12], result[13], result[14])
+                            result[11], result[12], result[13], result[14], result[15])
             members.append(member)
         return members
 
@@ -167,8 +251,10 @@ class Database:
 
     def get_user(self, email):
         cursor = self.get_connection().cursor()
-        cursor.execute("SELECT *"
+        cursor.execute("SELECT * "
                        "FROM Members INNER JOIN USERS ON Members.Member_no = Users.Member_no "
-                       "WHERE Email=?"), (email,)
-        circonscription = cursor.fetchone()
-        return circonscription
+                       "WHERE Members.Email=?", (email,))
+        user_info = cursor.fetchone()
+        for line in user_info:
+            print(line)
+        return user_info
