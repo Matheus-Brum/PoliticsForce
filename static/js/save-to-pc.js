@@ -4,17 +4,49 @@ function SaveToPC(){
 
 	$.each(table, function(i, row){
 		$.each(row, function(j,cell){
-			if(j=="No telephone" || j==3){
-				doc.cell(20,20,120,25,cell,i);
+			if(j=="No membre" || j==0){
+				member_id=cell;
+			}else if(j=="Nom" || j==1){
+				member_f_name="";
+				height_f_name=1;
+				while(cell.length>10){
+					member_f_name += cell.substring(0,10)+"\n";
+					cell = cell.substring(11);
+					++height_f_name;
+				}
+				member_f_name += cell;
+			}else if(j=="Prénom" || j==2){
+				member_l_name="";
+				height_l_name=1;
+				while(cell.length>10){
+					member_l_name += cell.substring(0,10)+"\n";
+					cell = cell.substring(11);
+					++height_l_name;
+				}
+				member_l_name += cell;
+			}else if(j=="No telephone" || j==3){
+				member_tel=cell;
+			}else if(j=="Dernier don" || j==4){
+				member_date_don=cell;
 			}else if(j=="Montant" || j==5){
-				doc.cell(20,20,80,25,cell,i);
+				member_montant_don=cell;
 			}else if(j=="Membership expire" || j==6){
-				doc.cell(20,20,150,25,cell,i);
-			}else{
-				doc.cell(20,20,100,25,cell,i);
+				member_expire=cell;
 			}
 	
 		});
+		if(height_f_name>height_l_name){
+			height=height_f_name*25;
+		}else{
+			height=height_l_name*25;
+		}
+		doc.cell(20,20,100,height,member_id,i);
+		doc.cell(20,20,100,height,member_f_name,i);
+		doc.cell(20,20,100,height,member_l_name,i);
+		doc.cell(20,20,120,height,member_tel,i);
+		doc.cell(20,20,100,height,member_date_don,i);
+		doc.cell(20,20,80,height,member_montant_don,i);
+		doc.cell(20,20,150,height,member_expire,i);
 	});
 
 	doc.save('resultat-recherche.pdf');
