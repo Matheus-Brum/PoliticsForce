@@ -37,7 +37,7 @@
                 <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                     {% if lang != "english" %}
                     <div class="navbar-nav">
-                      <a class="nav-item nav-link active" href="/">Accueil</a>
+                      <a class="nav-item nav-link active" href="/">{{text["menu_home"]}}</a>
 				      <a class="nav-item nav-link active" href="/ajouter_membre">Ajouter un membre</a>
                       <a class="nav-item nav-link active" href="/membres">Membres</a>
                       <a class="nav-item nav-link active" href="/rechercher_membre">Rechercher un membre</a>
@@ -47,7 +47,7 @@
                     </div>
                     {% else %}
                     <div class="navbar-nav">
-                      <a class="nav-item nav-link active" href="/">Home</a>
+                      <a class="nav-item nav-link active" href="/">{{text["menu_home"]}}</a>
 				      <a class="nav-item nav-link active" href="/ajouter_membre">Add a member</a>
                       <a class="nav-item nav-link active" href="/membres">Members</a>
                       <a class="nav-item nav-link active" href="/rechercher_membre">Search for a member</a>

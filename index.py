@@ -1,6 +1,7 @@
 # coding=utf-8
 from .database import Database
 from .member import Member
+from .language.text_content import *
 from flask import g
 from flask import Flask
 from flask import render_template
@@ -288,10 +289,14 @@ def afficher_res(donnees):
 def affiche_util(member_no):
     lang = request.cookies.get('lang')
     resultat = get_db().search_member(member_no)
-    if lang == 'english':
-        return render_template('afficher_membre-en.html', title='Members', id=resultat, lang=lang)
+    if lang == "english":
+	    text_content=AfficherMembre.en
+	    # layout=Layout.layout_en
     else:
-        return render_template('afficher_membre.html', title='Afficher', id=resultat, lang=lang)
+	    text_content=AfficherMembre.fr
+	    # layout=Layout.layout_fr
+
+    return render_template('afficher_membre.html', title='Afficher', id=resultat, lang=lang, text=text_content) # , layout_content=layout)
 
 
 @app.route('/logout')

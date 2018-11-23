@@ -4,25 +4,25 @@
   <!-- Current page script -->
   <script type="text/javascript" src="/static/js/accueil"></script>
 
-  <h2>Bienvenu(e)!</h2>
-  <p><a href="/formulaire">Cliquez ici pour créer un compte</a></p>
+  <h2>{{text["title_tab"]}}</h2>
   {% if email %}
-    <p>Vous êtes connecté(e) en tant que {{ email }}.</p>
-    <p><a href="/logout">Se déconnecter</a></p>
+    <p><a href="/formulaire">{{text["make_account"]}}</a></p>
+    <p>{{text["connected_as"]}} {{ email }}.</p>
+    <p><a href="/logout">{{text["disconnect"]}}</a></p>
   {% else %}
-    <p>Vous n'êtes pas connecté(e).</p>
+    <p>{{text["not_connected"]}}</p>
     <div class="form_container m-5">
       <form id="login_form" action="/login" method="POST" onsubmit="move();">
         <div class="form-group">
-          <label for="champ_username">Email :</label>&nbsp;
+          <label for="champ_username">{{text["e-mail"]}}</label>&nbsp;
           <input class="form-control" type="text" id="champ_username" name="email" maxlength="100">
         </div>
         <div class="form-group">
-          <label for="champ_password">Mot de passe :</label>&nbsp;
+          <label for="champ_password">{{text["password"]}}</label>&nbsp;
           <input class="form-control" type="password" id="champ_password" name="password" maxlength="40">
         </div>
-        <button class="btn" type="reset">Vider</button>
-        <button class="btn" type="submit">Se connecter</button>
+        <button class="btn" type="reset">{{text["btn_reset"]}}</button>
+        <button class="btn" type="submit">{{text["btn_submit"]}}</button>
       </form>
 
     </div>
