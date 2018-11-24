@@ -19,5 +19,9 @@
     <button class="btn" type="reset">{{text["btn_reset"]}}</button>
     <button class="btn" type="submit">{{text["btn_submit"]}}</button>
   </form>
+    {% if password %}
+    <br><br>
+    <p>{{text["suggested_password"]}} <br> {{password}}</p>
+    {% endif %}
   </div>
 {% endblock %}

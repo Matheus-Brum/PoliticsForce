@@ -9,7 +9,8 @@ formulaire_fr = {
     "username": "Nom d'utilisateur",
     "password": "Mot de passe",
     "btn_reset": "Vider",
-    "btn_submit": "Soumettre"
+    "btn_submit": "Soumettre",
+    "suggested_password": "Mot de passe suggéré : "
 }
 formulaire_content_fr = {**formulaire_fr, **layout_fr}
 
@@ -21,6 +22,7 @@ formulaire_en = {
     "username": "Username",
     "password": "Password",
     "btn_reset": "Reset",
-    "btn_submit": "Submit"
+    "btn_submit": "Submit",
+    "suggested_password": "Suggested password : "
 }
 formulaire_content_en = {**formulaire_en, **layout_en}

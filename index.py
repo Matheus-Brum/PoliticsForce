@@ -11,6 +11,7 @@ from flask import make_response
 from flask import Response
 from flask import session
 from functools import wraps
+import random
 import uuid
 import hashlib
 import re
@@ -82,7 +83,8 @@ def formulaire_creation():
         text_content = formulaire_content_fr
 
     if request.method == "GET":
-        return render_template("formulaire.html", text=text_content)
+        pwd = passwordGenerator()
+        return render_template("formulaire.html", text=text_content, password=pwd)
     elif request.method == "POST":
         username = request.form["email"]
         password = request.form["password"]
@@ -368,3 +370,17 @@ def send_unauthorized():
     else:
         text_content = page_401_content_fr
     return Response(render_template('401.html', text=text_content), 403, {'WWW-Authenticate': 'Basic realm="Login Required"'})
+
+
+def passwordGenerator():
+    lowercase = 'abcdefghijklmnopqrstuvwxyz'
+    uppercase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    number = '1234567890'
+    special = '~!@#$%^&*()[]:<>?'
+    password = ""
+    for i in range(8):
+        password += random.choice(lowercase)
+    password += random.choice(uppercase)
+    password += random.choice(number)
+    password += random.choice(special)
+    return ''.join(random.sample(password, len(password)))
