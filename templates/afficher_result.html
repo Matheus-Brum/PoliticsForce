@@ -7,19 +7,19 @@
 
 <div class="col" id="result">
         {% if members %}
-		<a href="#" onclick="SaveToPC()">Telecharger</a>
-        <h2>Result recherche</h2>
+		<a href="#" onclick="SaveToPC()">{{text["download"]}}</a>
+        <h2>{{text["title_tab"]}}</h2>
 		<div class="table-container">
 			<table class="table" id="print">
 				<thead class="thead-light">
 					<tr>
-						<th scope="col">No membre</th>
-						<th scope="col">Nom</th>
-						<th scope="col">Prénom</th>
-						<th scope="col">No telephone</th>
-						<th scope="col">Dernier don</th>
-						<th scope="col">Montant</th>
-						<th scope="col">Membership expire</th>
+						<th scope="col">{{text["member_id"]}}</th>
+						<th scope="col">{{text["first_name"]}}</th>
+						<th scope="col">{{text["last_name"]}}</th>
+						<th scope="col">{{text["phone_no"]}}</th>
+						<th scope="col">{{text["last_donation"]}}</th>
+						<th scope="col">{{text["amount_donation"]}}</th>
+						<th scope="col">{{text["membership_expired"]}}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -45,7 +45,9 @@
 			</table>
 		</div>
 		{% endif %}
-        {% if erreur %}
+		{% if erreur == "no_result" %}
+		<h3>{{text["no_result"]}}</h3>
+		{% elif erreur %}
         <h3>{{erreur}}</h3>
         {% endif %}
     </div>
