@@ -41,6 +41,7 @@ def authentication_required(f):
         if not is_authenticated(session):
             return send_unauthorized()
         return f(*args, **kwargs)
+
     return decorated
 
 
@@ -55,21 +56,33 @@ def home():
         print(session["id"])
         print("id" in session)
     if lang == 'english':
-        return render_template('accueil-en.html', title='Home', email=email, lang=lang)
+        text_content = accueil_content_en
     else:
-        return render_template('accueil.html', title='Accueil', email=email, lang=lang)
+        text_content = accueil_content_fr
+    return render_template('accueil.html', title='Home', email=email, lang=lang, text=text_content)
 
 
 @app.route('/confirmation')
 def confirmation_page():
-    return render_template('confirmation.html')
+    lang = request.cookies.get('lang')
+    if lang == 'english':
+        text_content = confirmation_content_en
+    else:
+        text_content = confirmation_content_fr
+    return render_template('confirmation.html', text=text_content)
 
 
 @app.route('/formulaire', methods=["GET", "POST"])
 @authentication_required
 def formulaire_creation():
+    lang = request.cookies.get('lang')
+    if lang == 'english':
+        text_content = formulaire_content_en
+    else:
+        text_content = formulaire_content_fr
+
     if request.method == "GET":
-        return render_template("formulaire.html")
+        return render_template("formulaire.html", text=text_content)
     elif request.method == "POST":
         username = request.form["email"]
         password = request.form["password"]
@@ -86,8 +99,7 @@ def formulaire_creation():
         longpass = len(password)
 
         if username == "" or password == "":
-            return render_template("formulaire.html",
-                                   error="Tous les champs sont obligatoires.")
+            return render_template("formulaire.html", error="mandatory", text=text_content)
         else:
             if longpass < 11 or longpass > 11:
                 reg1bool = False
@@ -111,9 +123,7 @@ def formulaire_creation():
 
             return redirect("/confirmation")
         else:
-            return render_template("formulaire.html",
-                                   error="Erreur, Votre mot de passe doit contenir une lettre majuscule, "
-                                         "un caractère spécial, un chiffre et 8 caractères.")
+            return render_template("formulaire.html", error="password_requires", text=text_content)
 
 
 @app.route('/login', methods=['POST'])
@@ -137,9 +147,10 @@ def log_user():
 def add_member():
     lang = request.cookies.get('lang')
     if lang == 'english':
-        return render_template('ajouter-membre-en.html', title='Add a member', lang=lang)
+        text_content = ajouter_membre_content_en
     else:
-        return render_template('ajouter-membre.html', title='Ajouter un membre', lang=lang)
+        text_content = ajouter_membre_content_fr
+    return render_template('ajouter_membre.html', title='Ajouter un membre', lang=lang, text=text_content)
 
 
 @app.route('/membres/<member_no>')
@@ -177,18 +188,23 @@ def add_member_send():
         address += apt + "," + postal_code + "," + city + "," + state + "," + country
     else:
         address += postal_code + "," + city + "," + state + "," + country
-    
-    new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date, 
-                        reach_moment, birth_date, email, last_donation, 
-                        date_last_donation, donation_ok, election_year, 
+
+    new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date,
+                        reach_moment, birth_date, email, last_donation,
+                        date_last_donation, donation_ok, election_year,
                         comment, address)
     print('member=', new_member)
-    if new_member.f_name is not None and new_member.l_name is not None and new_member.member_no\
-            is not None and new_member.phone_no is not None and new_member.address is not None\
-            and new_member.email is not None and new_member.last_donation is not None\
-            and new_member.date_last_donation is not None\
-            and len(new_member.member_no) == 10\
-            and len(new_member.phone_no) == 10\
+    lang = request.cookies.get('lang')
+    if lang == 'english':
+        text_content = ajouter_membre_content_en
+    else:
+        text_content = ajouter_membre_content_fr
+    if new_member.f_name is not None and new_member.l_name is not None and new_member.member_no \
+            is not None and new_member.phone_no is not None and new_member.address is not None \
+            and new_member.email is not None and new_member.last_donation is not None \
+            and new_member.date_last_donation is not None \
+            and len(new_member.member_no) == 10 \
+            and len(new_member.phone_no) == 10 \
             and re.match(regex, last_donation):
 
         check_member = get_db().verify_member(new_member)
@@ -196,9 +212,9 @@ def add_member_send():
             get_db().insert_member(new_member)
             return redirect('/')
         else:
-            return render_template('ajouter-membre.html', erreur="erreur d'ajout")
+            return render_template('ajouter_membre.html', error="add_error", text=text_content)
     else:
-        return render_template('ajouter-membre.html', erreur="erreur d'ajout")
+        return render_template('ajouter_membre.html', error="add_error", text=text_content)
 
 
 @app.route('/membres')
@@ -207,9 +223,10 @@ def members_list():
     lang = request.cookies.get('lang')
     members = get_db().get_all_members()
     if lang == 'english':
-        return render_template('membres-en.html', title='Members', members=members, lang=lang)
+        text_content = membres_content_en
     else:
-        return render_template('membres.html', title='Membres', members=members, lang=lang)
+        text_content = membres_content_fr
+    return render_template('membres.html', title='Membres', members=members, lang=lang, text=text_content)
 
 
 @app.route('/rechercher_membre')
@@ -217,15 +234,21 @@ def members_list():
 def recherche_membre():
     lang = request.cookies.get('lang')
     if lang == 'english':
-        return render_template('rechercher-membre-en.html', title='Search', lang=lang)
+        text_content = rechercher_membre_content_en
     else:
-        return render_template('rechercher-membre.html', title='Recherhcer', lang=lang)
+        text_content = rechercher_membre_content_fr
+    return render_template('rechercher_membre.html', title='Recherhcer', lang=lang, text=text_content)
 
 
 @app.route('/envois_recherche', methods=['POST'])
 @authentication_required
 def recherche_membre_send():
     lang = request.cookies.get('lang')
+    if lang == 'english':
+        text_content = rechercher_membre_content_en
+    else:
+        text_content = rechercher_membre_content_fr
+
     search_by = request.form['search_input']
     search_for = request.form['search_data']
     if search_by is not None and search_for is not None and search_for != '':
@@ -240,28 +263,25 @@ def recherche_membre_send():
         elif search_by == 'addrese':
             search_col = 'Address'
         else:
-            return render_template('rechercher-membre.html', title="donnees invalides",
-                                   erreur="Erreur: selection invalides")
+            return render_template('rechercher_membre.html', title="donnees invalides",
+                                   erreur="error_invalid_selection", text=text_content)
 
         result = get_db().search_members(search_col, search_for)
         if not result:
-            if lang == 'english':
-                return render_template('rechercher-membre-en.html', title=search_for, erreur="Nothing found", lang=lang)
-            else:
-                return render_template('rechercher-membre.html', title=search_for, erreur="Aucun résultat trouvé", lang=lang)
+            return render_template('rechercher_membre.html', title=search_by + ":" + search_for,
+                                   erreur="no_result", lang=lang, text=text_content)
         else:
-            if lang == 'english':
-                return render_template('rechercher-membre-en.html', title=search_by+":"+search_for, members=result, lang=lang)
-            else:
-                return render_template('rechercher-membre.html', title=search_by+":"+search_for, members=result, lang=lang)
+            return render_template('rechercher_membre.html', title=search_by + ":" + search_for, members=result,
+                                   lang=lang, text=text_content)
     else:
-        return render_template('rechercher-membre.html', title="donnees invalides",
-                               erreur="Erreur: donnees recherches invalides")
+        return render_template('rechercher_membre.html', title="donnees invalides",
+                               erreur="error_invalid_data", text=text_content)
 
 
-@app.route('/afficher-result/<donnees>')
+@app.route('/afficher_result/<donnees>')
 @authentication_required
 def afficher_res(donnees):
+    lang = request.cookies.get('lang')
     search_by, search_for = donnees.split(":")
     if search_by is not None and search_for is not None and search_for != '':
         if search_by == 'first_name':
@@ -275,13 +295,23 @@ def afficher_res(donnees):
         elif search_by == 'addrese':
             search_col = 'Address'
         else:
-            return render_template('rechercher-membre.html', title="donnees invalides",
-                                   erreur="Erreur: selection invalides! Recommencer - ")
+            if lang == "english":
+                text_content = rechercher_membre_content_en
+            else:
+                text_content = rechercher_membre_content_fr
+            return render_template('rechercher_membre.html', title="donnees invalides",
+                                   erreur="error_invalid_selection", text=text_content)
 
-    result = get_db().search_members(search_col, search_for)
-    if not result:
-        return render_template('afficher-result.html', title=search_for, erreur="Aucun résultat trouver")
-    return render_template('afficher-result.html', title=search_by + ":" + search_for, members=result)
+        result = get_db().search_members(search_col, search_for)
+        if lang == "english":
+            text_content = afficher_result_content_en
+        else:
+            text_content = afficher_result_content_fr
+        if not result:
+            return render_template('afficher_result.html', title=search_by + ":" + search_for,
+                                   erreur="no_result", text=text_content)
+        return render_template('afficher_result.html', title=search_by + ":" + search_for, members=result,
+                               text=text_content)
 
 
 @app.route('/afficher_membre/<member_no>')
@@ -290,13 +320,12 @@ def affiche_util(member_no):
     lang = request.cookies.get('lang')
     resultat = get_db().search_member(member_no)
     if lang == "english":
-	    text_content=AfficherMembre.en
-	    # layout=Layout.layout_en
+        text_content = afficher_membre_content_en
     else:
-	    text_content=AfficherMembre.fr
-	    # layout=Layout.layout_fr
+        text_content = afficher_membre_content_fr
 
-    return render_template('afficher_membre.html', title='Afficher', id=resultat, lang=lang, text=text_content) # , layout_content=layout)
+    return render_template('afficher_membre.html', title='Afficher', id=resultat, lang=lang,
+                           text=text_content)
 
 
 @app.route('/logout')
