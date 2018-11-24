@@ -1,19 +1,23 @@
 {% extends "layout.html" %}
 {% block content %}
-  <h1>Création d'un compte</h1>
-  {% if error %}
-    <p style="color:#F00">{{ error }}</p>
+  <h1>{{text["page_title"]}}</h1>
+  {% if error == "mandatory"%}
+    <p style="color:#F00">{{text["mandatory"]}}</p>
+  {% elif error == "password_requires"%}
+    <p style="color:#F00">{{text["password_requires"]}}</p>
+  {% elif error %}
+    <p style="color:#F00">{{error}}</p>
   {% endif %}
   <div class="form_container m-5">
   <form action="/formulaire" method="POST">
     <div class="from-group">
-    <label for="champ_username">Nom d'utilisateur</label>&nbsp;<input class="form-control" type="text" id="champ_username" name="email" maxlength="100">
+    <label for="champ_username">{{text["username"]}}</label>&nbsp;<input class="form-control" type="text" id="champ_username" name="email" maxlength="100">
     </div>
     <div class="form-group">
-    <label for="champ_password">Mot de passe</label>&nbsp;<input class="form-control" type="password" id="champ_password" name="password" maxlength="40">
+    <label for="champ_password">{{text["password"]}}</label>&nbsp;<input class="form-control" type="password" id="champ_password" name="password" maxlength="40">
     </div>
-    <button class="btn" type="reset">Vider</button>
-    <button class="btn" type="submit">Soumettre</button>
+    <button class="btn" type="reset">{{text["btn_reset"]}}</button>
+    <button class="btn" type="submit">{{text["btn_submit"]}}</button>
   </form>
   </div>
 {% endblock %}
