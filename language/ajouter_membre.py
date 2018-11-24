@@ -1,0 +1,68 @@
+# coding=utf-8
+from .layout import *
+
+ajouter_membre_fr = {
+    "page_title": "Ajouter Membres",
+    "first_name": "Prénom : ",
+    "last_name": "Nom : ",
+    "member_id": "No de membre : ",
+    "phone_no": "Téléphone : ",
+    "country": "Pays : ",
+    "state": "Province : ",
+    "city": "Ville : ",
+    "postal_code": "Code Postal : ",
+    "apartment": "Appartement : ",
+    "e-mail": "Courriel : ",
+    "last_donation": "Montant du dernier don : ",
+    "date_last_donation": "Date du dernier don: ",
+    "make_donation": "Avez-vous faites une donation ? : ",
+    "make_donation_yes": "Oui",
+    "make_donation_no": "Non",
+    "election_year": "Est-ce une année électorale ? : ",
+    "election_year_yes": "Oui",
+    "election_year_no": "Non",
+    "date_membership_expiration": "Date d'éxpiration d'adhésion",
+    "best_time_contact": "Meilleur temp pour vous rejoindre :  ",
+    "time_contact_morning": "Matin",
+    "time_contact_midday": "Midi",
+    "time_contact_evening": "Soir",
+    "birth_date": "Date de naissance : ",
+    "comment": "Commentaire / Remarque : ",
+    "btn_reset": "Vider",
+    "btn_submit": "Envoyer",
+    "add_error": "Erreur d'ajout"
+}
+ajouter_membre_content_fr = {**ajouter_membre_fr, **layout_fr}
+
+ajouter_membre_en = {
+    "page_title": "Add members",
+    "first_name": "First name : ",
+    "last_name": "Last name : ",
+    "member_id": "Member id : ",
+    "phone_no": "Phone number : ",
+    "country": "Country : ",
+    "state": "State : ",
+    "city": "City : ",
+    "postal_code": "Postal code : ",
+    "apartment": "Apartment : ",
+    "e-mail": "E-mail : ",
+    "last_donation": "Last donation : ",
+    "date_last_donation": "Date of last donation: ",
+    "make_donation": "Did you make a donation ? : ",
+    "make_donation_yes": "Yes",
+    "make_donation_no": "No",
+    "election_year": "Election year ? : ",
+    "election_year_yes": "Yes",
+    "election_year_no": "No",
+    "date_membership_expiration": "Membership expiration date",
+    "best_time_contact": "Best time to contact :  ",
+    "time_contact_morning": "Morning",
+    "time_contact_midday": "Midday",
+    "time_contact_evening": "Evening",
+    "birth_date": "Birth date : ",
+    "comment": "Comment : ",
+    "btn_reset": "Reset",
+    "btn_submit": "Submit",
+    "add_error": "Member adding error"
+}
+ajouter_membre_content_en = {**ajouter_membre_en, **layout_en}

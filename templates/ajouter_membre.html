@@ -7,7 +7,7 @@
 <script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="/static/js/custom.js"></script>
 
-<h2>Ajouter Membres</h2>
+<h2>{{text["page_title"]}}</h2>
 
 <div class="form_container m-5">
 	<form action="/envois_ajout" method='POST' onsubmit="return checkForm();">
@@ -16,97 +16,101 @@
 			<div class="col">
 
 				<div class="form-group">
-					<label>Prénom : </label>
+					<label>{{text["first_name"]}}</label>
 					<input type="text" class="form-control" name="first_name" id="first_name" placeholder="Prénom">
 				</div>
 				<div class="form-group">
-					<label>Nom : </label>
+					<label>{{text["last_name"]}}</label>
 					<input type="text" class="form-control" name="last_name" id="last_name" placeholder="Nom">
 				</div>
 				<div class="form-group">
-					<label>No de membre : </label>
+					<label>{{text["member_id"]}}</label>
 					<input type="text" class="form-control" name="member_no" id="member_no" placeholder="1234567890">
 				</div>
 				<div class="form-group">
-					<label>Téléphone : </label>
+					<label>{{text["phone_no"]}}</label>
 					<input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="1234567890">
 				</div>
 				<div class="form-group">
-					<label>Pays : </label>
+					<label>{{text["country"]}}</label>
 					<select id="country" name="country" class="form-control" width="250" style="width:250px;">
 					</select>
 				</div>
 				<div class="form-group">
-					<label>Province : </label>
+					<label>{{text["state"]}}</label>
 					<select id="province" name="province" class="form-control" width="250" style="width:250px;">
 					</select>
 				</div>
 				<div class="form-group">
-					<label>Ville : </label>
+					<label>{{text["city"]}}</label>
 					<select id="city" name="city" class="form-control" width="250" style="width:250px;">
 					</select>
 				</div>
 
 				<div class="form-group">
-					<label>Code Postal : </label>
+					<label>{{text["postal_code"]}}</label>
 					<input type="text" class="form-control" name="code-postal" id="code-postal" placeholder="e.g. H3P2X1">
 				</div>
 			</div>
 			<div class="col">
 				<div class="form-group">
-					<label>Appartement : </label>
+					<label>{{text["apartment"]}}</label>
 					<input type="text" class="form-control" name="appartement" id="appartement" placeholder="e.g. 143">
 				</div>
 
 				<div class="form-group">
-					<label>Email : </label>
+					<label>{{text["e-mail"]}}</label>
 					<input type="text" class="form-control" name="email" id="email" placeholder="addressecourriel@gmail.com">
 				</div>
 				<div class="form-group">
-					<label>Montant du dernier don : </label>
+					<label>{{text["last_donation"]}}</label>
 					<input type="text" class="form-control" name="last_donation" id="last_donation" placeholder="0,00">
 				</div>
 				<div class="form-group">
-					<label>Date du dernier don: </label>
+					<label>{{text["date_last_donation"]}}</label>
 					<input type="text" class="form-control" name="last_donation_date" id="last_donation_date" placeholder="JJ/MM/AAAA">
 				</div>
 				<div class="form-group">
-					<label>Avez-vous faites une donation ? : </label>
+					<label>{{text["make_donation"]}}</label>
 					<input type="radio" name="donated" id="donated_null" value="" checked="checked" hidden>
-					<input type="radio" name="donated" id="donated_yes" value="oui"> Oui
-					<input type="radio" name="donated" id="donated_no" value="non"> Non
+					<input type="radio" name="donated" id="donated_yes" value="oui"> {{text["make_donation_yes"]}}
+					<input type="radio" name="donated" id="donated_no" value="non"> {{text["make_donation_no"]}}
 				</div>
 				<div class="form-group">
-					<label>Est-ce une année électorale ? : </label>
+					<label>{{text["election_year"]}}</label>
 					<input type="radio" name="elec_year" id="elec_null" value="" checked="checked"  hidden>
-					<input type="radio" name="elec_year" id="elec_yes" value="oui"> Oui
-					<input type="radio" name="elec_year" id="elec_no" value="non"> Non
+					<input type="radio" name="elec_year" id="elec_yes" value="oui"> {{text["election_year_yes"]}}
+					<input type="radio" name="elec_year" id="elec_no" value="non"> {{text["election_year_no"]}}
 				</div>
 				<div class="form-group">
-					<label>Date d'éxpiration d'adhésion</label><br>
+					<label>{{text["date_membership_expiration"]}}</label><br>
 					<input type="text" class="form-control" name="expiring_date" id="expiring_date" placeholder="JJ/MM/AAAA">
 				</div>
 				<div class="form-group">
-					<label>Meilleur temp pour vous rejoindre :  </label><br>
+					<label>{{text["best_time_contact"]}}</label><br>
 					<input type="radio" name="reach_day" id="reach_day_null" value="" checked="checked" hidden>
-					<input type="radio" name="reach_day" value="matin"> Matin
-					<input type="radio" name="reach_day" value="midi"> Midi
-					<input type="radio" name="reach_day" value="soir"> Soir
+					<input type="radio" name="reach_day" value="matin"> {{text["time_contact_morning"]}}
+					<input type="radio" name="reach_day" value="midi"> {{text["time_contact_midday"]}}
+					<input type="radio" name="reach_day" value="soir"> {{text["time_contact_evening"]}}
 				</div>
 				<div class="form-group">
-					<label>Date de naissance : </label><br>
+					<label>{{text["birth_date"]}}</label><br>
 					<input type="text" class="form-control" name="birth_date" id="birth_date" placeholder="JJ/MM/AAAA">
 				</div>
 			</div>
 		</div>
 		<div class="form-group">
-			<label>Commentaire / Remarque : </label><br>
+			<label>{{text["comment"]}}</label><br>
 			<textarea class="form-control" name="comment" rows="4" cols="50"></textarea>
 		</div>
-		<button type="reset" class="btn">Vider</button>
-		<button type="submit" class="btn">Envoyer</button>
+		<button type="reset" class="btn">{{text["btn_reset"]}}</button>
+		<button type="submit" class="btn">{{text["btn_submit"]}}</button>
 	</form>
-    <h1>{{erreur}}</h1>
+	{% if error == "add_error" %}
+	<h1>{{text["add_error"]}}</h1>
+	{%elif error %}
+	<h1>{{error}}</h1>
+    {% endif %}
 </div>
 
 {% endblock %}
