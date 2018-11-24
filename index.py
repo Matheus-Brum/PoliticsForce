@@ -362,4 +362,9 @@ def is_authenticated(session):
 
 
 def send_unauthorized():
-    return Response(render_template('401.html'), 403, {'WWW-Authenticate': 'Basic realm="Login Required"'})
+    lang = request.cookies.get('lang')
+    if lang == 'english':
+        text_content = page_401_content_en
+    else:
+        text_content = page_401_content_fr
+    return Response(render_template('401.html', text=text_content), 403, {'WWW-Authenticate': 'Basic realm="Login Required"'})
