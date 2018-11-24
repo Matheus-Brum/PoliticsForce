@@ -1,0 +1,78 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<script src="static/js/rechercher-membre"></script>
+
+<h2>{{text["page_title"]}}</h2>
+
+    <div class="form-container m-5">
+        <form action="/envois_recherche" method="POST" onsubmit="return checkForm();">
+         	<div class="row">
+         		<div class="col-2">
+					<div class="form-group">
+						<select class="form-control" name="search_input" id="search_input" width="200" style="width:200px;">
+							<option value="first_name">{{text["first_name"]}}</option>
+							<option value="last_name">{{text["last_name"]}}</option>
+							<option value="member_no">{{text["member_id"]}}</option>
+							<option value="phone_no">{{text["phone_no"]}}Numero du telephone</option>
+							<option value="addrese">{{text["address"]}}</option>
+						</select>&nbsp;&nbsp;
+					</div>
+				</div>
+				<div class="col-6">	
+					<div class="form-group">
+						<input type="text" class="form-control" name="search_data" id="search_data" size="60">&nbsp;
+					</div>
+				</div>	
+			</div>
+            <button type="submit" class="btn">{{text["btn_submit"]}}</button>&nbsp;
+            <button type="reset" class="btn">{{text["btn_reset"]}}</button>
+        </form>
+    </div>
+    <div>
+        <hr>
+    </div>
+    <div class="col" id="result">
+        {% if members %}
+		<a href="/afficher_result/{{title}}" target="_blank">{{text["download"]}}</a>
+        <h2>{{text["search_result"]}}</h2>
+		<div class="table-container">
+			<table class="table">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">{{text["result_first_name"]}}</th>
+						<th scope="col">{{text["result_last_name"]}}</th>
+						<th scope="col">{{text["result_member_id"]}}</th>
+						<th scope="col">{{text["result_phone_no"]}}</th>
+						<th scope="col">{{text["result_address"]}}</th>
+						<th scope="col">{{text["result_details"]}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for member in members %}
+					<tr>
+						<td>{{member.f_name}}</td>
+						<td>{{member.l_name}}</td>
+						<td>{{member.member_no}}</td>
+						<td>{{member.phone_no}}</td>
+						<td>{{member.address}}</td>
+						<td><a href="/afficher_membre/{{member.member_no}}">{{text["result_member_detail"]}}</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{% endif %}
+        {% if erreur == "error_invalid_selection" %}
+		<h3>{{text[""]}}</h3>
+		{% elif erreur == "no_result" %}
+		<h3>{{text["no_result"]}}</h3>
+		{% elif erreur == "error_invalid_data" %}
+		<h3>{{text["error_invalid_data"]}}</h3>
+		{% elif erreur %}
+        <h3>{{erreur}}</h3>
+        {% endif %}
+    </div>
+
+
+{% endblock %}
