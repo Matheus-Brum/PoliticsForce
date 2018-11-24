@@ -3,19 +3,19 @@
 <div class="container">
 	<div class="row">
 		<div class="col">
-			<h2>Membres</h2>
+			<h2>{{text["page_title"]}}</h2>
 			{% if members %}
 			<div class="table-container">
 				<table class="table">
 					<thead>
 						<tr>
-							<th scope="col">Prénom</th>
-							<th scope="col">Nom</th>
-							<th scope="col">Numéro de Membre</th>
-							<th scope="col">Numéro de Téléphone</th>
-							<th scope="col">Adresse</th>
-							<th scope="col">Détail</th>
-							<th scope="col">Supprimer</th>
+							<th scope="col">{{text["first_name"]}}</th>
+							<th scope="col">{{text["last_name"]}}</th>
+							<th scope="col">{{text["member_id"]}}</th>
+							<th scope="col">{{text["phone_no"]}}</th>
+							<th scope="col">{{text["address"]}}</th>
+							<th scope="col">{{text["details"]}}</th>
+							<th scope="col">{{text["remove"]}}</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -26,7 +26,7 @@
 							<td>{{member.member_no}}</td>
 							<td>{{member.phone_no}}</td>
 							<td>{{member.address}}</td>
-                            <td><a href="/afficher_membre/{{member.member_no}}">Détails</a></td>
+                            <td><a href="/afficher_membre/{{member.member_no}}">{{text["member_detail"]}}</a></td>
                             <td><a href="../membres/supprimer/{{member.member_no}}" style="text-decoration:none">&emsp;&emsp;&#10006;</a></td>
 						</tr>
 						{% endfor %}
