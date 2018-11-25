@@ -4,9 +4,9 @@ function SaveToPC(){
 
 	$.each(table, function(i, row){
 		$.each(row, function(j,cell){
-			if(j=="No membre" || j==0){
+			if(j=="No membre" || j=="Member id" || j==0){
 				member_id=cell;
-			}else if(j=="Nom" || j==1){
+			}else if(j=="Nom" || j=="First name" || j==1){
 				member_f_name="";
 				height_f_name=1;
 				while(cell.length>10){
@@ -15,7 +15,7 @@ function SaveToPC(){
 					++height_f_name;
 				}
 				member_f_name += cell;
-			}else if(j=="Prénom" || j==2){
+			}else if(j=="Prénom" || j=="Last name" || j==2){
 				member_l_name="";
 				height_l_name=1;
 				while(cell.length>10){
@@ -24,13 +24,13 @@ function SaveToPC(){
 					++height_l_name;
 				}
 				member_l_name += cell;
-			}else if(j=="No telephone" || j==3){
+			}else if(j=="No telephone" || j=="Phone number" || j==3){
 				member_tel=cell;
-			}else if(j=="Dernier don" || j==4){
+			}else if(j=="Dernier don" || j=="Last donation" || j==4){
 				member_date_don=cell;
-			}else if(j=="Montant" || j==5){
+			}else if(j=="Montant" || j=="Amount" || j==5){
 				member_montant_don=cell;
-			}else if(j=="Membership expire" || j==6){
+			}else if(j=="Membership expire" || j=="Membership expired" || j==6){
 				member_expire=cell;
 			}
 	
@@ -82,25 +82,9 @@ function tableToJson(table) {
 function beforeToday(d, m, y){
 	var date = new Date();
 	var mydate = new Date(y,m,d);
-	var reponse = "";
+	var reponse = true;
 	if (mydate.getTime() > date.getTime()){
-		reponse = "Non";
-	} else {
-		reponse = "Oui";
+		reponse = false;
 	}
-
-return reponse;
-}
-
-function beforeTodayEN(d, m, y){
-	var date = new Date();
-	var mydate = new Date(y,m,d);
-	var reponse = "";
-	if (mydate.getTime() > date.getTime()){
-		reponse = "No";
-	} else {
-		reponse = "Yes";
-	}
-
-return reponse;
+    return reponse;
 }

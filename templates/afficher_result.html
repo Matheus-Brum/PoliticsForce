@@ -36,7 +36,12 @@
 							<script>
 								var temp = document.getElementsByClassName("expired_membership");
 								temp = temp[temp.length - 1];
-								temp.innerHTML = beforeToday({{d}}, {{m}}, {{y}}); </script>
+								if(beforeToday({{d}}, {{m}}, {{y}})){
+									temp.innerHTML = "{{text["membership_expired_yes"]}}";
+								}else{
+									temp.innerHTML = "{{text["membership_expired_no"]}}";
+								}
+							</script>
 							
 						</td>
 					</tr>
