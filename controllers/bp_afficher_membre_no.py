@@ -1,4 +1,4 @@
-from flask import Blueprint,request, render_template, g
+from flask import Blueprint, request, render_template, g
 from ..authentication import authentication_required
 from ..database import Database
 from ..language.afficher_membre import *

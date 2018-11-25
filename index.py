@@ -15,6 +15,7 @@ from .controllers.bp_membres_no import membres_no_bp
 from .controllers.bp_afficher_result_donnees import afficher_result_donnees_bp
 from .controllers.bp_membres import membres_bp
 from .controllers.bp_home import home_bp
+from .controllers.bp_modifier_membre import modifier_membre_no_bp
 
 from .database import Database
 import random
@@ -42,6 +43,7 @@ app.register_blueprint(afficher_membre_no_bp)
 app.register_blueprint(ajouter_membre_bp)
 app.register_blueprint(logout_bp)
 app.register_blueprint(membres_bp)
+app.register_blueprint(modifier_membre_no_bp)
 
 
 def get_db():

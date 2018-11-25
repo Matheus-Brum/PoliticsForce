@@ -1,0 +1,108 @@
+{% extends "layout.html" %}
+{% block content %}
+<h2>Modification</h2>
+<div  class="container m-5">
+
+	<form action="/envois_modification" method='POST'>
+
+		<div class="row">
+			<div class="col">
+
+				<div class="form-group">
+					<label>Prénom : </label>
+					<input type="text" class="form-control" name="first_name" id="first_name" value="{{member.f_name}}" disabled>
+				</div>
+				<div class="form-group">
+					<label>Nom : </label>
+					<input type="text" class="form-control" name="last_name" id="last_name" value="{{member.l_name}}" disabled>
+				</div>
+				<div class="form-group">
+					<label>Comité : </label>
+					<input type="text" class="form-control" name="committee" id="committee" value="{{member.committee}}" disabled>
+				</div>
+				<div class="form-group">
+					<label>No de membre : </label>
+					<input type="text" class="form-control" name="member_no" id="member_no" value="{{member.member_no}}" disabled>
+				</div>
+				<div class="form-group">
+					<label>Téléphone : </label>
+					<input type="text" class="form-control" name="phone_no" id="phone_no" value="{{member.phone_no}}">
+				</div>
+
+				<div class="form-group">
+					<label>Adresse : </label>
+					<input type="text" class="form-control" name="address" id="address" value="{{member.address}}">
+				</div>
+
+
+			</div>
+			<div class="col">
+
+				<div class="form-group">
+					<label>Email : </label>
+					<input type="text" class="form-control" name="email" id="email" value="{{member.email}}">
+				</div>
+
+				<div class="form-group">
+					<label>Montant du dernier don : </label>
+					<input type="text" class="form-control" name="last_donation" id="last_donation" value="{{member.last_donation}}">
+				</div>
+				<div class="form-group">
+					<label>Date du dernier don: </label>
+					<input type="text" class="form-control" name="last_donation_date" id="last_donation_date" value="{{member.date_last_donation}}">
+				</div>
+				{% if member.donation_ok == 'oui' %}
+				<div class="form-group">
+					<label>Est-ce une année électorale ? : </label>
+					<input type="radio" name="elec_year" id="elec_yes" value="oui" checked="checked"> Oui
+					<input type="radio" name="elec_year" id="elec_no" value="non"> Non
+				</div>
+				{% else %}
+				<div class="form-group">
+					<label>Avez-vous faites une donation ? : </label>
+					<input type="radio" name="donated" id="donated_yes" value="oui"> Oui
+					<input type="radio" name="donated" id="donated_no" value="non" checked="checked"> Non
+				</div>
+				{% endif %}
+				<div class="form-group">
+					<label>Date d'éxpiration d'adhésion</label><br>
+					<input type="text" class="form-control" name="expiring_date" id="expiring_date" value="{{member.mem_exp_date}}">
+				</div>
+				{% if member.reach_moment == 'matin' %}
+				<div class="form-group">
+					<label>Meilleur temps pour vous rejoindre :  </label><br>
+					<input type="radio" name="reach_day" value="matin" checked="checked"> Matin
+					<input type="radio" name="reach_day" value="midi"> Midi
+					<input type="radio" name="reach_day" value="soir"> Soir
+				</div>
+				{% elif member.reach_moment == 'midi' %}
+				<div class="form-group">
+					<label>Meilleur temps pour vous rejoindre :  </label><br>
+					<input type="radio" name="reach_day" value="matin"> Matin
+					<input type="radio" name="reach_day" value="midi" checked="checked"> Midi
+					<input type="radio" name="reach_day" value="soir"> Soir
+				</div>
+				{% else %}
+				<div class="form-group">
+					<label>Meilleur temps pour vous rejoindre :  </label><br>
+					<input type="radio" name="reach_day" value="matin"> Matin
+					<input type="radio" name="reach_day" value="midi"> Midi
+					<input type="radio" name="reach_day" value="soir" checked="checked"> Soir
+				</div>
+				{% endif %}
+				<div class="form-group">
+					<label>Date de naissance : </label><br>
+					<input type="text" class="form-control" name="birth_date" id="birth_date" value="{{member.birth_date}}">
+				</div>
+			</div>
+		</div>
+		<div class="form-group">
+			<label>Commentaire / Remarque : </label><br>
+			<textarea class="form-control" name="comment" rows="4" cols="50">{{member.comment}}</textarea>
+		</div>
+		<button type="reset" class="btn">Vider</button>
+		<button type="submit" class="btn">Mettre à Jour</button>
+	</form>
+
+</div>
+{% endblock %}

@@ -58,13 +58,13 @@ textarea{
     border-width: medium;
 }
 
-button[type=submit], button[type=reset]{
+button[type=submit], button[type=reset], button[type=button]{
     -webkit-transition: background-color 1000ms linear;
     transition: background-color 1000ms linear;
     background-color: #DBC2CF;
 }
 
-button[type=submit]:hover, button[type=reset]:hover{
+button[type=submit]:hover, button[type=reset]:hover, button[type=button]:hover{
     background-color: #bf4080;
     color: white;
 }
