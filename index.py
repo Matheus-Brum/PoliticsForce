@@ -4,6 +4,7 @@ from .forms.bp_envois_ajout import envois_ajout_bp
 from .forms.bp_envois_recherche import envois_recherche_bp
 from .forms.bp_formulaire import formulaire_bp
 from .forms.bp_login import login_bp
+from .forms.bp_envois_modification import envois_modification_bp
 
 from .controllers.bp_language import language_bp
 from .controllers.bp_afficher_membre_no import afficher_membre_no_bp
@@ -44,6 +45,7 @@ app.register_blueprint(ajouter_membre_bp)
 app.register_blueprint(logout_bp)
 app.register_blueprint(membres_bp)
 app.register_blueprint(modifier_membre_no_bp)
+app.register_blueprint(envois_modification_bp)
 
 
 def get_db():

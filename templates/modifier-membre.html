@@ -10,19 +10,19 @@
 
 				<div class="form-group">
 					<label>Prénom : </label>
-					<input type="text" class="form-control" name="first_name" id="first_name" value="{{member.f_name}}" disabled>
+					<input type="text" class="form-control" name="first_name" id="first_name" value="{{member.f_name}}" readonly>
 				</div>
 				<div class="form-group">
 					<label>Nom : </label>
-					<input type="text" class="form-control" name="last_name" id="last_name" value="{{member.l_name}}" disabled>
+					<input type="text" class="form-control" name="last_name" id="last_name" value="{{member.l_name}}" readonly>
 				</div>
 				<div class="form-group">
 					<label>Comité : </label>
-					<input type="text" class="form-control" name="committee" id="committee" value="{{member.committee}}" disabled>
+					<input type="text" class="form-control" name="committee" id="committee" value="{{member.committee}}" readonly>
 				</div>
 				<div class="form-group">
 					<label>No de membre : </label>
-					<input type="text" class="form-control" name="member_no" id="member_no" value="{{member.member_no}}" disabled>
+					<input type="text" class="form-control" name="member_no" id="member_no" value="{{member.member_no}}" readonly>
 				</div>
 				<div class="form-group">
 					<label>Téléphone : </label>
@@ -51,7 +51,7 @@
 					<label>Date du dernier don: </label>
 					<input type="text" class="form-control" name="last_donation_date" id="last_donation_date" value="{{member.date_last_donation}}">
 				</div>
-				{% if member.donation_ok == 'oui' %}
+				{% if member.election_year == 'oui' %}
 				<div class="form-group">
 					<label>Est-ce une année électorale ? : </label>
 					<input type="radio" name="elec_year" id="elec_yes" value="oui" checked="checked"> Oui
@@ -59,9 +59,23 @@
 				</div>
 				{% else %}
 				<div class="form-group">
+					<label>Est-ce une année électorale ? : </label>
+					<input type="radio" name="elec_year" id="elec_yes2" value="oui"> Oui
+					<input type="radio" name="elec_year" id="elec_no2" value="non" checked="checked"> Non
+				</div>
+				{% endif %}
+
+				{% if member.donation_ok == 'oui' %}
+				<div class="form-group">
 					<label>Avez-vous faites une donation ? : </label>
-					<input type="radio" name="donated" id="donated_yes" value="oui"> Oui
-					<input type="radio" name="donated" id="donated_no" value="non" checked="checked"> Non
+					<input type="radio" name="donated" id="donated_yes" value="oui" checked="checked"> Oui
+					<input type="radio" name="donated" id="donated_no" value="non"> Non
+				</div>
+				{% else %}
+				<div class="form-group">
+					<label>Avez-vous faites une donation ? : </label>
+					<input type="radio" name="donated" id="donated_yes2" value="oui"> Oui
+					<input type="radio" name="donated" id="donated_no2" value="non" checked="checked"> Non
 				</div>
 				{% endif %}
 				<div class="form-group">
