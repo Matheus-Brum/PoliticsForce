@@ -2,6 +2,10 @@
 {% block content %}
 
 <script src="static/js/rechercher-membre"></script>
+<script src="/static/js/jspdf.js" charset="utf-8"></script>
+<script src="/static/js/jquery-2.2.4.min.js" charset="utf-8"></script>
+<script src="/static/js/save-to-pc.js" charset="utf-8"></script>
+<link rel="stylesheet" type="text/css" href="/static/css/rechercher_membre.css">
 
 <h2>{{text["page_title"]}}</h2>
 
@@ -32,9 +36,12 @@
     <div>
         <hr>
     </div>
-    <div class="col" id="result">
+	<div>
+
+	</div>
+    <div class="col" id="result_search">
         {% if members %}
-		<a href="/afficher_result/{{title}}" target="_blank">{{text["download"]}}</a>
+		<button class="btn" onclick="afficherTable()">{{text["download"]}}</button>
         <h2>{{text["search_result"]}}</h2>
 		<div class="table-container">
 			<table class="table">
@@ -69,6 +76,57 @@
 		<h3>{{text["no_result"]}}</h3>
 		{% elif erreur == "error_invalid_data" %}
 		<h3>{{text["error_invalid_data"]}}</h3>
+		{% elif erreur %}
+        <h3>{{erreur}}</h3>
+        {% endif %}
+    </div>
+	<div class="col" id="result_download">
+        {% if members %}
+		<button class="btn" onclick="SaveToPC()">{{text["print"]}}</button>
+        <h2>{{text["title_tab"]}}</h2>
+		<div class="table-container">
+			<table class="table" id="print">
+				<thead class="thead-light">
+					<tr>
+						<th scope="col">{{text["member_id"]}}</th>
+						<th scope="col">{{text["first_name"]}}</th>
+						<th scope="col">{{text["last_name"]}}</th>
+						<th scope="col">{{text["phone_no"]}}</th>
+						<th scope="col">{{text["last_donation"]}}</th>
+						<th scope="col">{{text["amount_donation"]}}</th>
+						<th scope="col">{{text["membership_expired"]}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for member in members %}
+					<tr>
+						<td scope="col">{{member.member_no}}</td>
+						<td scope="col">{{member.f_name}}</td>
+						<td scope="col">{{member.l_name}}</td>
+						<td scope="col">{{member.phone_no}}</td>
+						<td scope="col">{{member.date_last_donation}}</td>
+						<td scope="col">{{member.last_donation}}</td>
+						<td scope="col" class="expired_membership">
+							{% set d,m,y=member.mem_exp_date.split('/') %}
+							<script>
+								var temp = document.getElementsByClassName("expired_membership");
+								temp = temp[temp.length - 1];
+								if(beforeToday({{d}}, {{m}}, {{y}})){
+									temp.innerHTML = "{{text["membership_expired_yes"]}}";
+								}else{
+									temp.innerHTML = "{{text["membership_expired_no"]}}";
+								}
+							</script>
+
+						</td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{% endif %}
+		{% if erreur == "no_result" %}
+		<h3>{{text["no_result"]}}</h3>
 		{% elif erreur %}
         <h3>{{erreur}}</h3>
         {% endif %}

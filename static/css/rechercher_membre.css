@@ -1,0 +1,7 @@
+div#result_search{
+    display: block;
+}
+
+div#result_download{
+    display: none;
+}

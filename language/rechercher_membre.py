@@ -5,8 +5,8 @@ rechercher_membre_fr = {
     "page_title": "Rechercher un membre",
     "first_name": "Prénom",
     "last_name": "Nom",
-    "member_id": "Numéro du membre",
-    "phone_no": "Numéro du telephone",
+    "member_id": "No membre",
+    "phone_no": "No telephone",
     "address": "Adresse",
     "btn_submit": "Rechercher",
     "btn_reset": "Vider",
@@ -21,7 +21,14 @@ rechercher_membre_fr = {
     "result_member_detail": "Voir détails",
     "no_result": "Aucun résultat trouvé",
     "error_invalid_selection": "Erreur: selection invalides",
-    "error_invalid_data": "Erreur: donnees recherches invalides"
+    "error_invalid_data": "Erreur: donnees recherches invalides",
+    "title_tab": "Result recherche",
+    "print": "Telecharger",
+    "last_donation": "Dernier don",
+    "amount_donation": "Montant",
+    "membership_expired": "Membership expire",
+    "membership_expired_yes": "Oui",
+    "membership_expired_no": "Non"
 }
 rechercher_membre_content_fr = {**rechercher_membre_fr, **layout_fr}
 
@@ -45,6 +52,13 @@ rechercher_membre_en = {
     "result_member_detail": "Details",
     "no_result": "No result found",
     "error_invalid_selection": "Error: invalid selection",
-    "error_invalid_data": "Error: invalid search data"
+    "error_invalid_data": "Error: invalid search data",
+    "title_tab": "Search results",
+    "print": "Download",
+    "last_donation": "Last donation",
+    "amount_donation": "Amount",
+    "membership_expired": "Membership expired",
+    "membership_expired_yes": "Yes",
+    "membership_expired_no": "No"
 }
 rechercher_membre_content_en = {**rechercher_membre_en, **layout_en}

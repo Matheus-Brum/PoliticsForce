@@ -270,50 +270,14 @@ def recherche_membre_send():
 
         result = get_db().search_members(search_col, search_for)
         if not result:
-            return render_template('rechercher_membre.html', title=search_by + ":" + search_for,
+            return render_template('rechercher_membre.html', title=search_for,
                                    erreur="no_result", lang=lang, text=text_content)
         else:
-            return render_template('rechercher_membre.html', title=search_by + ":" + search_for, members=result,
+            return render_template('rechercher_membre.html', title=search_for, members=result,
                                    lang=lang, text=text_content)
     else:
         return render_template('rechercher_membre.html', title="donnees invalides",
                                erreur="error_invalid_data", text=text_content)
-
-
-@app.route('/afficher_result/<donnees>')
-@authentication_required
-def afficher_res(donnees):
-    lang = request.cookies.get('lang')
-    search_by, search_for = donnees.split(":")
-    if search_by is not None and search_for is not None and search_for != '':
-        if search_by == 'first_name':
-            search_col = 'F_name'
-        elif search_by == 'last_name':
-            search_col = 'L_name'
-        elif search_by == 'member_no':
-            search_col = 'Member_no'
-        elif search_by == 'phone_no':
-            search_col = 'Phone_no'
-        elif search_by == 'addrese':
-            search_col = 'Address'
-        else:
-            if lang == "english":
-                text_content = rechercher_membre_content_en
-            else:
-                text_content = rechercher_membre_content_fr
-            return render_template('rechercher_membre.html', title="donnees invalides",
-                                   erreur="error_invalid_selection", text=text_content)
-
-        result = get_db().search_members(search_col, search_for)
-        if lang == "english":
-            text_content = afficher_result_content_en
-        else:
-            text_content = afficher_result_content_fr
-        if not result:
-            return render_template('afficher_result.html', title=search_by + ":" + search_for,
-                                   erreur="no_result", text=text_content)
-        return render_template('afficher_result.html', title=search_by + ":" + search_for, members=result,
-                               text=text_content)
 
 
 @app.route('/afficher_membre/<member_no>')
