@@ -1,4 +1,4 @@
-from flask import request, redirect, session, Blueprint, g
+from flask import request, render_template, redirect, session, Blueprint, g
 from ..database import Database
 
 login_bp = Blueprint('log_user', __name__)
