@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block content %}
 
-<script src="static/js/rechercher-membre"></script>
+<script src="/static/js/rechercher-membre"></script>
 <script src="/static/js/jspdf.js" charset="utf-8"></script>
 <script src="/static/js/jquery-2.2.4.min.js" charset="utf-8"></script>
 <script src="/static/js/save-to-pc.js" charset="utf-8"></script>
@@ -41,7 +41,7 @@
 	</div>
     <div class="col" id="result_search">
         {% if members %}
-		<button class="btn" onclick="afficherTable()">{{text["download"]}}</button>
+		<button type="button" class="btn" onclick="afficherTable()">{{text["download"]}}</button>
         <h2>{{text["search_result"]}}</h2>
 		<div class="table-container">
 			<table class="table">
@@ -82,7 +82,7 @@
     </div>
 	<div class="col" id="result_download">
         {% if members %}
-		<button class="btn" onclick="SaveToPC()">{{text["print"]}}</button>
+		<button type="button" class="btn" onclick="SaveToPC()">{{text["print"]}}</button>
         <h2>{{text["title_tab"]}}</h2>
 		<div class="table-container">
 			<table class="table" id="print">

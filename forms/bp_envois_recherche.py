@@ -28,17 +28,17 @@ def recherche_membre_send():
         elif search_by == 'addrese':
             search_col = 'Address'
         else:
-            return render_template('rechercher-membre.html', title="donnees invalides",
+            return render_template('rechercher_membre.html', title="donnees invalides",
                                    erreur="error_invalid_selection", text=text_content)
 
         result = get_db().search_members(search_col, search_for)
         if not result:
-            return render_template('rechercher-membre.html', title=search_for, erreur="no_result", lang=lang, text=text_content)
+            return render_template('rechercher_membre.html', title=search_for, erreur="no_result", lang=lang, text=text_content)
         else:
 
-            return render_template('rechercher-membre.html', title=search_for, members=result, lang=lang, text=text_content)
+            return render_template('rechercher_membre.html', title=search_for, members=result, lang=lang, text=text_content)
     else:
-        return render_template('rechercher-membre.html', title="donnees invalides",
+        return render_template('rechercher_membre.html', title="donnees invalides",
                                erreur="error_invalid_data", text=text_content)
 
 
