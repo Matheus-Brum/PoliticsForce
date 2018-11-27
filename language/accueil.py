@@ -13,7 +13,9 @@ accueil_fr = {
     "e-mail": "Courriel :",
     "password": "Mot de passe :",
     "btn_reset": "Vider",
-    "btn_submit": "Se connecter"
+    "btn_submit": "Se connecter",
+    "email_pass": "Le email ou le mot de passe sont incorrectes!",
+    "mandatory": "Tous les champs sont obligatoires. Recommencez."
 }
 accueil_content_fr = {**accueil_fr, **layout_fr}
 
@@ -26,6 +28,8 @@ accueil_en = {
     "e-mail": "E-mail :",
     "password": "Password :",
     "btn_reset": "Reset",
-    "btn_submit": "Sign in"
+    "btn_submit": "Sign in",
+    "email_pass": "Email or password is incorrect!",
+    "mandatory": "All fields are mandatory. Please start again."
 }
 accueil_content_en = {**accueil_en, **layout_en}

@@ -1,5 +1,6 @@
 from flask import request, render_template, redirect, session, Blueprint, g
 from ..database import Database
+from ..language.accueil import *
 
 login_bp = Blueprint('log_user', __name__)
 
@@ -8,6 +9,11 @@ login_bp = Blueprint('log_user', __name__)
 def log_user():
     email = request.form['email']
     password = request.form['password']
+    lang = request.cookies.get('lang')
+    if lang == 'english':
+        text_content = accueil_content_en
+    else:
+        text_content = accueil_content_fr
 
     if email is "" or password is "":
         return render_template("/accueil.html", error="mandatory", text=text_content)

@@ -10,9 +10,9 @@
     <p>{{text["connected_as"]}} {{ email }}.</p>
     <p><a href="/logout">{{text["disconnect"]}}</a></p>
   {% else %}
-    <p>{{text["not_connected"]}}</p>
-    {% if error %}
-        <p style="color:#F00">{{ error }}</p>
+  <p style="color:#F00">{{text["not_connected"]}}</p>
+    {% if error == "mandatory" %}
+        <p style="color:#F00">{{text["mandatory"]}}</p>
     {% endif %}
     <div class="form_container m-5">
       <form id="login_form" action="/login" method="POST">

@@ -10,7 +10,8 @@ formulaire_fr = {
     "password": "Mot de passe",
     "btn_reset": "Vider",
     "btn_submit": "Soumettre",
-    "suggested_password": "Mot de passe suggéré : "
+    "suggested_password": "Mot de passe suggéré : ",
+    "user_exist": "L'utilisateur est déja un membre"
 }
 formulaire_content_fr = {**formulaire_fr, **layout_fr}
 
@@ -23,6 +24,7 @@ formulaire_en = {
     "password": "Password",
     "btn_reset": "Reset",
     "btn_submit": "Submit",
-    "suggested_password": "Suggested password : "
+    "suggested_password": "Suggested password : ",
+    "user_exist": "User is already a member"
 }
 formulaire_content_en = {**formulaire_en, **layout_en}

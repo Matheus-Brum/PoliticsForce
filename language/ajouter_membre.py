@@ -30,7 +30,8 @@ ajouter_membre_fr = {
     "comment": "Commentaire / Remarque : ",
     "btn_reset": "Vider",
     "btn_submit": "Envoyer",
-    "add_error": "Erreur d'ajout"
+    "add_error": "Erreur d'ajout",
+    "member_no": "Le numéro de membre existe déja!"
 }
 ajouter_membre_content_fr = {**ajouter_membre_fr, **layout_fr}
 
@@ -63,6 +64,7 @@ ajouter_membre_en = {
     "comment": "Comment : ",
     "btn_reset": "Reset",
     "btn_submit": "Submit",
-    "add_error": "Member adding error"
+    "add_error": "Member adding error",
+    "member_no": "Member number already exists!"
 }
 ajouter_membre_content_en = {**ajouter_membre_en, **layout_en}
