@@ -8,17 +8,16 @@ login_bp = Blueprint('log_user', __name__)
 def log_user():
     email = request.form['email']
     password = request.form['password']
-    committee = get_db().get_user(email)[15]
-    level = get_db().get_user(email)[19]
-    print('committee=', committee)
-    print('level', level)
+
     if email is "" or password is "":
-        return redirect("/")
-    else:
+        return render_template("/accueil.html", error="mandatory", text=text_content)
+    elif email is not "" and password is not "":
         auth = get_db().get_credentials(email, password)
         if auth is False:
-            return redirect("/")
+            return render_template("/accueil.html", error="email_pass", text=text_content)
         else:
+            committee = get_db().get_user(email)[15]
+            level = get_db().get_user(email)[19]
 
             session["id"] = get_db().save_session(email, committee)
             session["email"] = email
