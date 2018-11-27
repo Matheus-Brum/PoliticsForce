@@ -25,14 +25,14 @@ def formulaire_creation():
         username = request.form["email"]
         password = request.form["password"]
 
+        reg0bool = False
         reg1bool = False
         reg2bool = False
         reg3bool = False
-        reg4bool = False
 
-        regex2 = "[A-Z]"
-        regex3 = "[0-9]"
-        regex4 = "['$', '#', '@', '!', '*']"
+        regex1 = "[A-Z]"
+        regex2 = "[0-9]"
+        regex3 = "['$', '#', '@', '!', '*']"
 
         longpass = len(password)
 
@@ -40,27 +40,28 @@ def formulaire_creation():
             return render_template("formulaire.html",
                                    error="mandatory", text=text_content, password=pwd)
         else:
-            if longpass < 11 or longpass > 11:
-                reg1bool = False
-            elif longpass == 11:
+            if longpass >=8:
+                reg0bool = True
+            if re.search(regex1, password) is not None:
                 reg1bool = True
-                if re.search(regex2, password) is not None:
-                    reg2bool = True
-                if re.search(regex3, password) is not None:
-                    reg3bool = True
-                if re.search(regex4, password) is not None:
-                    reg4bool = True
+            if re.search(regex2, password) is not None:
+                reg2bool = True
+            if re.search(regex3, password) is not None:
+                reg3bool = True
 
-        if reg1bool and reg2bool and reg3bool and reg4bool is True:
+        if reg0bool and reg1bool and reg2bool and reg3bool is True:
             salt = uuid.uuid4().hex
             hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
             db = get_db()
             print('username', username)
             print('salt', salt)
             print('hashed', hashed_password)
-            db.create_user(username, salt, hashed_password)
+            if db.validate_user_pass(username, password):
+                return render_template("/formulaire.html", error="user_exist", text=text_content, password=pwd)
+            else:
+                db.create_user(username, salt, hashed_password)
 
-            return redirect("/confirmation")
+            return render_template("/confirmation.html", password=password)
         else:
             return render_template("formulaire.html",
                                    error="password_requires", text=text_content, password=pwd)
