@@ -72,15 +72,15 @@
 				</div>
 				<div class="form-group">
 					<label>{{text["make_donation"]}}</label>
-					<input type="radio" name="donated" id="donated_null" value="" checked="checked" hidden>
+					<input type="radio" name="donated" id="donated_null" value="" hidden>
 					<input type="radio" name="donated" id="donated_yes" value="oui"> {{text["make_donation_yes"]}}
-					<input type="radio" name="donated" id="donated_no" value="non"> {{text["make_donation_no"]}}
+					<input type="radio" name="donated" id="donated_no" checked="checked" value="non"> {{text["make_donation_no"]}}
 				</div>
 				<div class="form-group">
 					<label>{{text["election_year"]}}</label>
-					<input type="radio" name="elec_year" id="elec_null" value="" checked="checked"  hidden>
+					<input type="radio" name="elec_year" id="elec_null" value="" hidden>
 					<input type="radio" name="elec_year" id="elec_yes" value="oui"> {{text["election_year_yes"]}}
-					<input type="radio" name="elec_year" id="elec_no" value="non"> {{text["election_year_no"]}}
+					<input type="radio" name="elec_year" id="elec_no" checked="checked" value="non"> {{text["election_year_no"]}}
 				</div>
 				<div class="form-group">
 					<label>{{text["date_membership_expiration"]}}</label><br>
@@ -88,8 +88,8 @@
 				</div>
 				<div class="form-group">
 					<label>{{text["best_time_contact"]}}</label><br>
-					<input type="radio" name="reach_day" id="reach_day_null" value="" checked="checked" hidden>
-					<input type="radio" name="reach_day" value="matin"> {{text["time_contact_morning"]}}
+					<input type="radio" name="reach_day" id="reach_day_null" value="" hidden>
+					<input type="radio" name="reach_day" checked="checked" value="matin"> {{text["time_contact_morning"]}}
 					<input type="radio" name="reach_day" value="midi"> {{text["time_contact_midday"]}}
 					<input type="radio" name="reach_day" value="soir"> {{text["time_contact_evening"]}}
 				</div>
