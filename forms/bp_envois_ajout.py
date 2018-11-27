@@ -58,8 +58,11 @@ def add_member_send():
 
         check_member = get_db().verify_member(new_member)
         if check_member is False:
-            get_db().insert_member(new_member)
-            return redirect('/')
+            if get_db().verify_member_no(member_no):
+                get_db().insert_member(new_member)
+                return redirect('/')
+            else:
+                render_template("ajouter-membre.html", erreur="Le numero de membre existe deja!")
         else:
             return render_template('ajouter-membre.html', erreur="add_error", text=text_content)
     else:
