@@ -11,6 +11,9 @@
     <p><a href="/logout">{{text["disconnect"]}}</a></p>
   {% else %}
     <p>{{text["not_connected"]}}</p>
+    {% if error %}
+        <p style="color:#F00">{{ error }}</p>
+    {% endif %}
     <div class="form_container m-5">
       <form id="login_form" action="/login" method="POST">
         <div class="form-group">
