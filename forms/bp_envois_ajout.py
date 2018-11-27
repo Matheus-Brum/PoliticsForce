@@ -62,11 +62,11 @@ def add_member_send():
                 get_db().insert_member(new_member)
                 return redirect('/')
             else:
-                render_template("ajouter-membre.html", erreur="member_no", text=text-content)
+                render_template("ajouter-membre.html", error="member_no", text=text-content)
         else:
-            return render_template('ajouter-membre.html', erreur="add_error", text=text_content)
+            return render_template('ajouter-membre.html', error="add_error", text=text_content)
     else:
-        return render_template('ajouter-membre.html', erreur="add_error", text=text_content)
+        return render_template('ajouter-membre.html', error="add_error", text=text_content)
 
 
 def get_db():
