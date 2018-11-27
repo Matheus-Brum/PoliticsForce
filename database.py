@@ -67,6 +67,19 @@ class Database:
         else:
             return False
 
+    def validate_user_pass(self, email, password):
+        cursor = self.get_connection().cursor()
+        cursor.execute("""
+                    SELECT Users.Salt, Users.Password
+                    FROM Members INNER JOIN Users ON Members.Member_no = Users.Member_no
+                    WHERE Members.Email=?
+                    """, (email,))
+        user_cred = cursor.fetchone()
+        if user_cred is not None:
+            return True
+        else:
+            return False
+
     def save_session(self, email, committee):
         id_session = uuid.uuid4().hex
         cursor = self.get_connection().cursor()
@@ -94,6 +107,16 @@ class Database:
                         member.donation_ok,
                         member.election_year, member.comment, member.address, member.circonscription))
         self.connection.commit()
+
+    def verify_member_no(self, member_number):
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT Member_no FROM Members "
+                       "WHERE Member_no =? ", (member_number,))
+        member_no = cursor.fetchone()
+        if member_no is None:
+            return True
+        else:
+            return False
 
     def supprimer_member(self, member_number):
         cursor = self.get_connection().cursor()
@@ -235,8 +258,6 @@ class Database:
                        "FROM Members INNER JOIN USERS ON Members.Member_no = Users.Member_no "
                        "WHERE Members.Email=?", (email,))
         user_info = cursor.fetchone()
-        for line in user_info:
-            print(line)
         return user_info
 
     def update_member(self, member):
