@@ -263,7 +263,7 @@ class Database:
     def update_member(self, member):
         member_key = member.member_no
         cursor = self.get_connection().cursor()
-        cursor.execute("UPDATE Members"
+        cursor.execute("UPDATE Members "
                        "SET F_name = ?, L_name = ?, Member_no = ?, Phone_no = ?, Mem_exp_date = ?, "
                        "Reach_moment = ?, Birth_date = ?, Email = ?, Last_donation = ?, "
                        "Date_last_donation = ?, Donation_ok = ?, Election_year = ?, Comment = ?,"

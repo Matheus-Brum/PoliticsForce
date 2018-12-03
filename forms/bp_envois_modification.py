@@ -39,7 +39,7 @@ def alter_member_send():
                         reach_moment, birth_date, email, last_donation, date_last_donation,
                         donation_ok, election_year, comment, address, committee)
         get_db().update_member(member)
-        return redirect('/modifier_membre/<member_no>')
+        return redirect('/modifier_membre/' + member.member_no)
 
 
 def get_db():

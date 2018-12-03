@@ -9,7 +9,7 @@ modifier_membre_no_bp = Blueprint('modify_member', __name__)
 @authentication_required
 def modify_member(member_no):
     member = get_db().search_member(member_no)
-    return render_template('modifier-membre.html', title='Modifier membre', member=member)
+    return render_template('modifier-membre.html', title='Modifier membre', member=member, text=None)
 
 
 def get_db():
