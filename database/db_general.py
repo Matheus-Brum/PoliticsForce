@@ -1,7 +1,7 @@
 import sqlite3
 import hashlib
 import uuid
-from .member import Member
+from member import Member
 
 
 class Database:
@@ -18,6 +18,7 @@ class Database:
         if self.connection is not None:
             self.connection.close()
 
+    """
     def get_session(self, id_session):
         cursor = self.get_connection().cursor()
         cursor.execute("SELECT SessionEmail, SessionCommittee "
@@ -27,14 +28,17 @@ class Database:
         email = cursor.fetchall()[0]
         committee = cursor.fetchall()[1]
         # level = cursor.fetchall()[2]
-        """
-        if email is None or committee is None:
-            return None
-        else:
-            return [email, committee]
-        """
+        
+        #if email is None or committee is None:
+        #    return None
+        #else:
+        #    return [email, committee]
+    
+        
         return [email, committee]
+    """
 
+    """
     def create_user(self, username, salt, hashed_password):
         print(type(username))
         print(type(salt))
@@ -51,11 +55,11 @@ class Database:
 
     def get_credentials(self, email, password):
         cursor = self.get_connection().cursor()
-        cursor.execute("""
+        cursor.execute("
                     SELECT Users.Salt, Users.Password
                     FROM Members INNER JOIN Users ON Members.Member_no = Users.Member_no
                     WHERE Members.Email=?
-                    """, (email,))
+                    ", (email,))
         user_cred = cursor.fetchone()
         if user_cred is not None:
             salt = user_cred[0]
@@ -69,17 +73,19 @@ class Database:
 
     def validate_user_pass(self, email, password):
         cursor = self.get_connection().cursor()
-        cursor.execute("""
+        cursor.execute("
                     SELECT Users.Salt, Users.Password
                     FROM Members INNER JOIN Users ON Members.Member_no = Users.Member_no
                     WHERE Members.Email=?
-                    """, (email,))
+                    ", (email,))
         user_cred = cursor.fetchone()
         if user_cred is not None:
             return True
         else:
             return False
+    """
 
+    """
     def save_session(self, email, committee):
         id_session = uuid.uuid4().hex
         cursor = self.get_connection().cursor()
@@ -87,14 +93,18 @@ class Database:
                        "VALUES(?, ?, ?)", (id_session, email, committee))
         # self.connection.commit()
         return id_session
+    """
 
+    """
     def delete_session(self, id_session):
         cursor = self.get_connection().cursor()
         cursor.execute(("DELETE FROM Sessions "
                         "WHERE id_session=?"),
                        (id_session,))
         self.connection.commit()
+    """
 
+    """
     def insert_member(self, member):
         cursor = self.get_connection().cursor()
         cursor.execute("INSERT INTO Members "
@@ -107,7 +117,9 @@ class Database:
                         member.donation_ok,
                         member.election_year, member.comment, member.address, member.circonscription))
         self.connection.commit()
+    """
 
+    """
     def verify_member_no(self, member_number):
         cursor = self.get_connection().cursor()
         cursor.execute("SELECT Member_no FROM Members "
@@ -117,13 +129,17 @@ class Database:
             return True
         else:
             return False
+    """
 
+    """
     def supprimer_member(self, member_number):
         cursor = self.get_connection().cursor()
         cursor.execute("DELETE FROM Members "
                        "WHERE Member_no =? ", (member_number,))
         self.connection.commit()
+    """
 
+    """
     def get_all_members(self, committee):
         cursor = self.get_connection().cursor()
         cursor.execute("")
@@ -205,7 +221,9 @@ class Database:
                                     person[11], person[12], person[13], person[14], person[15])
                     committees_members.append(member)
         return committees_members
+    """
 
+    """
     def verify_member(self, member):
         cursor = self.get_connection().cursor()
         cursor.execute("SELECT * "
@@ -223,7 +241,9 @@ class Database:
             return True
         else:
             return False
+    """
 
+    """
     def search_members(self, search_in, search_for):
         members = []
         cursor = self.get_connection().cursor()
@@ -247,11 +267,11 @@ class Database:
         member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
                         member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
                         member_info[11], member_info[12], member_info[13], member_info[14], member_info[15])
-        print(member.f_name, member.l_name, member.member_no, member.phone_no, member.address, member.email, member.last_donation, member.date_last_donation,
-              member.donation_ok, member.election_year, member.mem_exp_date, member.reach_moment, member.birth_date, member.comment, member.committee)
         if member_info is not None:
             return member
+    """
 
+    """
     def get_user(self, email):
         cursor = self.get_connection().cursor()
         cursor.execute("SELECT * "
@@ -259,7 +279,9 @@ class Database:
                        "WHERE Members.Email=?", (email,))
         user_info = cursor.fetchone()
         return user_info
+    """
 
+    """"
     def update_member(self, member):
         member_key = member.member_no
         cursor = self.get_connection().cursor()
@@ -273,3 +295,4 @@ class Database:
                                                member.email, member.last_donation, member.date_last_donation, member.donation_ok,
                                                member.election_year, member.comment, member.address, member.committee, member_key))
         self.connection.commit()
+    """

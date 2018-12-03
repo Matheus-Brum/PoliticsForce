@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, g
 from ..authentication import authentication_required
-from ..database import Database
+from database.db_general import Database
 from ..language.afficher_membre import *
 
 afficher_membre_no_bp = Blueprint('affiche_util', __name__)

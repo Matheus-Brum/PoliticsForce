@@ -2,7 +2,7 @@ from flask import Blueprint, request, redirect, render_template, g
 import re
 from ..member import Member
 from ..authentication import authentication_required
-from ..database import Database
+from database.db_general import Database
 from ..language.ajouter_membre import *
 
 envois_ajout_bp = Blueprint('add_member_send', __name__)

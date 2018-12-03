@@ -1,6 +1,6 @@
-from flask import Blueprint, redirect, request, render_template, g
+from flask import Blueprint, request, render_template, g
 from ..authentication import authentication_required
-from ..database import Database
+from database.db_general import Database
 from ..language.rechercher_membre import *
 
 envois_recherche_bp = Blueprint('recherche_membre_send', __name__)

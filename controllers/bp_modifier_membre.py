@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, g, request
 from ..authentication import authentication_required
-from ..database import Database
+from ..database.queries.Member_queries import MemberQueries
 from ..language.modifier_membre import *
 
 modifier_membre_no_bp = Blueprint('modify_member', __name__)
@@ -21,5 +21,5 @@ def modify_member(member_no):
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = MemberQueries()
     return g._database

@@ -1,8 +1,7 @@
-from flask import Blueprint, request, redirect, render_template, g
-import re
+from flask import Blueprint, request, redirect, g
 from ..member import Member
 from ..authentication import authentication_required
-from ..database import Database
+from database.db_general import Database
 
 envois_modification_bp = Blueprint('alter_member_send', __name__)
 
@@ -10,7 +9,6 @@ envois_modification_bp = Blueprint('alter_member_send', __name__)
 @envois_modification_bp.route('/envois_modification', methods=['POST'])
 @authentication_required
 def alter_member_send():
-    print('aaaaaaaaaaaaaaaaa')
     f_name = request.form['first_name']
     l_name = request.form['last_name']
     member_no = request.form['member_no']
@@ -26,8 +24,10 @@ def alter_member_send():
     birth_date = request.form['birth_date']
     comment = request.form['comment']
     committee = request.form['committee']
+    """
     print(f_name, l_name, member_no, phone_no, address, email, last_donation, date_last_donation,
           donation_ok, election_year, mem_exp_date, reach_moment, birth_date, comment, committee)
+    """
 
     data = [f_name, l_name, member_no, phone_no, address,
             email, last_donation, date_last_donation, donation_ok, election_year,

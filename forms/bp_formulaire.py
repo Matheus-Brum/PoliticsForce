@@ -1,7 +1,7 @@
 from ..authentication import authentication_required
-from ..database import Database
+from database.db_general import Database
 from ..language.formulaire import *
-from flask import Blueprint, render_template, request, redirect, g
+from flask import Blueprint, render_template, request, g
 import uuid
 import hashlib
 import re

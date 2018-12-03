@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, g, session
 from ..authentication import authentication_required
-from ..database import Database
+from database.db_general import Database
 from ..language.membres import *
 
 

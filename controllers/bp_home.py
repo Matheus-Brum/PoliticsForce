@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, session, g
-from ..database import Database
+from database.db_general import Database
 from ..language.accueil import *
 
 
