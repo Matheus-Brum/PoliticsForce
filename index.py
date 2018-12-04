@@ -18,7 +18,7 @@ from .controllers.bp_membres import membres_bp
 from .controllers.bp_home import home_bp
 from .controllers.bp_modifier_membre import modifier_membre_no_bp
 
-from database.db_general import Database
+from .database.db_general import Database
 from flask import g
 from flask import Flask
 

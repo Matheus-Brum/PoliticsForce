@@ -1,7 +1,7 @@
 import sqlite3
 import hashlib
 import uuid
-from member import Member
+from ..member import Member
 
 
 class Database:

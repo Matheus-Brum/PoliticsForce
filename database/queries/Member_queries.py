@@ -1,4 +1,4 @@
-from database.db_general import Database
+from ..db_general import Database
 import sqlite3
 import hashlib
 import uuid

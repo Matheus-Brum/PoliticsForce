@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, g, session
 from ..authentication import authentication_required
-from database.db_general import Database
+from ..database.queries import Committee_queries
 from ..language.membres import *
 
 
@@ -28,5 +28,5 @@ def members_list():
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = Committee_queries.CommitteeQueries()
     return g._database

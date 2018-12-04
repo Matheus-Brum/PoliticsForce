@@ -1,6 +1,6 @@
 from flask import Blueprint, session, redirect, g
 from ..authentication import authentication_required
-from database.db_general import Database
+from ..database.db_general import Database
 
 
 logout_bp = Blueprint('logout', __name__)

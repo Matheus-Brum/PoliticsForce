@@ -1,8 +1,8 @@
-from flask import Blueprint, request, redirect, render_template, g
+from flask import Blueprint, request, redirect, render_template, g, session
 import re
 from ..member import Member
 from ..authentication import authentication_required
-from database.db_general import Database
+from ..database.db_general import Database
 from ..language.ajouter_membre import *
 
 envois_ajout_bp = Blueprint('add_member_send', __name__)
@@ -43,7 +43,7 @@ def add_member_send():
                         date_last_donation, donation_ok, election_year,
                         comment, address, circonscription)
     print('member=', new_member)
-    if lang == 'english':
+    if session['lang'] == 'english':
         text_content = ajouter_membre_content_en
     else:
         text_content = ajouter_membre_content_fr
@@ -62,7 +62,7 @@ def add_member_send():
                 get_db().insert_member(new_member)
                 return redirect('/')
             else:
-                render_template("ajouter-membre.html", error="member_no", text=text-content)
+                render_template("ajouter-membre.html", error="member_no", text=text_content)
         else:
             return render_template('ajouter-membre.html', error="add_error", text=text_content)
     else:

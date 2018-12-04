@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, g
 from ..authentication import authentication_required
-from database.db_general import Database
+from ..database.db_general import Database
 from ..language.afficher_membre import *
 
 afficher_membre_no_bp = Blueprint('affiche_util', __name__)
@@ -18,6 +18,7 @@ def affiche_util(member_no):
 
     return render_template('afficher_membre.html', title='Afficher', id=resultat, lang=lang,
                            text=text_content)
+
 
 def get_db():
     db = getattr(g, '_database', None)
