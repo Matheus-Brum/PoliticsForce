@@ -16,8 +16,9 @@ afficher_membre_fr = {
     "date_last_donation": "Date de dernière donation : ",
     "election_year": "Année électoral ? : ",
     "comment": "Commentaire : ",
-    "address": "Adresse : "
-
+    "address": "Adresse : ",
+    "modify": "Modifier",
+    "committee": "Comité : "
 }
 afficher_membre_content_fr = {**afficher_membre_fr, **layout_fr}
 
@@ -36,6 +37,8 @@ afficher_membre_en = {
     "date_last_donation": "Date of last donation: ",
     "election_year": "Election year ? : ",
     "comment": "Comment : ",
-    "address": "Address : "
+    "address": "Address : ",
+    "modify": "Modify",
+    "committee": "Committee : "
 }
 afficher_membre_content_en = {**afficher_membre_en, **layout_en}
