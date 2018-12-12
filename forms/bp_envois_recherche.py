@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, g
 from ..authentication import authentication_required
-from ..database.db_general import Database
+from ..database.queries.Member_queries import MemberQueries
 from ..language.rechercher_membre import *
 
 envois_recherche_bp = Blueprint('recherche_membre_send', __name__)
@@ -45,5 +45,5 @@ def recherche_membre_send():
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = MemberQueries()
     return g._database

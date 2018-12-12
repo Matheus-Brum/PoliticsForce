@@ -1,6 +1,6 @@
 from flask import Blueprint, session, redirect, g
 from ..authentication import authentication_required
-from ..database.db_general import Database
+from ..database.queries.Session_queries import SessionQueries
 
 
 logout_bp = Blueprint('logout', __name__)
@@ -22,5 +22,5 @@ def logout():
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = SessionQueries()
     return g._database

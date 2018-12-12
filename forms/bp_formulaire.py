@@ -1,6 +1,7 @@
 from ..authentication import authentication_required
-from ..database.db_general import Database
+from ..database.queries.User_queries import UserQueries
 from ..language.formulaire import *
+from ..language.confirmation import *
 from flask import Blueprint, render_template, request, g
 import uuid
 import hashlib
@@ -56,21 +57,24 @@ def formulaire_creation():
             print('username', username)
             print('salt', salt)
             print('hashed', hashed_password)
-            if db.validate_user_pass(username, password):
+            if db.validate_user_pass(username, password) is True:
                 return render_template("/formulaire.html", error="user_exist", text=text_content, password=pwd)
             else:
                 db.create_user(username, salt, hashed_password)
-
-            return render_template("/confirmation.html", password=password)
+                if lang == 'english':
+                    text_content = confirmation_en
+                else:
+                    text_content = confirmation_fr
+            return render_template("confirmation.html", text=text_content, password=password)
         else:
             return render_template("formulaire.html",
-                                   error="password_requires", text=text_content, password=pwd)
+                                   error="password_required", text=text_content, password=pwd)
 
 
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = UserQueries()
     return g._database
 
 

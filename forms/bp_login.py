@@ -1,4 +1,6 @@
 from flask import request, render_template, redirect, session, Blueprint, g
+from ..database.queries.User_queries import UserQueries
+from ..database.queries.Session_queries import SessionQueries
 from ..database.db_general import Database
 from ..language.accueil import *
 
@@ -18,6 +20,7 @@ def log_user():
     if email is "" or password is "":
         return render_template("/accueil.html", error="mandatory", text=text_content)
     elif email is not "" and password is not "":
+        # auth = get_db().get_credentials(email, password)
         auth = get_db().get_credentials(email, password)
         if auth is False:
             return render_template("/accueil.html", error="email_pass", text=text_content)
@@ -25,7 +28,7 @@ def log_user():
             committee = get_db().get_user(email)[15]
             level = get_db().get_user(email)[19]
 
-            session["id"] = get_db().save_session(email, committee)
+            session["id"] = SessionQueries().save_session(email, committee)
             session["email"] = email
             session["committee"] = committee
             session["level"] = level
@@ -35,5 +38,5 @@ def log_user():
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = UserQueries()
     return g._database

@@ -2,7 +2,7 @@ from ..db_general import Database
 import sqlite3
 import hashlib
 import uuid
-from member import Member
+from ...member import Member
 
 
 class SessionQueries(Database):

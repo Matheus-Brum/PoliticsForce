@@ -2,7 +2,7 @@ from ..db_general import Database
 import sqlite3
 import hashlib
 import uuid
-from member import Member
+from ...member import Member
 
 
 class MemberQueries(Database):
@@ -70,13 +70,13 @@ class MemberQueries(Database):
         cursor = self.get_connection().cursor()
         cursor.execute("INSERT INTO Members "
                        "(F_name, L_name, Member_no, Phone_no, Mem_exp_date, Reach_moment, Birth_date, Email, Last_donation,"
-                       " Date_last_donation, Donation_ok, Election_year, Comment, Address, Circonscription)"
-                       " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                       " Date_last_donation, Donation_ok, Election_year, Comment, Address, Committee)"
+                       " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                        (member.f_name, member.l_name, member.member_no, member.phone_no, member.mem_exp_date,
                         member.reach_moment,
                         member.birth_date, member.email, member.last_donation, member.date_last_donation,
                         member.donation_ok,
-                        member.election_year, member.comment, member.address, member.circonscription))
+                        member.election_year, member.comment, member.address, member.committee))
         self.connection.commit()
 
     def supprimer_member(self, member_number):

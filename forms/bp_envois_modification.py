@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, g
 from ..member import Member
 from ..authentication import authentication_required
-from ..database.db_general import Database
+from ..database.queries.Member_queries import MemberQueries
 
 envois_modification_bp = Blueprint('alter_member_send', __name__)
 
@@ -45,6 +45,6 @@ def alter_member_send():
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = MemberQueries()
     return g._database
 

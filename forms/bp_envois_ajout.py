@@ -2,7 +2,7 @@ from flask import Blueprint, request, redirect, render_template, g, session
 import re
 from ..member import Member
 from ..authentication import authentication_required
-from ..database.db_general import Database
+from ..database.queries.Member_queries import MemberQueries
 from ..language.ajouter_membre import *
 
 envois_ajout_bp = Blueprint('add_member_send', __name__)
@@ -29,7 +29,7 @@ def add_member_send():
     reach_moment = request.form['reach_day']
     birth_date = request.form['birth_date']
     comment = request.form['comment']
-    circonscription = request.form['circonscription']
+    committee = session["committee"]
 
     regex = '^\d+(\.\d*)?|\.\d+'
     address = ""
@@ -41,17 +41,19 @@ def add_member_send():
     new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date,
                         reach_moment, birth_date, email, last_donation,
                         date_last_donation, donation_ok, election_year,
-                        comment, address, circonscription)
+                        comment, address, committee)
     print('member=', new_member)
-    if session['lang'] == 'english':
+
+    if request.cookies.get('lang') == 'english':
         text_content = ajouter_membre_content_en
     else:
         text_content = ajouter_membre_content_fr
+
     if new_member.f_name is not None and new_member.l_name is not None and new_member.member_no \
             is not None and new_member.phone_no is not None and new_member.address is not None \
             and new_member.email is not None and new_member.last_donation is not None \
             and new_member.date_last_donation is not None \
-            and new_member.circonscription is not None \
+            and new_member.committee is not None \
             and len(new_member.member_no) == 10 \
             and len(new_member.phone_no) == 10 \
             and re.match(regex, last_donation):
@@ -72,5 +74,5 @@ def add_member_send():
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = MemberQueries()
     return g._database

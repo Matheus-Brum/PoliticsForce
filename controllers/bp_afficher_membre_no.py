@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template, g
 from ..authentication import authentication_required
-from ..database.db_general import Database
+from ..database.queries.Member_queries import MemberQueries
 from ..language.afficher_membre import *
 
 afficher_membre_no_bp = Blueprint('affiche_util', __name__)
@@ -23,5 +23,5 @@ def affiche_util(member_no):
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = MemberQueries()
     return g._database

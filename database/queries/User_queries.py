@@ -2,7 +2,7 @@ from ..db_general import Database
 import sqlite3
 import hashlib
 import uuid
-from member import Member
+from ...member import Member
 
 
 class UserQueries(Database):
@@ -60,6 +60,7 @@ class UserQueries(Database):
                     WHERE Members.Email=?
                     """, (email,))
         user_cred = cursor.fetchone()
+        # print('user_cred=', user_cred)
         if user_cred is not None:
             return True
         else:
