@@ -1,7 +1,7 @@
 from flask import Blueprint, request, redirect, g
-from ..member import Member
-from ..authentication import authentication_required
-from ..database.queries.Member_queries import MemberQueries
+from member import Member
+from authentication import authentication_required
+from database.queries.Member_queries import MemberQueries
 
 envois_modification_bp = Blueprint('alter_member_send', __name__)
 

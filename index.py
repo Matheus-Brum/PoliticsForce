@@ -1,24 +1,24 @@
 # coding=utf-8
 
-from .forms.bp_envois_ajout import envois_ajout_bp
-from .forms.bp_envois_recherche import envois_recherche_bp
-from .forms.bp_formulaire import formulaire_bp
-from .forms.bp_login import login_bp
-from .forms.bp_envois_modification import envois_modification_bp
+from forms.bp_envois_ajout import envois_ajout_bp
+from forms.bp_envois_recherche import envois_recherche_bp
+from forms.bp_formulaire import formulaire_bp
+from forms.bp_login import login_bp
+from forms.bp_envois_modification import envois_modification_bp
 
-from .controllers.bp_language import language_bp
-from .controllers.bp_afficher_membre_no import afficher_membre_no_bp
-from .controllers.bp_ajouter_membre import ajouter_membre_bp
-from .controllers.bp_confirmation import confirmation_bp
-from .controllers.bp_logout import logout_bp
-from .controllers.bp_rechercher_membre import recherche_membre_bp
-from .controllers.bp_membres_no import membres_no_bp
-from .controllers.bp_afficher_result_donnees import afficher_result_donnees_bp
-from .controllers.bp_membres import membres_bp
-from .controllers.bp_home import home_bp
-from .controllers.bp_modifier_membre import modifier_membre_no_bp
+from controllers.bp_language import language_bp
+from controllers.bp_afficher_membre_no import afficher_membre_no_bp
+from controllers.bp_ajouter_membre import ajouter_membre_bp
+from controllers.bp_confirmation import confirmation_bp
+from controllers.bp_logout import logout_bp
+from controllers.bp_rechercher_membre import recherche_membre_bp
+from controllers.bp_membres_no import membres_no_bp
+from controllers.bp_afficher_result_donnees import afficher_result_donnees_bp
+from controllers.bp_membres import membres_bp
+from controllers.bp_home import home_bp
+from controllers.bp_modifier_membre import modifier_membre_no_bp
 
-from .database.db_general import Database
+from database.db_general import Database
 from flask import g
 from flask import Flask
 

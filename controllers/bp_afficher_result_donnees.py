@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, g
-from ..authentication import authentication_required
-from ..database.db_general import Database
+from authentication import authentication_required
+from database.db_general import Database
 
 afficher_result_donnees_bp = Blueprint('afficher_res', __name__)
 

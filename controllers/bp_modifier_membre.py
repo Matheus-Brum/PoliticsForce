@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, g, request
-from ..authentication import authentication_required
-from ..database.queries.Member_queries import MemberQueries
-from ..language.modifier_membre import *
+from authentication import authentication_required
+from database.queries.Member_queries import MemberQueries
+from language.modifier_membre import *
 
 modifier_membre_no_bp = Blueprint('modify_member', __name__)
 

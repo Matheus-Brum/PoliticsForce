@@ -1,8 +1,6 @@
-from ..db_general import Database
-import sqlite3
-import hashlib
+from database.db_general import Database
+
 import uuid
-from ...member import Member
 
 
 class SessionQueries(Database):
@@ -18,16 +16,13 @@ class SessionQueries(Database):
                        "FROM Sessions "
                        "WHERE Id_session=?",
                        (id_session,))
-        email = cursor.fetchall()[0]
-        committee = cursor.fetchall()[1]
-        # level = cursor.fetchall()[2]
-        """
+        result = cursor.fetchall()[0]
+        email = result[0]
+        committee = result[1]
         if email is None or committee is None:
             return None
         else:
             return [email, committee]
-        """
-        return [email, committee]
 
     def save_session(self, email, committee):
         id_session = uuid.uuid4().hex

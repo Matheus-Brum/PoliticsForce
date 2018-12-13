@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request
-from ..language.confirmation import *
+from language.confirmation import *
 
 confirmation_bp = Blueprint('confirmation_page', __name__)
 

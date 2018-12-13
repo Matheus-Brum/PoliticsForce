@@ -1,8 +1,5 @@
-from ..db_general import Database
-import sqlite3
+from database.db_general import Database
 import hashlib
-import uuid
-from ...member import Member
 
 
 class UserQueries(Database):
@@ -21,15 +18,11 @@ class UserQueries(Database):
         return user_info
 
     def create_user(self, username, salt, hashed_password):
-        print(type(username))
-        print(type(salt))
-        print(type(hashed_password))
         cursor = self.get_connection().cursor()
         cursor.execute("SELECT Member_no "
                        "FROM Members "
                        "WHERE Email=?", (username,))
         member_id = cursor.fetchone()[0]
-        print('member_id', member_id)
         cursor.execute(("INSERT INTO Users(Member_no, Password, Salt) "
                         "VALUES(?, ?, ?)"), (member_id, hashed_password, salt))
         self.connection.commit()

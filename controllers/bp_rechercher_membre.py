@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template
-from ..authentication import authentication_required
-from..language.rechercher_membre import *
+from authentication import authentication_required
+from language.rechercher_membre import *
 
 
 recherche_membre_bp = Blueprint('recherche_membre', __name__)

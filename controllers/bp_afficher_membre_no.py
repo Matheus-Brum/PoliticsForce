@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, g
-from ..authentication import authentication_required
-from ..database.queries.Member_queries import MemberQueries
-from ..language.afficher_membre import *
+from authentication import authentication_required
+from database.queries.Member_queries import MemberQueries
+from language.afficher_membre import *
 
 afficher_membre_no_bp = Blueprint('affiche_util', __name__)
 

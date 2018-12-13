@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, g, session
-from ..authentication import authentication_required
-from ..database.queries import Committee_queries
-from ..language.membres import *
+from authentication import authentication_required
+from database.queries import Committee_queries
+from language.membres import *
 
 
 membres_bp = Blueprint('members_list', __name__)

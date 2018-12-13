@@ -1,6 +1,6 @@
 from flask import Blueprint, render_template, request, session, g
-from ..database.db_general import Database
-from ..language.accueil import *
+from database.db_general import Database
+from language.accueil import *
 
 
 home_bp = Blueprint('home', __name__)

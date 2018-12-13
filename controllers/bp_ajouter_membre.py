@@ -1,6 +1,6 @@
 from flask import Blueprint, request, render_template
-from ..authentication import authentication_required
-from ..language.ajouter_membre import *
+from authentication import authentication_required
+from language.ajouter_membre import *
 
 
 ajouter_membre_bp = Blueprint('add_member', __name__)
