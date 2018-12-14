@@ -71,9 +71,11 @@ function checkPostalCode(inputId){
         if( pcRegex.test(pc) == true ){
             return true;
         }else{
+            pcField.style.borderColor = 'red';
             return false;
         }
     }else{
+        pcField.style.borderColor = 'red';
         return false;
     }
 }

@@ -7,9 +7,10 @@
 <script src="/static/js/save-to-pc.js" charset="utf-8"></script>
 <link rel="stylesheet" type="text/css" href="/static/css/rechercher_membre.css">
 
-<h2>{{text["page_title"]}}</h2>
+<div class="container">
+	<h2>{{text["page_title"]}}</h2>
+    <div class="form-container">
 
-    <div class="form-container m-5">
         <form action="/envois_recherche" method="POST" onsubmit="return checkForm();">
          	<div class="row">
          		<div class="col-2">
@@ -23,7 +24,7 @@
 						</select>&nbsp;&nbsp;
 					</div>
 				</div>
-				<div class="col-6">	
+				<div class="col-6" style="padding-left:100px;">
 					<div class="form-group">
 						<input type="text" class="form-control" name="search_data" id="search_data" size="60">&nbsp;
 					</div>
@@ -71,7 +72,7 @@
 		</div>
 		{% endif %}
         {% if erreur == "error_invalid_selection" %}
-		<h3>{{text[""]}}</h3>
+		<h3>{{text["error_invalid_selection"]}}</h3>
 		{% elif erreur == "no_result" %}
 		<h3>{{text["no_result"]}}</h3>
 		{% elif erreur == "error_invalid_data" %}
@@ -131,6 +132,6 @@
         <h3>{{erreur}}</h3>
         {% endif %}
     </div>
-
+</div>
 
 {% endblock %}

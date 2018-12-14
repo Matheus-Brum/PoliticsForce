@@ -52,7 +52,7 @@ class UserQueries(Database):
         else:
             return False
 
-    def validate_user_pass(self, email, password):
+    def validate_user(self, email):
         cursor = self.get_connection().cursor()
         cursor.execute("""
                     SELECT Users.Salt, Users.Password

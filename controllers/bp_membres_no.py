@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, g
 from ..authentication import authentication_required
-from ..database.db_general import Database
+from ..database.queries.Member_queries import MemberQueries
 
 
 membres_no_bp = Blueprint('sup_member', __name__)
@@ -16,5 +16,5 @@ def sup_member(member_no):
 def get_db():
     db = getattr(g, '_database', None)
     if db is None:
-        g._database = Database()
+        g._database = MemberQueries()
     return g._database

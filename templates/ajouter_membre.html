@@ -7,111 +7,114 @@
 <script type="text/javascript" src="/static/js/jquery-2.2.4.min.js"></script>
 <script type="text/javascript" src="/static/js/custom.js"></script>
 
-<h2>{{text["page_title"]}}</h2>
+<div class="container">
+	<h2>{{text["page_title"]}}</h2>
 
-<div class="form_container m-5">
-	<form action="/envois_ajout" method='POST' onsubmit="return checkForm();">
+	<div class="form_container m-5">
+		<form action="/envois_ajout" method='POST' onsubmit="return checkForm();">
 
-		<div class="row">
-			<div class="col">
+			<div class="row">
+				<div class="col">
 
-				<div class="form-group">
-					<label>{{text["first_name"]}}</label>
-					<input type="text" class="form-control" name="first_name" id="first_name" placeholder="Prénom">
-				</div>
-				<div class="form-group">
-					<label>{{text["last_name"]}}</label>
-					<input type="text" class="form-control" name="last_name" id="last_name" placeholder="Nom">
-				</div>
-				<div class="form-group">
-					<label>{{text["member_id"]}}</label>
-					<input type="text" class="form-control" name="member_no" id="member_no" placeholder="1234567890">
-				</div>
-				<div class="form-group">
-					<label>{{text["phone_no"]}}</label>
-					<input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="1234567890">
-				</div>
-				<div class="form-group">
-					<label>{{text["country"]}}</label>
-					<select id="country" name="country" class="form-control" width="250" style="width:250px;">
-					</select>
-				</div>
-				<div class="form-group">
-					<label>{{text["state"]}}</label>
-					<select id="province" name="province" class="form-control" width="250" style="width:250px;">
-					</select>
-				</div>
-				<div class="form-group">
-					<label>{{text["city"]}}</label>
-					<select id="city" name="city" class="form-control" width="250" style="width:250px;">
-					</select>
-				</div>
+					<div class="form-group">
+						<label>{{text["first_name"]}}</label>
+						<input type="text" class="form-control" name="first_name" id="first_name" placeholder="Prénom">
+					</div>
+					<div class="form-group">
+						<label>{{text["last_name"]}}</label>
+						<input type="text" class="form-control" name="last_name" id="last_name" placeholder="Nom">
+					</div>
+					<div class="form-group">
+						<label>{{text["member_id"]}}</label>
+						<input type="text" class="form-control" name="member_no" id="member_no" placeholder="1234567890">
+					</div>
+					<div class="form-group">
+						<label>{{text["phone_no"]}}</label>
+						<input type="text" class="form-control" name="phone_no" id="phone_no" placeholder="1234567890">
+					</div>
+					<div class="form-group">
+						<label>{{text["country"]}}</label>
+						<select id="country" name="country" class="form-control" width="250" style="width:250px;">
+						</select>
+					</div>
+					<div class="form-group">
+						<label>{{text["state"]}}</label>
+						<select id="province" name="province" class="form-control" width="250" style="width:250px;">
+						</select>
+					</div>
+					<div class="form-group">
+						<label>{{text["city"]}}</label>
+						<select id="city" name="city" class="form-control" width="250" style="width:250px;">
+						</select>
+					</div>
 
-				<div class="form-group">
-					<label>{{text["postal_code"]}}</label>
-					<input type="text" class="form-control" name="code-postal" id="code-postal" placeholder="e.g. H3P2X1">
+					<div class="form-group">
+						<label>{{text["postal_code"]}}</label>
+						<input type="text" class="form-control" name="code-postal" id="code-postal" placeholder="e.g. H3P2X1">
+					</div>
+				</div>
+				<div class="col">
+					<div class="form-group">
+						<label>{{text["apartment"]}}</label>
+						<input type="text" class="form-control" name="appartement" id="appartement" placeholder="e.g. 143">
+					</div>
+
+					<div class="form-group">
+						<label>{{text["e-mail"]}}</label>
+						<input type="text" class="form-control" name="email" id="email" placeholder="addressecourriel@gmail.com">
+					</div>
+					<div class="form-group">
+						<label>{{text["last_donation"]}}</label>
+						<input type="text" class="form-control" name="last_donation" id="last_donation" placeholder="0,00">
+					</div>
+					<div class="form-group">
+						<label>{{text["date_last_donation"]}}</label>
+						<input type="text" class="form-control" name="last_donation_date" id="last_donation_date" placeholder="JJ/MM/AAAA">
+					</div>
+					<div class="form-group">
+						<label>{{text["make_donation"]}}</label>
+						<input type="radio" name="donated" id="donated_null" value="" hidden>
+						<input type="radio" name="donated" id="donated_yes" value="oui"> {{text["make_donation_yes"]}}
+						<input type="radio" name="donated" id="donated_no" checked="checked" value="non"> {{text["make_donation_no"]}}
+					</div>
+					<div class="form-group">
+						<label>{{text["election_year"]}}</label>
+						<input type="radio" name="elec_year" id="elec_null" value="" hidden>
+						<input type="radio" name="elec_year" id="elec_yes" value="oui"> {{text["election_year_yes"]}}
+						<input type="radio" name="elec_year" id="elec_no" checked="checked" value="non"> {{text["election_year_no"]}}
+					</div>
+					<div class="form-group">
+						<label>{{text["date_membership_expiration"]}}</label><br>
+						<input type="text" class="form-control" name="expiring_date" id="expiring_date" placeholder="JJ/MM/AAAA">
+					</div>
+					<div class="form-group">
+						<label>{{text["best_time_contact"]}}</label><br>
+						<input type="radio" name="reach_day" id="reach_day_null" value="" hidden>
+						<input type="radio" name="reach_day" checked="checked" value="matin"> {{text["time_contact_morning"]}}
+						<input type="radio" name="reach_day" value="midi"> {{text["time_contact_midday"]}}
+						<input type="radio" name="reach_day" value="soir"> {{text["time_contact_evening"]}}
+					</div>
+					<div class="form-group">
+						<label>{{text["birth_date"]}}</label><br>
+						<input type="text" class="form-control" name="birth_date" id="birth_date" placeholder="JJ/MM/AAAA">
+					</div>
 				</div>
 			</div>
-			<div class="col">
-				<div class="form-group">
-					<label>{{text["apartment"]}}</label>
-					<input type="text" class="form-control" name="appartement" id="appartement" placeholder="e.g. 143">
-				</div>
-
-				<div class="form-group">
-					<label>{{text["e-mail"]}}</label>
-					<input type="text" class="form-control" name="email" id="email" placeholder="addressecourriel@gmail.com">
-				</div>
-				<div class="form-group">
-					<label>{{text["last_donation"]}}</label>
-					<input type="text" class="form-control" name="last_donation" id="last_donation" placeholder="0,00">
-				</div>
-				<div class="form-group">
-					<label>{{text["date_last_donation"]}}</label>
-					<input type="text" class="form-control" name="last_donation_date" id="last_donation_date" placeholder="JJ/MM/AAAA">
-				</div>
-				<div class="form-group">
-					<label>{{text["make_donation"]}}</label>
-					<input type="radio" name="donated" id="donated_null" value="" hidden>
-					<input type="radio" name="donated" id="donated_yes" value="oui"> {{text["make_donation_yes"]}}
-					<input type="radio" name="donated" id="donated_no" checked="checked" value="non"> {{text["make_donation_no"]}}
-				</div>
-				<div class="form-group">
-					<label>{{text["election_year"]}}</label>
-					<input type="radio" name="elec_year" id="elec_null" value="" hidden>
-					<input type="radio" name="elec_year" id="elec_yes" value="oui"> {{text["election_year_yes"]}}
-					<input type="radio" name="elec_year" id="elec_no" checked="checked" value="non"> {{text["election_year_no"]}}
-				</div>
-				<div class="form-group">
-					<label>{{text["date_membership_expiration"]}}</label><br>
-					<input type="text" class="form-control" name="expiring_date" id="expiring_date" placeholder="JJ/MM/AAAA">
-				</div>
-				<div class="form-group">
-					<label>{{text["best_time_contact"]}}</label><br>
-					<input type="radio" name="reach_day" id="reach_day_null" value="" hidden>
-					<input type="radio" name="reach_day" checked="checked" value="matin"> {{text["time_contact_morning"]}}
-					<input type="radio" name="reach_day" value="midi"> {{text["time_contact_midday"]}}
-					<input type="radio" name="reach_day" value="soir"> {{text["time_contact_evening"]}}
-				</div>
-				<div class="form-group">
-					<label>{{text["birth_date"]}}</label><br>
-					<input type="text" class="form-control" name="birth_date" id="birth_date" placeholder="JJ/MM/AAAA">
-				</div>
+			<div class="form-group">
+				<label>{{text["comment"]}}</label><br>
+				<textarea class="form-control" name="comment" rows="4" cols="50"></textarea>
 			</div>
-		</div>
-		<div class="form-group">
-			<label>{{text["comment"]}}</label><br>
-			<textarea class="form-control" name="comment" rows="4" cols="50"></textarea>
-		</div>
-		<button type="reset" class="btn">{{text["btn_reset"]}}</button>
-		<button type="submit" class="btn">{{text["btn_submit"]}}</button>
-	</form>
-	{% if error == "add_error" %}
-	<h1>{{text["add_error"]}}</h1>
-	{%elif error %}
-	<h1>{{error}}</h1>
-    {% endif %}
+			<button type="reset" class="btn">{{text["btn_reset"]}}</button>
+			<button type="submit" class="btn">{{text["btn_submit"]}}</button>
+		</form>
+		{% if error == "add_error" %}
+		<h3 style="color: red;">{{text["add_error"]}}</h3>
+		{%elif error == "member_no"%}
+		<h3 style="color: red;">{{text["member_no"]}}</h3>
+		{%else%}
+		<h3 style="color: red;">{{error}}</h3>
+		{% endif %}
+	</div>
 </div>
-
 {% endblock %}
 

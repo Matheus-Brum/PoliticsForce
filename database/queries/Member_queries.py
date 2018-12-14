@@ -1,7 +1,5 @@
 from ..db_general import Database
-import sqlite3
-import hashlib
-import uuid
+from .Committee_queries import CommitteeQueries
 from ...member import Member
 
 
@@ -40,31 +38,37 @@ class MemberQueries(Database):
         else:
             return False
 
-    def search_members(self, search_in, search_for):
-        members = []
+    def search_members(self, search_in, search_for, committee, level):
+        members_found = []
         cursor = self.get_connection().cursor()
         print("SEARCH IN : " + search_in)
         print("SEARCH FOR : " + search_for)
-        sql = "SELECT * FROM Members WHERE " + search_in + " LIKE '%" + search_for + "%'"
+        if level is 1:
+            members = CommitteeQueries().get_members_circonscription(committee)
+        elif level is 2:
+            members = CommitteeQueries().get_members_regional(committee)
+        else:
+            members = CommitteeQueries().get_members_national(committee)
+        sql = "SELECT * FROM Members WHERE " + search_in + " LIKE '%" + search_for + "%' AND IN [" + members + "]"
         cursor.execute(sql)
         results = cursor.fetchall()
         for result in results:
             member = Member(result[1], result[2], result[3], result[4], result[5],
                             result[6], result[7], result[8], result[9], result[10],
                             result[11], result[12], result[13], result[14], result[15])
-            members.append(member)
-        return members
+            members_found.append(member)
+        return members_found
 
     def search_member(self, member_no):
         cursor = self.get_connection().cursor()
         cursor.execute("SELECT * FROM Members WHERE Member_no = ?", (member_no,))
         member_info = cursor.fetchone()
-
-        member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
-                        member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
-                        member_info[11], member_info[12], member_info[13], member_info[14], member_info[15])
         if member_info is not None:
+            member = Member(member_info[1], member_info[2], member_info[3], member_info[4], member_info[5],
+                            member_info[6], member_info[7], member_info[8], member_info[9], member_info[10],
+                            member_info[11], member_info[12], member_info[13], member_info[14], member_info[15])
             return member
+        return None
 
     def insert_member(self, member):
         cursor = self.get_connection().cursor()
@@ -78,12 +82,14 @@ class MemberQueries(Database):
                         member.donation_ok,
                         member.election_year, member.comment, member.address, member.committee))
         self.connection.commit()
+        return True
 
     def supprimer_member(self, member_number):
         cursor = self.get_connection().cursor()
         cursor.execute("DELETE FROM Members "
                        "WHERE Member_no =? ", (member_number,))
         self.connection.commit()
+        return True
 
     def update_member(self, member):
         member_key = member.member_no
@@ -100,3 +106,4 @@ class MemberQueries(Database):
                                                member.election_year, member.comment, member.address, member.committee,
                                                member_key))
         self.connection.commit()
+        return True

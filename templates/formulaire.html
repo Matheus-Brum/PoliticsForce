@@ -1,5 +1,6 @@
 {% extends "layout.html" %}
 {% block content %}
+<div class="container">
   <h1>{{text["page_title"]}}</h1>
   {% if error == "mandatory"%}
     <p style="color:#F00">{{text["mandatory"]}}</p>
@@ -24,4 +25,5 @@
     <p>{{text["suggested_password"]}} <br> {{password}}</p>
     {% endif %}
   </div>
+</div>
 {% endblock %}

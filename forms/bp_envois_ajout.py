@@ -31,24 +31,42 @@ def add_member_send():
     comment = request.form['comment']
     committee = session["committee"]
 
-    regex = '^\d+(\.\d*)?|\.\d+'
+    address = validation_address(apt, postal_code, city, state, country)
+
+    new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date,
+                        reach_moment, birth_date, email, last_donation,
+                        date_last_donation, donation_ok, election_year,
+                        comment, address, committee)
+
+    text_content = set_text_content()
+
+    if valide_null_membre(new_member) is True:
+        check_member = get_db().verify_member(new_member)
+        if check_member is False:
+            if get_db().verify_member_no(member_no):
+                get_db().insert_member(new_member)
+                return redirect('/')
+            else:
+                return render_template("ajouter_membre.html", error="member_no", text=text_content)
+        else:
+            return render_template('ajouter_membre.html', error="add_error", text=text_content)
+    else:
+        return render_template('ajouter_membre.html', error="add_error", text=text_content)
+
+
+def validation_address(apt, postal_code, city, state, country):
     address = ""
     if apt != "":
         address += apt + "," + postal_code + "," + city + "," + state + "," + country
     else:
         address += postal_code + "," + city + "," + state + "," + country
 
-    new_member = Member(f_name, l_name, member_no, phone_no, mem_exp_date,
-                        reach_moment, birth_date, email, last_donation,
-                        date_last_donation, donation_ok, election_year,
-                        comment, address, committee)
-    print('member=', new_member)
+    return address
 
-    if request.cookies.get('lang') == 'english':
-        text_content = ajouter_membre_content_en
-    else:
-        text_content = ajouter_membre_content_fr
 
+def valide_null_membre(new_member):
+    regex = '^\d+(\.\d*)?|\.\d+'
+    user_valide = False
     if new_member.f_name is not None and new_member.l_name is not None and new_member.member_no \
             is not None and new_member.phone_no is not None and new_member.address is not None \
             and new_member.email is not None and new_member.last_donation is not None \
@@ -56,19 +74,19 @@ def add_member_send():
             and new_member.committee is not None \
             and len(new_member.member_no) == 10 \
             and len(new_member.phone_no) == 10 \
-            and re.match(regex, last_donation):
-
-        check_member = get_db().verify_member(new_member)
-        if check_member is False:
-            if get_db().verify_member_no(member_no):
-                get_db().insert_member(new_member)
-                return redirect('/')
-            else:
-                render_template("ajouter-membre.html", error="member_no", text=text_content)
-        else:
-            return render_template('ajouter-membre.html', error="add_error", text=text_content)
+            and re.match(regex, new_member.last_donation):
+        user_valide = True
+        return user_valide
     else:
-        return render_template('ajouter-membre.html', error="add_error", text=text_content)
+        return user_valide
+
+
+def set_text_content():
+    if request.cookies.get('lang') == 'english':
+        text_content = ajouter_membre_content_en
+    else:
+        text_content = ajouter_membre_content_fr
+    return text_content
 
 
 def get_db():
