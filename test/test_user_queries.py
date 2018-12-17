@@ -47,26 +47,14 @@ class TestUserQueries(unittest.TestCase):
         password = 'abc'
         self.assertFalse(self.queries.get_credentials(email, password))
 
-    def test_validate_user_pass(self):
-        # courriel valid ; mot de passe valid
+    def test_validate_user(self):
+        # courriel valid
         email = 'aa@gmail.com'
-        password = 'abc'
-        self.assertTrue(self.queries.validate_user_pass(email, password))
+        self.assertTrue(self.queries.validate_user(email))
 
-        # courriel valid ; mot de passe invalid
-        email = 'aa@gmail.com'
-        password = 'def'
-        self.assertFalse(self.queries.validate_user_pass(email, password))
-
-        # courriel invalid ; mot de passe valid
+        # courriel invalid
         email = 'a@gmail.com'
-        password = 'abc'
-        self.assertFalse(self.queries.validate_user_pass(email, password))
-
-        # courriel invalid ; mot de passe invalid
-        email = 'xx@gmail.com'
-        password = 'qaz'
-        self.assertFalse(self.queries.validate_user_pass(email, password))
+        self.assertFalse(self.queries.validate_user(email))
 
 
 if __name__ == '__main__':

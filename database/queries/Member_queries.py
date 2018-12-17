@@ -41,8 +41,6 @@ class MemberQueries(Database):
     def search_members(self, search_in, search_for):
         members_found = []
         cursor = self.get_connection().cursor()
-        print("SEARCH IN : " + search_in)
-        print("SEARCH FOR : " + search_for)
         """
         if level is 1:
             members = CommitteeQueries().get_members_circonscription(committee)

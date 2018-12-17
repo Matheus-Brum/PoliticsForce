@@ -32,8 +32,8 @@ class TestCommitteeQueries(unittest.TestCase):
     def test_get_members_regional(self):
         # region existante
         regional = 'Ontario'
-        committees = self.queries.get_members_national(regional)
-        expected = ['1234567891', '1234567892']
+        committees = self.queries.get_members_regional(regional)
+        expected = ['1234567891', '4444444444', '1234567892']
         i = 0
         for mbr in committees:
             # print("Ontario : " + mbr.member_no + " ;")
@@ -51,7 +51,7 @@ class TestCommitteeQueries(unittest.TestCase):
         # niveau national existant
         national = 'Canada'
         committees = self.queries.get_members_national(national)
-        expected = ['1234567890', '1234567891', '1234567893']
+        expected = ['1234567890', '1234567891', '4444444444', '1234567893']
         i = 0
         for mbr in committees:
             # print("Canada : " + mbr.member_no + " ;")
