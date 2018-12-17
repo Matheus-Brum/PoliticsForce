@@ -1,5 +1,5 @@
 from flask import Blueprint, redirect, g
-from ..database.queries.Member_queries import MemberQueries
+from database.queries.Member_queries import MemberQueries
 from authentication import authentication_required
 
 
