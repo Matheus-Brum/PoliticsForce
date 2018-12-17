@@ -29,7 +29,10 @@ def add_member_send():
     reach_moment = request.form['reach_day']
     birth_date = request.form['birth_date']
     comment = request.form['comment']
-    committee = session["committee"]
+    if session["level"] == 4:
+        committee = request.form['committee']
+    else:
+        committee = session["committee"]
 
     address = validation_address(apt, postal_code, city, state, country)
 

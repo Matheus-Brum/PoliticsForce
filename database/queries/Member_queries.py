@@ -43,7 +43,15 @@ class MemberQueries(Database):
         cursor = self.get_connection().cursor()
         print("SEARCH IN : " + search_in)
         print("SEARCH FOR : " + search_for)
-        sql = "SELECT * FROM Members WHERE " + search_in + " LIKE '%" + search_for + "%'"
+        """
+        if level is 1:
+            members = CommitteeQueries().get_members_circonscription(committee)
+        elif level is 2:
+            members = CommitteeQueries().get_members_regional(committee)
+        else:
+            members = CommitteeQueries().get_members_national(committee)
+        """
+        sql = "SELECT * FROM Members WHERE " + search_in + " LIKE '%" + search_for + "%' "
         cursor.execute(sql)
         results = cursor.fetchall()
         for result in results:

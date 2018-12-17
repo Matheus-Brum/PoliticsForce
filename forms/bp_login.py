@@ -19,15 +19,23 @@ def log_user():
     if email is "" or password is "":
         return render_template("/accueil.html", error="mandatory", text=text_content)
     elif email is not "" and password is not "":
-        # auth = get_db().get_credentials(email, password)
-        auth = get_db().get_credentials(email, password)
+        print("11111")
+        if email == 'admin':
+            print('22222')
+            auth = get_db().get_admin_credentials(password)
+        else:
+            auth = get_db().get_credentials(email, password)
         if auth is False:
             return render_template("/accueil.html", error="email_pass", text=text_content)
         else:
-            committee = get_db().get_user(email)[15]
-            level = get_db().get_user(email)[19]
+            if email == 'admin':
+                level = 4
+                committee = 'admin'
+            else:
+                committee = get_db().get_user(email)[15]
+                level = get_db().get_user(email)[19]
 
-            session["id"] = SessionQueries().save_session(email, committee)
+            session["id"] = SessionQueries().save_session(email, committee, level)
             session["email"] = email
             session["committee"] = committee
             session["level"] = level

@@ -18,6 +18,8 @@ def members_list():
             members = get_db().get_members_regional(session["committee"])
         elif session['level'] is 3:
             members = get_db().get_members_national(session["committee"])
+        else:
+            members = get_db().get_all_members()
     if lang == 'english':
         text_content = membres_content_en
     else:

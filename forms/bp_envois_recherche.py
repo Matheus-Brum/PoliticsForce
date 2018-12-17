@@ -30,7 +30,7 @@ def recherche_membre_send():
         return render_template('rechercher_membre.html', title="donnees invalides",
                                erreur="error_invalid_data", text=text_content)
     else:
-        result = get_db().search_members(search_col, search_for, committee, level)
+        result = get_db().search_members(search_col, search_for)
         if not result:
             return render_template('rechercher_membre.html', title=search_for, erreur="no_result", lang=lang,
                                    text=text_content)

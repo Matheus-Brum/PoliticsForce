@@ -31,7 +31,8 @@ ajouter_membre_fr = {
     "btn_reset": "Vider",
     "btn_submit": "Envoyer",
     "add_error": "Erreur d'ajout",
-    "member_no": "Le numéro de membre existe déja!"
+    "member_no": "Le numéro de membre existe déja!",
+    "committee": "Comité"
 }
 ajouter_membre_content_fr = {**ajouter_membre_fr, **layout_fr}
 
@@ -65,6 +66,7 @@ ajouter_membre_en = {
     "btn_reset": "Reset",
     "btn_submit": "Submit",
     "add_error": "Member adding error",
-    "member_no": "Member number already exists!"
+    "member_no": "Member number already exists!",
+    "committee": "Committe"
 }
 ajouter_membre_content_en = {**ajouter_membre_en, **layout_en}

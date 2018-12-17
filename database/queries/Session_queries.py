@@ -24,11 +24,11 @@ class SessionQueries(Database):
         else:
             return [email, committee]
 
-    def save_session(self, email, committee):
+    def save_session(self, email, committee, level):
         id_session = uuid.uuid4().hex
         cursor = self.get_connection().cursor()
-        cursor.execute("INSERT INTO Sessions(Id_session, SessionEmail, SessionCommittee) "
-                       "VALUES(?, ?, ?)", (id_session, email, committee))
+        cursor.execute("INSERT INTO Sessions(Id_session, SessionEmail, SessionCommittee, SessionLevel) "
+                       "VALUES(?, ?, ?, ?)", (id_session, email, committee, level))
         # self.connection.commit()
         return id_session
 

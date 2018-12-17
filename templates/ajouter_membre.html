@@ -100,6 +100,12 @@
 					</div>
 				</div>
 			</div>
+			{% if session["level"] == 4 %}
+			<div class="form-group">
+				<label>{{text["committee"]}} : </label>
+				<input type="text" class="form-control" name="committee" id="committee" placeholder="{{text['committee']}}">
+			</div>
+			{% endif %}
 			<div class="form-group">
 				<label>{{text["comment"]}}</label><br>
 				<textarea class="form-control" name="comment" rows="4" cols="50"></textarea>

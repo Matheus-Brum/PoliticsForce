@@ -8,6 +8,7 @@ membres_fr = {
     "member_id": "Numéro de Membre",
     "phone_no": "Numéro de Téléphone",
     "address": "Adresse",
+    "committee": "Comité",
     "details": "Détail",
     "remove": "Supprimer",
     "member_detail": "Détails"
@@ -21,6 +22,7 @@ membres_en = {
     "member_id": "Member id",
     "phone_no": "Phone number",
     "address": "Address",
+    "committee": "Committee",
     "details": "Details",
     "remove": "Remove",
     "member_detail": "Details"

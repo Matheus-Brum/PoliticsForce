@@ -14,8 +14,13 @@
 							<th scope="col">{{text["member_id"]}}</th>
 							<th scope="col">{{text["phone_no"]}}</th>
 							<th scope="col">{{text["address"]}}</th>
+							{% if session["level"] >= 3 %}
+							<th>{{text["committee"]}}</th>
+							{% endif %}
 							<th scope="col">{{text["details"]}}</th>
+							<!--
 							<th scope="col">{{text["remove"]}}</th>
+							-->
 						</tr>
 					</thead>
 					<tbody>
@@ -26,8 +31,13 @@
 							<td>{{member.member_no}}</td>
 							<td>{{member.phone_no}}</td>
 							<td>{{member.address}}</td>
+							{% if session["level"] >= 3 %}
+							<td>{{member.committee}}</td>
+							{% endif %}
                             <td><a href="/afficher_membre/{{member.member_no}}">{{text["member_detail"]}}</a></td>
+							<!--
                             <td><a href="../membres/{{member.member_no}}" style="text-decoration:none">&emsp;&emsp;&#10006;</a></td>
+                            -->
 						</tr>
 						{% endfor %}
 					</tbody>

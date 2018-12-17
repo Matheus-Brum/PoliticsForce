@@ -9,10 +9,18 @@ class CommitteeQueries(Database):
         # self.disconnect = Database.disconnect(self)
         super().__init__()
 
-    def get_all_members(self, committee):
+    def get_all_members(self):
+        all_members = []
         cursor = self.get_connection().cursor()
-        cursor.execute("")
-        pass
+        cursor.execute("SELECT * "
+                       "FROM Members")
+        members = cursor.fetchall()
+        for person in members:
+            member = Member(person[1], person[2], person[3], person[4], person[5],
+                            person[6], person[7], person[8], person[9], person[10],
+                            person[11], person[12], person[13], person[14], person[15])
+            all_members.append(member)
+        return all_members
 
     def get_members_circonscription(self, committee):
         committees = []
@@ -34,15 +42,15 @@ class CommitteeQueries(Database):
         cursor = self.get_connection().cursor()
         if len(self.get_members_circonscription(committee)) > 0:
             committees_members = self.get_members_circonscription(committee)
-        cursor.execute("SELECT Id FROM RegionalC WHERE Name = ?", (committee,))
+        cursor.execute("SELECT Id FROM RegionalCommittee WHERE Name = ?", (committee,))
         parent_id = cursor.fetchone()
         if parent_id is not None:
             parent_id = parent_id[0]
         if parent_id is not None:
             cursor.execute(
-                "SELECT CirconscriptionC.Name "
-                "FROM RegionalC INNER JOIN CirconscriptionC ON RegionalC.Id = CirconscriptionC.Parent_id "
-                "WHERE RegionalC.Id = ?",
+                "SELECT CirconscriptionCommittee.Name "
+                "FROM RegionalCommittee INNER JOIN CirconscriptionCommittee ON RegionalCommittee.Id = CirconscriptionCommittee.Parent_id "
+                "WHERE RegionalCommittee.Id = ?",
                 (parent_id,))
             results = cursor.fetchall()
             if len(results) > 0:
@@ -66,15 +74,15 @@ class CommitteeQueries(Database):
         cursor = self.get_connection().cursor()
         if len(self.get_members_regional(committee)) > 0:
             committees_members = self.get_members_regional(committee)
-        cursor.execute("SELECT Id FROM NationalC WHERE Name = ?", (committee,))
+        cursor.execute("SELECT Id FROM NationalCommittee WHERE Name = ?", (committee,))
         parent_id = cursor.fetchone()
         if parent_id is not None:
             parent_id = parent_id[0]
         if parent_id is not None:
             cursor.execute(
-                "SELECT RegionalC.Name "
-                "FROM NationalC INNER JOIN RegionalC ON NationalC.Id = RegionalC.Parent_id "
-                "WHERE NationalC.Id = ?",
+                "SELECT RegionalCommittee.Name "
+                "FROM NationalCommittee INNER JOIN RegionalCommittee ON NationalCommittee.Id = RegionalCommittee.Parent_id "
+                "WHERE NationalCommittee.Id = ?",
                 (parent_id,))
             results = cursor.fetchall()
             for line in results:

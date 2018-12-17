@@ -58,3 +58,20 @@ class UserQueries(Database):
             return True
         else:
             return False
+
+    def get_admin_credentials(self, password):
+        admin_no = '9999999999'
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT Salt, Password "
+                       "FROM Users "
+                       "WHERE Member_no = ?", (admin_no,))
+        admin_cred = cursor.fetchone()
+        if admin_cred is not None:
+            salt = admin_cred[0]
+            hashed_password = hashlib.sha512(str(password + salt).encode("utf-8")).hexdigest()
+            if admin_cred[1] == hashed_password:
+                return True
+            else:
+                return False
+        else:
+            return False
