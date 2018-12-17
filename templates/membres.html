@@ -18,9 +18,9 @@
 							<th>{{text["committee"]}}</th>
 							{% endif %}
 							<th scope="col">{{text["details"]}}</th>
-							<!--
+
 							<th scope="col">{{text["remove"]}}</th>
-							-->
+							
 						</tr>
 					</thead>
 					<tbody>
@@ -35,9 +35,9 @@
 							<td>{{member.committee}}</td>
 							{% endif %}
                             <td><a href="/afficher_membre/{{member.member_no}}">{{text["member_detail"]}}</a></td>
-							<!--
+
                             <td><a href="../membres/{{member.member_no}}" style="text-decoration:none">&emsp;&emsp;&#10006;</a></td>
-                            -->
+
 						</tr>
 						{% endfor %}
 					</tbody>
