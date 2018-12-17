@@ -1,6 +1,6 @@
-from ..db_general import Database
-from .Committee_queries import CommitteeQueries
-from ...member import Member
+
+from database.db_general import Database
+from member import Member
 
 
 class MemberQueries(Database):
@@ -38,18 +38,12 @@ class MemberQueries(Database):
         else:
             return False
 
-    def search_members(self, search_in, search_for, committee, level):
+    def search_members(self, search_in, search_for):
         members_found = []
         cursor = self.get_connection().cursor()
         print("SEARCH IN : " + search_in)
         print("SEARCH FOR : " + search_for)
-        if level is 1:
-            members = CommitteeQueries().get_members_circonscription(committee)
-        elif level is 2:
-            members = CommitteeQueries().get_members_regional(committee)
-        else:
-            members = CommitteeQueries().get_members_national(committee)
-        sql = "SELECT * FROM Members WHERE " + search_in + " LIKE '%" + search_for + "%' AND IN [" + members + "]"
+        sql = "SELECT * FROM Members WHERE " + search_in + " LIKE '%" + search_for + "%'"
         cursor.execute(sql)
         results = cursor.fetchall()
         for result in results:
@@ -73,14 +67,13 @@ class MemberQueries(Database):
     def insert_member(self, member):
         cursor = self.get_connection().cursor()
         cursor.execute("INSERT INTO Members "
-                       "(F_name, L_name, Member_no, Phone_no, Mem_exp_date, Reach_moment, Birth_date, Email, Last_donation,"
-                       " Date_last_donation, Donation_ok, Election_year, Comment, Address, Committee)"
+                       "(F_name, L_name, Member_no, Phone_no, Mem_exp_date, Reach_moment, Birth_date, Email, "
+                       "Last_donation, Date_last_donation, Donation_ok, Election_year, Comment, Address, Committee)"
                        " VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                        (member.f_name, member.l_name, member.member_no, member.phone_no, member.mem_exp_date,
-                        member.reach_moment,
-                        member.birth_date, member.email, member.last_donation, member.date_last_donation,
-                        member.donation_ok,
-                        member.election_year, member.comment, member.address, member.committee))
+                        member.reach_moment, member.birth_date, member.email, member.last_donation,
+                        member.date_last_donation,member.donation_ok, member.election_year, member.comment,
+                        member.address, member.committee))
         self.connection.commit()
         return True
 

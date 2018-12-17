@@ -1,6 +1,6 @@
 from functools import wraps
 from flask import render_template, Response, session, request
-from .language.page_401 import *
+from language.page_401 import *
 
 
 def is_authenticated(session):

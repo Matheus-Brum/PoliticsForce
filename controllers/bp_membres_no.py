@@ -1,6 +1,6 @@
 from flask import Blueprint, redirect, g
-from ..authentication import authentication_required
 from ..database.queries.Member_queries import MemberQueries
+from authentication import authentication_required
 
 
 membres_no_bp = Blueprint('sup_member', __name__)

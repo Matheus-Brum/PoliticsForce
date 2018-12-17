@@ -1,8 +1,5 @@
-from ..db_general import Database
-import sqlite3
-import hashlib
-import uuid
-from ...member import Member
+from database.db_general import Database
+from member import Member
 
 
 class CommitteeQueries(Database):

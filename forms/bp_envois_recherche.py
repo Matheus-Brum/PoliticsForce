@@ -1,7 +1,9 @@
+
 from flask import Blueprint, request, render_template, g, session
-from ..authentication import authentication_required
-from ..database.queries.Member_queries import MemberQueries
-from ..language.rechercher_membre import *
+from authentication import authentication_required
+from database.queries.Member_queries import MemberQueries
+from language.rechercher_membre import *
+
 
 envois_recherche_bp = Blueprint('recherche_membre_send', __name__)
 

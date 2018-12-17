@@ -1,8 +1,7 @@
 from flask import request, render_template, redirect, session, Blueprint, g
-from ..database.queries.User_queries import UserQueries
-from ..database.queries.Session_queries import SessionQueries
-from ..database.db_general import Database
-from ..language.accueil import *
+from database.queries.User_queries import UserQueries
+from database.queries.Session_queries import SessionQueries
+from language.accueil import *
 
 login_bp = Blueprint('log_user', __name__)
 

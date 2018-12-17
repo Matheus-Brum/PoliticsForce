@@ -1,7 +1,7 @@
-from ..authentication import authentication_required
-from ..database.queries.User_queries import UserQueries
-from ..language.formulaire import *
-from ..language.confirmation import *
+from authentication import authentication_required
+from database.queries.User_queries import UserQueries
+from language.formulaire import *
+from language.confirmation import *
 from flask import Blueprint, render_template, request, g
 import uuid
 import hashlib
