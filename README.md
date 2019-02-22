@@ -1,8 +1,13 @@
-# Atelier_politique
+﻿# Atelier_politique
 
 ## Description
 
-Ce programme permet de pouvoir soutenir une campagne électorale.
+Ce programme est une platforme qui permet de bien gérer un commité ou
+un parti politique.
+
+## Attention
+Les usernames et les mots de passe des utilisateurs sont dans le fichier db/reset_and_populate.sql.
+Je vous suggère de vous logger en tant que admin. Donc, username = 'admin' et mot de passe = 'admin123'.
 
 ## Compilation sous Linux
 
@@ -30,7 +35,3 @@ puis copier le url et essayer avec n'importe quelle browser.
 ## Dependances
 
 flask, sqlite3
-
-## Statut
-
-Le projet est compléter et sans bogue.
