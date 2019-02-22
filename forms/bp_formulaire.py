@@ -77,7 +77,7 @@ def formulaire_creation():
     text_content = set_lang_formulaire(lang)
     username = None
     password = None
-    print(text_content)
+    # print(text_content)
     if request.method == "GET":
         return render_template("formulaire.html", text=text_content, password=pwd)
     elif request.method == "POST":

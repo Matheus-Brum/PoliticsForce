@@ -1,4 +1,5 @@
 from database.db_general import Database
+from member import Member
 import hashlib
 
 
@@ -75,3 +76,16 @@ class UserQueries(Database):
                 return False
         else:
             return False
+
+    def get_all_users(self):
+        all_users = []
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT * "
+                       "FROM Members INNER JOIN USERS ON Members.Member_no = Users.Member_no ")
+        users = cursor.fetchall()
+        for person in users:
+            member = Member(person[1], person[2], person[3], person[4], person[5],
+                            person[6], person[7], person[8], person[9], person[10],
+                            person[11], person[12], person[13], person[14], person[15])
+            all_users.append(member)
+        return all_users

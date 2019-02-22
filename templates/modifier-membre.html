@@ -92,7 +92,7 @@
 				{% elif member.reach_moment == 'midi' %}
 				<div class="form-group">
 					<label>{{text["best_time_contact"]}}</label><br>
-					<input type="radio" name="reach_day" value="matin"> {{text["time_contact_morning"]}}
+					<input type="radio" id="reach_day_morning" name="reach_day" value="matin"> {{text["time_contact_morning"]}}
 					<input type="radio" name="reach_day" value="midi" checked="checked"> {{text["time_contact_midday"]}}
 					<input type="radio" name="reach_day" value="soir"> {{text["time_contact_evening"]}}
 				</div>
@@ -115,7 +115,7 @@
 			<textarea class="form-control" name="comment" rows="4" cols="50">{{member.comment}}</textarea>
 		</div>
 		<button type="reset" class="btn">{{text["btn_reset"]}}</button>
-		<button type="submit" class="btn">{{text["btn_submit"]}}</button>
+		<button type="submit" id="submit_modify" class="btn">{{text["btn_submit"]}}</button>
 	</form>
 
 </div>

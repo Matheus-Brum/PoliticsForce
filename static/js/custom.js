@@ -7,7 +7,7 @@ var country="";
 		countryOptions += "<option selected='selected'></option>";
 		$.each(result, function(i,country) {
 			//<option value='countrycode'>contryname</option>
-			countryOptions+="<option value='"
+			countryOptions+="<option id='"+country.code+"' " + "value='"
 			+country.code+
 			"'>"
 			+country.name+
@@ -26,7 +26,7 @@ var country="";
 			$.getJSON('/static/json/americanStates.json',function(result){
 			$.each(result, function(stateCode,stateName) {
 				//<option value='stateCode'>stateName</option>
-				stateOptions+="<option value='"
+				stateOptions+="<option id='" + stateCode +"' "+ "value='"
 				+stateCode+
 				"'>"
 				+stateName+
@@ -41,7 +41,7 @@ var country="";
 			$.getJSON('/static/json/canadianStates.json',function(result){
 			$.each(result, function(stateCode,stateName) {
 				//<option value='stateCode'>stateName</option>
-				stateOptions+="<option value='"
+				stateOptions+="<option id='" + stateCode +"' "+ "value='"
 				+stateCode+
 				"'>"
 				+stateName+
@@ -73,7 +73,7 @@ var country="";
                 //<option value='cityName'>cityName</option>
                 $.each(city, function(key, value) {
                     if(i == state) {
-                        cityOptions+="<option value='"
+                        cityOptions+="<option id='"+value+"' "+ "value='"
                         +value+
                         "'>"
                         +value+
@@ -93,7 +93,7 @@ var country="";
                 //<option value='cityName'>cityName</option>
                 $.each(city, function(key, value) {
                     if(i == state) {
-                        cityOptions+="<option value='"
+                        cityOptions+="<option id='"+value+"' "+ "value='"
                         +value+
                         "'>"
                         +value+

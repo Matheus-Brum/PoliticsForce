@@ -98,3 +98,29 @@ class CommitteeQueries(Database):
                                     person[11], person[12], person[13], person[14], person[15])
                     committees_members.append(member)
         return committees_members
+
+    def occurrence_in_committees_m(self):
+        members_in_c = []
+        res_temp = []
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT Committee FROM Members")
+        res = cursor.fetchall()
+        for item in res:
+            res_temp.append(item[0])
+        res_distinct = list(set(res_temp))
+        for e in res_distinct:
+            members_in_c.append({"name": e, "value": res_temp.count(e)})
+        return members_in_c
+
+    def occurrence_in_committees_u(self):
+        members_in_c = []
+        res_temp = []
+        cursor = self.get_connection().cursor()
+        cursor.execute("SELECT Members.Committee FROM Members INNER JOIN Users ON Members.member_no = Users.member_no")
+        res = cursor.fetchall()
+        for item in res:
+            res_temp.append(item[0])
+        res_distinct = list(set(res_temp))
+        for e in res_distinct:
+            members_in_c.append({"name": e, "value": res_temp.count(e)})
+        return members_in_c

@@ -23,3 +23,12 @@ def authentication_required(f):
             return send_unauthorized()
         return f(*args, **kwargs)
     return decorated
+
+
+def authentication_admin(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        if not is_authenticated(session) or session['email'] != 'admin':
+            return send_unauthorized()
+        return f(*args, **kwargs)
+    return decorated

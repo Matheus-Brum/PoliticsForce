@@ -18,12 +18,18 @@ from controllers.bp_membres import membres_bp
 from controllers.bp_home import home_bp
 from controllers.bp_modifier_membre import modifier_membre_no_bp
 
+from apis.bp_entry_point import entry_point_bp
+from apis.bp_api_members import api_members_bp
+from apis.bp_api_users import api_users_bp
+
 from database.db_general import Database
 from flask import g
 from flask import Flask
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+CORS(app)
 app.debug = True
 app.static_folder = 'static'
 app.secret_key = "(*&*&322387he738220)(*(*22347657"
@@ -45,6 +51,10 @@ app.register_blueprint(logout_bp)
 app.register_blueprint(membres_bp)
 app.register_blueprint(modifier_membre_no_bp)
 app.register_blueprint(envois_modification_bp)
+
+app.register_blueprint(entry_point_bp)
+app.register_blueprint(api_members_bp)
+app.register_blueprint(api_users_bp)
 
 
 def get_db():

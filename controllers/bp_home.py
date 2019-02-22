@@ -13,14 +13,14 @@ def home():
     committee = None
     level = None
     # print(session["id"])
-    print("id" in session)
+    # print("id" in session)
     if "id" in session:
         # email = get_db().get_session(session["id"])[0]
         # committee = get_db().get_session(session["id"])[1]
         email = session["email"]
         committee = session["committee"]
-        print(session["email"])
-        print(session["committee"])
+        # print(session["email"])
+        # print(session["committee"])
         print("id" in session)
     if lang == 'english':
         text_content = accueil_content_en

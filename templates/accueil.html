@@ -11,7 +11,7 @@
         {% if email %}
           <p><a href="/formulaire">{{text["make_account"]}}</a></p>
           <p>{{text["connected_as"]}} {{ email }}.</p>
-          <p><a href="/logout">{{text["disconnect"]}}</a></p>
+          <p><a id="logout_link" href="/logout">{{text["disconnect"]}}</a></p>
         {% else %}
         <p style="color:#F00">{{text["not_connected"]}}</p>
           {% if error == "mandatory" %}

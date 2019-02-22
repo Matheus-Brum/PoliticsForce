@@ -19,9 +19,9 @@ def log_user():
     if email is "" or password is "":
         return render_template("/accueil.html", error="mandatory", text=text_content)
     elif email is not "" and password is not "":
-        print("11111")
+        # print("11111")
         if email == 'admin':
-            print('22222')
+            # print('22222')
             auth = get_db().get_admin_credentials(password)
         else:
             auth = get_db().get_credentials(email, password)
